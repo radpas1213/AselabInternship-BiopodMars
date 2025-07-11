@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://elevlirk2wiw"]
+[gd_scene load_steps=5 format=3 uid="uid://elevlirk2wiw"]
 
 [ext_resource type="Texture2D" uid="uid://c1ovs2o6q1q32" path="res://sprites/actors/player/player_placeholder.png" id="1_niuxy"]
 [ext_resource type="Script" uid="uid://d10e6yqg3tpil" path="res://src/components/movement_component.gd" id="2_mvpqy"]
+[ext_resource type="Script" uid="uid://dp2hu4vfr62ky" path="res://src/components/input_component.gd" id="3_1yqc4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvpqy"]
 size = Vector2(16, 16)
@@ -15,5 +16,9 @@ texture = ExtResource("1_niuxy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mvpqy")
 
-[node name="MovementComponent" type="Node2D" parent="."]
+[node name="MovementComponent" type="Node2D" parent="." node_paths=PackedStringArray("input")]
 script = ExtResource("2_mvpqy")
+input = NodePath("../InputComponent")
+
+[node name="InputComponent" type="Node2D" parent="."]
+script = ExtResource("3_1yqc4")
