@@ -1,7 +1,5 @@
-extends Node
-
-var player: Player
-var camera: Camera
+extends Node2D
+class_name StateMachineComponent
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
