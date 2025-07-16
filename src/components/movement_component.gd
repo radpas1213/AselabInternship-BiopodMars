@@ -1,16 +1,19 @@
 extends Node2D
 class_name MovementComponent
 
-@export var input: InputComponent
-
-const SPEED = 300
+# Properties
+@export var speed: float = 125
 
 var direction: Vector2
+var direction_names: PackedStringArray = ["left", "down", "up", " right"]
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+@export var input_comp: InputComponent
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _handle_movement(delta: float) -> void:
+	# Movement
+	direction = input_comp.input_dir
+	if direction:
+		owner.velocity = direction * speed
+	else:
+		owner.velocity = direction.move_toward(Vector2.ZERO, speed)
