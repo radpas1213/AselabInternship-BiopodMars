@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://elevlirk2wiw"]
+[gd_scene load_steps=7 format=3 uid="uid://elevlirk2wiw"]
 
 [ext_resource type="Script" uid="uid://bnpf3pr2xkm5k" path="res://src/actors/player.gd" id="1_esgq3"]
 [ext_resource type="Texture2D" uid="uid://c1ovs2o6q1q32" path="res://sprites/actors/player/player_placeholder.png" id="1_niuxy"]
 [ext_resource type="Script" uid="uid://d10e6yqg3tpil" path="res://src/components/movement_component.gd" id="2_mvpqy"]
 [ext_resource type="Script" uid="uid://dp2hu4vfr62ky" path="res://src/components/input_component.gd" id="3_1yqc4"]
+[ext_resource type="Script" uid="uid://buky2c38fbbep" path="res://src/components/stat_component.gd" id="5_kjkj0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvpqy"]
 size = Vector2(16, 16)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 3
 script = ExtResource("1_esgq3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -24,3 +26,9 @@ input_comp = NodePath("../InputComponent")
 
 [node name="InputComponent" type="Node2D" parent="."]
 script = ExtResource("3_1yqc4")
+
+[node name="StatComponent" type="Node2D" parent="."]
+script = ExtResource("5_kjkj0")
+max_watered = 0.0
+max_fertilized = 0.0
+metadata/_custom_type_script = "uid://buky2c38fbbep"

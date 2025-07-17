@@ -13,6 +13,6 @@ func handle_movement(delta: float) -> void:
 	# Movement
 	direction = input_comp.move_input_dir
 	if direction:
-		owner.velocity = direction * speed * 100 * delta
+		owner.velocity = direction * speed
 	else:
 		owner.velocity = owner.velocity.move_toward(Vector2.ZERO, speed)
