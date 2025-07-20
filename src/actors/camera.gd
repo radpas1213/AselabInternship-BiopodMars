@@ -8,6 +8,8 @@ class_name Camera
 ## Amount of scroll for camera zooming
 @export var cam_zoom_scroll_amount: float = 0.25
 
+@onready var viewport: SubViewport = $SubViewportContainer/SubViewport
+
 var zoom_lerp: float = 1
 
 # Called when the node enters the scene tree for the first time.
@@ -15,7 +17,6 @@ func _ready() -> void:
 	Global.camera = self
 
 func _input(event: InputEvent) -> void:
-	
 	if event is InputEventMouseButton and event.is_pressed():
 		if event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			zoom_lerp -= 0.2 * cam_zoom_scroll_amount

@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtgjuofcfh030"]
+
+[ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://managers/HUD_manager.gd" id="1_gg34b"]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_gg34b")
+
+[node name="debug" type="Label" parent="."]
+offset_left = 2.0
+offset_right = 42.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 6
+text = "FPS : "

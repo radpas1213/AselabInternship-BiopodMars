@@ -13,6 +13,8 @@ func handle_movement(delta: float) -> void:
 	# Movement
 	direction = input_comp.move_input_dir
 	if direction:
-		owner.velocity = direction * speed
+		owner.velocity.x = lerpf(owner.velocity.x, direction.x * speed, 0.25) 
+		owner.velocity.y = lerpf(owner.velocity.y, direction.y * speed, 0.25) 
 	else:
-		owner.velocity = owner.velocity.move_toward(Vector2.ZERO, speed)
+		owner.velocity.x = lerpf(owner.velocity.x, 0, 0.2) 
+		owner.velocity.y = lerpf(owner.velocity.y, 0, 0.2) 

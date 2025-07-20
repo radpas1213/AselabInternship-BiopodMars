@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 Global="*res://managers/global.gd"
 InteractionManager="*res://managers/interaction_manager.gd"
+TimeManager="*res://managers/time_manager.gd"
+HudManager="*res://managers/HUD_manager.gd"
 
 [display]
 

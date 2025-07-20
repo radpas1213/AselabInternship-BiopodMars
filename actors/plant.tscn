@@ -26,4 +26,3 @@ max_stamina = 0.0
 metadata/_custom_type_script = "uid://buky2c38fbbep"
 
 [node name="InteractionComponent" parent="." instance=ExtResource("4_4isd2")]
-collision_size = 20.0
