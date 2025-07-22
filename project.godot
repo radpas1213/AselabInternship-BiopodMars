@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="aselab-biopodmars"
-run/main_scene="uid://dcplp1jhkp36o"
+run/main_scene="uid://dqeylprk2e2u"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,7 @@ InteractionManager="*res://src/managers/interaction_manager.gd"
 TimeManager="*res://src/managers/time_manager.gd"
 HudManager="*res://src/managers/HUD_manager.gd"
 PlantManager="*res://src/managers/plant_manager.gd"
+GlobalTimer="*res://src/managers/time_manager.gd"
 
 [display]
 
