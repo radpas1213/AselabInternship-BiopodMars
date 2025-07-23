@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dqeylprk2e2u"]
 
-[ext_resource type="Script" uid="uid://crupbvn5iqmgr" path="res://menu/main_menu.gd" id="1_e1xpn"]
+[ext_resource type="Script" uid="uid://crupbvn5iqmgr" path="res://src/menu/main_menu.gd" id="1_e1xpn"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -18,17 +18,18 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -50.5
+offset_left = -50.895
 offset_top = -15.5
-offset_right = 50.5
+offset_right = 50.105
 offset_bottom = 15.5
 grow_horizontal = 2
 grow_vertical = 2
 text = "Mulai Game"
 
-[node name="TitleLabel" type="Label" parent="StartButton"]
+[node name="TitleLabel" type="Label" parent="."]
 layout_mode = 0
-offset_top = -50.0
-offset_right = 94.0
-offset_bottom = 68.0
-text = "Mars Biopot"
+offset_left = 109.5
+offset_top = 24.5
+offset_right = 207.5
+offset_bottom = 142.5
+text = "Mars Biopod"
