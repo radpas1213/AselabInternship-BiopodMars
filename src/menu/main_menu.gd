@@ -1,4 +1,4 @@
-extends Control
+extends Scene
 
 func _ready():
 	# ini tombol start

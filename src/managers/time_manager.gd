@@ -16,9 +16,10 @@ var current_day: int = 1
 var time_text: String
 
 func _physics_process(delta: float) -> void:
-	if get_tree().current_scene != null:
-		if get_tree().current_scene.name == "TestLevel":
-			getTime(delta)
+	if SceneManager.current_scene != null and \
+	SceneManager.current_scene.scene_type == "Level" and \
+	SceneManager.current_scene.current_level == "Test Level":
+		getTime(delta)
 
 func getTime(delta):
 	elapsed_time += delta
