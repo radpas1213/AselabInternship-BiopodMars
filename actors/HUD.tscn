@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://dtgjuofcfh030"]
+[gd_scene load_steps=3 format=3 uid="uid://dtgjuofcfh030"]
 
 [ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/managers/HUD_manager.gd" id="1_gg34b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg34b"]
+bg_color = Color(0, 0, 0, 0.427451)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_gg34b")
@@ -21,3 +24,29 @@ offset_bottom = 23.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 6
 text = "FPS : "
+
+[node name="DayTransitionScreen" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="BackgroundPanel" type="Panel" parent="DayTransitionScreen"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gg34b")
+
+[node name="Label" type="Label" parent="DayTransitionScreen"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1

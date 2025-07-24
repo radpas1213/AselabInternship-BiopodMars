@@ -1,6 +1,12 @@
 extends Node
 
-## Total waktu yang sudah berlalu dalam detik
+# ini buat ganti screen day
+var is_showing_day_screen: bool = false
+var day_screen_timer := 2.0  # durasi tampilan screen
+var day_screen_elapsed := 0.0
+var day_text : String
+
+# Total waktu yang sudah berlalu dalam detik
 var elapsed_time: float = 0.0
 var multiplied_time: float = 0.0
 var time_multiplier: float = 5.0
@@ -20,6 +26,12 @@ func _physics_process(delta: float) -> void:
 	SceneManager.current_scene.scene_type == "Level" and \
 	SceneManager.current_scene.current_level == "Test Level":
 		getTime(delta)
+	
+	# Tampilkan dan sembunyikan screen transisi hari
+	if is_showing_day_screen:
+		day_screen_elapsed += delta
+		if day_screen_elapsed >= day_screen_timer:
+			is_showing_day_screen = false
 
 func getTime(delta):
 	elapsed_time += delta
@@ -38,7 +50,7 @@ func getTime(delta):
 	if real_minutes < 10:
 		minute = 0
 	else:
-		minute = (String.num(total_minutes % 60).left(1) + "0").to_float()
+		minute = (String.num(real_minutes).left(1) + "0").to_float()
 	
 	# Format 12-jam dengan AM/PM
 	var hour12 := hour % 12
@@ -52,4 +64,9 @@ func getTime(delta):
 	# Periksa pergantian hari
 	if multiplied_time >= current_day * DAY_DURATION:
 		current_day += 1
-	
+		show_day_transition(current_day)
+
+func show_day_transition(day: int) -> void:
+	day_text = "Day %d" % day
+	is_showing_day_screen = true
+	day_screen_elapsed = 0.0
