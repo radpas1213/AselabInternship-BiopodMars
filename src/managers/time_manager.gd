@@ -1,5 +1,8 @@
 extends Node
 
+#untuk warna vibes pagi siang sore malam
+var time_color: Color = Color(0, 0, 0, 0) 
+
 # ini buat ganti screen day
 var is_showing_day_screen: bool = false
 var day_screen_timer := 2.0  # durasi tampilan screen
@@ -32,6 +35,8 @@ func _physics_process(delta: float) -> void:
 		day_screen_elapsed += delta
 		if day_screen_elapsed >= day_screen_timer:
 			is_showing_day_screen = false
+	
+
 
 func getTime(delta):
 	elapsed_time += delta
@@ -60,13 +65,29 @@ func getTime(delta):
 
 	# Update teks label waktu
 	time_text = "Day %d - %02d:%02d %s" % [current_day, hour12, minute, period] 
+	
+	# Update warna latar berdasarkan jam
+	update_background_color(hour)
 
 	# Periksa pergantian hari
 	if multiplied_time >= current_day * DAY_DURATION:
 		current_day += 1
 		show_day_transition(current_day)
 
+
 func show_day_transition(day: int) -> void:
 	day_text = "Day %d" % day
 	is_showing_day_screen = true
 	day_screen_elapsed = 0.0
+	
+func update_background_color(hour: int) -> void:
+	if hour >= 4 and hour < 6:
+		time_color = Color(0.1, 0.1, 0.3, 0.3)  # Subuh
+	elif hour >= 6 and hour < 11:
+		time_color = Color(0.6, 0.8, 1.0, 0.2)  # Pagi
+	elif hour >= 11 and hour < 15:
+		time_color = Color(1.0, 1.0, 0.6, 0.2)  # Siang
+	elif hour >= 15 and hour < 18:
+		time_color = Color(1.0, 0.5, 0.2, 0.3)  # Sore
+	else:
+		time_color = Color(0.05, 0.05, 0.1, 0.4)  # Malam
