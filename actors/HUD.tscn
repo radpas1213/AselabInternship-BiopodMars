@@ -1,9 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtgjuofcfh030"]
+[gd_scene load_steps=5 format=3 uid="uid://dtgjuofcfh030"]
 
 [ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/managers/HUD_manager.gd" id="1_gg34b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg34b"]
 bg_color = Color(0, 0, 0, 0.427451)
+
+[sub_resource type="GDScript" id="GDScript_gg34b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86in6"]
+bg_color = Color(0.187176, 0.187176, 0.187176, 1)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_gg34b")
@@ -50,3 +55,50 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PauseMenu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_gg34b")
+
+[node name="MenuPanel" type="Panel" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_86in6")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MenuPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -77.0
+offset_top = -46.5
+offset_right = 77.0
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="PauseMenu/MenuPanel/VBoxContainer"]
+layout_mode = 2
+text = "Pause"
+horizontal_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="PauseMenu/MenuPanel/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="PauseMenu/MenuPanel/VBoxContainer"]
+layout_mode = 2
+text = "Quit to Main Menu"
