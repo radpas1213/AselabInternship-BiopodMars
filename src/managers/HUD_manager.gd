@@ -8,8 +8,6 @@ extends CanvasLayer
 
 
 func _process(delta: float) -> void:
-	var target_color = TimeManager.time_color
-	
 	if debug_label != null:
 		debug_label.text = "FPS: " + String.num(Engine.get_frames_per_second())
 	if time_label != null:
