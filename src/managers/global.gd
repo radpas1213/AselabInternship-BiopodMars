@@ -3,8 +3,6 @@ extends Node
 var player: Player
 var camera: Camera
 
-var loaded_scene: Scene
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -12,3 +10,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	pass
+
+func get_current_scene_name(name: String):
+	return get_tree().current_scene != null and get_tree().current_scene.name == name

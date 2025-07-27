@@ -23,12 +23,12 @@ func toggle_pause() -> void:
 func pause_game() -> void:
 	get_tree().paused = true
 	self.visible = true
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func resume_game() -> void:
 	get_tree().paused = false
 	self.visible = false
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 func _on_resume_pressed() -> void:
 	resume_game()

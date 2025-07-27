@@ -25,9 +25,7 @@ var current_day: int = 1
 var time_text: String
 
 func _physics_process(delta: float) -> void:
-	if SceneManager.current_scene != null and \
-	SceneManager.current_scene.scene_type == "Level" and \
-	SceneManager.current_scene.current_level == "Test Level":
+	if Global.get_current_scene_name("TestLevel"):
 		getTime(delta)
 	
 	# Tampilkan dan sembunyikan screen transisi hari
@@ -36,7 +34,6 @@ func _physics_process(delta: float) -> void:
 		if day_screen_elapsed >= day_screen_timer:
 			is_showing_day_screen = false
 	
-
 
 func getTime(delta):
 	elapsed_time += delta
