@@ -7,6 +7,7 @@ enum state {
 	INTERACTING
 }
 
+@onready var state_machine: StateMachineComponent = $StateMachineComponent
 @onready var movement: MovementComponent = $MovementComponent
 @onready var inputs: InputComponent = $InputComponent
 @onready var stats: StatComponent = $StatComponent
@@ -19,3 +20,9 @@ func _physics_process(delta: float) -> void:
 	movement.handle_movement(delta)
 	
 	move_and_slide()
+
+func _process(delta: float) -> void:
+	if inputs.move_input_dir:
+		state_machine.changeState($StateMachineComponent/MovingState)
+	else:
+		state_machine.changeState($StateMachineComponent/IdleState)

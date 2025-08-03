@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dcplp1jhkp36o"]
+[gd_scene load_steps=5 format=3 uid="uid://dcplp1jhkp36o"]
 
 [ext_resource type="PackedScene" uid="uid://elevlirk2wiw" path="res://actors/player.tscn" id="1_46lwt"]
-[ext_resource type="Script" uid="uid://bd7i1vq6beluw" path="res://src/actors/base/camera.gd" id="2_x25rp"]
+[ext_resource type="PackedScene" uid="uid://bynqxpsbof47b" path="res://actors/Camera.tscn" id="2_w7r7j"]
 [ext_resource type="Texture2D" uid="uid://jqf4ktvqse57" path="res://icon.svg" id="3_gmgay"]
-[ext_resource type="PackedScene" uid="uid://dtgjuofcfh030" path="res://actors/HUD.tscn" id="4_e7anx"]
 [ext_resource type="PackedScene" uid="uid://boqlyfsnfjjh7" path="res://actors/plant.tscn" id="4_w7r7j"]
 
 [node name="TestLevel" type="Node2D"]
@@ -11,11 +10,8 @@
 [node name="Player" parent="." instance=ExtResource("1_46lwt")]
 position = Vector2(116, 81)
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" parent="." instance=ExtResource("2_w7r7j")]
 position = Vector2(161, 90)
-script = ExtResource("2_x25rp")
-
-[node name="HUD" parent="Camera" instance=ExtResource("4_e7anx")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(73, 10)

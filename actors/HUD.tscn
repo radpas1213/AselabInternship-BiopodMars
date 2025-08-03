@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dtgjuofcfh030"]
 
-[ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/managers/HUD_manager.gd" id="1_gg34b"]
+[ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/actors/base/HUD.gd" id="1_gg34b"]
 [ext_resource type="Script" uid="uid://qnma6ontuvbs" path="res://src/menu/pause_menu.gd" id="2_86in6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg34b"]
