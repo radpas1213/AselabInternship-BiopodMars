@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccxs5rudwm50t"]
+
+[ext_resource type="Script" uid="uid://r55bent6whcw" path="res://src/actors/base/item.gd" id="1_in4m3"]
+[ext_resource type="Texture2D" uid="uid://q8jj2pvan21d" path="res://sprites/actors/item_placeholder.png" id="2_4ljsg"]
+[ext_resource type="Resource" uid="uid://dwhmiqrleafrr" path="res://data/items/item_repair_tool.tres" id="2_fhfel"]
+[ext_resource type="PackedScene" uid="uid://cyxwpkuvtx1o1" path="res://actors/components/label.tscn" id="3_oi6vk"]
+
+[node name="item" type="Node2D"]
+script = ExtResource("1_in4m3")
+item_resource = ExtResource("2_fhfel")
+metadata/_custom_type_script = "uid://r55bent6whcw"
+
+[node name="Texture" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4ljsg")
+
+[node name="Label" parent="." instance=ExtResource("3_oi6vk")]
+offset_left = -40.0
+offset_top = -8.0
+offset_right = 43.0
+offset_bottom = 15.0
+text = "Item"

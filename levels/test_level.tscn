@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcplp1jhkp36o"]
+[gd_scene load_steps=6 format=3 uid="uid://dcplp1jhkp36o"]
 
 [ext_resource type="PackedScene" uid="uid://elevlirk2wiw" path="res://actors/player.tscn" id="1_46lwt"]
 [ext_resource type="PackedScene" uid="uid://bynqxpsbof47b" path="res://actors/Camera.tscn" id="2_w7r7j"]
 [ext_resource type="Texture2D" uid="uid://jqf4ktvqse57" path="res://icon.svg" id="3_gmgay"]
 [ext_resource type="PackedScene" uid="uid://boqlyfsnfjjh7" path="res://actors/plant.tscn" id="4_w7r7j"]
+[ext_resource type="PackedScene" uid="uid://ccxs5rudwm50t" path="res://actors/item.tscn" id="5_o6mel"]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -44,54 +45,16 @@ scale = Vector2(0.265625, 0.265625)
 texture = ExtResource("3_gmgay")
 
 [node name="Plant" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(214, 91)
+position = Vector2(136, 80)
 
 [node name="Plant2" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(198, 91)
+position = Vector2(168, 80)
 
 [node name="Plant3" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(182, 91)
-
-[node name="Plant4" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(183, 145)
-
-[node name="Plant5" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(167, 145)
-
-[node name="Plant6" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(167, 161)
-
-[node name="Plant7" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(151, 161)
-
-[node name="Plant8" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(151, 177)
-
-[node name="Plant9" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(89, 106)
-
-[node name="Plant10" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(73, 106)
-
-[node name="Plant17" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(73, 122)
-
-[node name="Plant11" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(57, 106)
-
-[node name="Plant12" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(58, 160)
-
-[node name="Plant13" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(42, 160)
-
-[node name="Plant14" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(42, 176)
-
-[node name="Plant15" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(26, 176)
-
-[node name="Plant16" parent="." instance=ExtResource("4_w7r7j")]
-position = Vector2(26, 192)
+position = Vector2(152, 112)
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="item_repair_tool" parent="." instance=ExtResource("5_o6mel")]
+position = Vector2(96, 80)
+item_id = "item_repair_tool"

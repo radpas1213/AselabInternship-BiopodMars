@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dtgjuofcfh030"]
+[gd_scene load_steps=6 format=3 uid="uid://dtgjuofcfh030"]
 
 [ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/actors/base/HUD.gd" id="1_gg34b"]
 [ext_resource type="Script" uid="uid://qnma6ontuvbs" path="res://src/menu/pause_menu.gd" id="2_86in6"]
+[ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="2_fuh1x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg34b"]
 bg_color = Color(0, 0, 0, 0.427451)
@@ -36,6 +37,50 @@ offset_bottom = 23.0
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 6
 text = "FPS : "
+
+[node name="Bars" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HealthBar" parent="Bars" instance=ExtResource("2_fuh1x")]
+layout_mode = 1
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = -5.495
+offset_top = 122.575
+offset_right = 94.505
+offset_bottom = 162.575
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+value = 100.0
+tint_progress = Color(1, 0, 0, 1)
+bar_color = Color(1, 0, 0, 1)
+progress = 100.0
+
+[node name="HungerBar" parent="Bars" instance=ExtResource("2_fuh1x")]
+layout_mode = 1
+anchors_preset = 2
+anchor_left = 0.0
+anchor_top = 1.0
+anchor_right = 0.0
+anchor_bottom = 1.0
+offset_left = -5.495
+offset_top = 108.87
+offset_right = 94.505
+offset_bottom = 148.87
+grow_horizontal = 1
+grow_vertical = 0
+scale = Vector2(0.75, 0.75)
+value = 100.0
+tint_progress = Color(0.793049, 0.41625, 0.238643, 1)
+bar_color = Color(0.793049, 0.41625, 0.238643, 1)
+progress = 100.0
 
 [node name="DayTransitionScreen" type="CanvasLayer" parent="."]
 visible = false

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyea5m5efl07"]
 
-[ext_resource type="Script" uid="uid://bjgb1seu0ul60" path="res://src/components/interaction_component.gd" id="1_xebg0"]
+[ext_resource type="Script" uid="uid://bjgb1seu0ul60" path="res://src/components/interaction_component.gd" id="1_7jcmb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2nsg"]
 size = Vector2(25, 25)
@@ -8,9 +8,10 @@ size = Vector2(25, 25)
 [node name="InteractionComponent" type="Area2D"]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_xebg0")
+script = ExtResource("1_7jcmb")
 collision_size = 25.0
 metadata/_custom_type_script = "uid://bjgb1seu0ul60"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_h2nsg")

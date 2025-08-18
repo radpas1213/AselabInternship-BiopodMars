@@ -1,28 +1,42 @@
-[gd_scene load_steps=6 format=3 uid="uid://boqlyfsnfjjh7"]
+[gd_scene load_steps=7 format=3 uid="uid://boqlyfsnfjjh7"]
 
 [ext_resource type="Script" uid="uid://b1ceyb3knucv6" path="res://src/actors/plant.gd" id="1_qywu8"]
-[ext_resource type="Texture2D" uid="uid://c1ovs2o6q1q32" path="res://sprites/actors/player/player_placeholder.png" id="2_msbcq"]
-[ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/interaction.tscn" id="4_4isd2"]
+[ext_resource type="Texture2D" uid="uid://b3q37vodojgip" path="res://sprites/actors/plant_placeholder.png" id="2_4isd2"]
+[ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="4_4isd2"]
+[ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="4_jmanq"]
 [ext_resource type="Script" uid="uid://buky2c38fbbep" path="res://src/components/stat_component.gd" id="5_u0axf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvpqy"]
-size = Vector2(16, 16)
+size = Vector2(15.9, 15.9)
 
 [node name="Plant" type="StaticBody2D"]
 script = ExtResource("1_qywu8")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3
-rotation = -3.14159
-texture = ExtResource("2_msbcq")
+texture = ExtResource("2_4isd2")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mvpqy")
 
-[node name="StatComponent" type="Node2D" parent="."]
+[node name="StatComponent" type="Node2D" parent="." node_paths=PackedStringArray("health_bar", "water_bar")]
 script = ExtResource("5_u0axf")
+health_bar = NodePath("HealthBar")
 max_hunger = 0.0
 max_stamina = 0.0
+water_bar = NodePath("WaterBar")
 metadata/_custom_type_script = "uid://buky2c38fbbep"
+
+[node name="WaterBar" parent="StatComponent" instance=ExtResource("4_jmanq")]
+tint_progress = Color(0, 0.502551, 0.870167, 1)
+bar_color = Color(0, 0.502551, 0.870167, 1)
+progress = 0.0
+
+[node name="HealthBar" parent="StatComponent" instance=ExtResource("4_jmanq")]
+offset_top = -24.0
+offset_bottom = 16.0
+tint_progress = Color(1, 0, 0, 1)
+bar_color = Color(1, 0, 0, 1)
+progress = 0.0
 
 [node name="InteractionComponent" parent="." instance=ExtResource("4_4isd2")]

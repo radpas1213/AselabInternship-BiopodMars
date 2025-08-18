@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://mrkfymoy85p0"]
+
+[ext_resource type="Texture2D" uid="uid://dyxem85x50iba" path="res://sprites/progress_bar_bg.png" id="1_tgsqi"]
+[ext_resource type="Texture2D" uid="uid://bdpsgep842n22" path="res://sprites/progress_bar_col.png" id="2_pymy7"]
+[ext_resource type="Script" uid="uid://yl1yca1uju0l" path="res://src/actors/base/progress_bar.gd" id="3_cv7vp"]
+
+[node name="TextureProgressBar" type="TextureProgressBar"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -20.0
+offset_right = 50.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(50, 10)
+step = 0.01
+texture_under = ExtResource("1_tgsqi")
+texture_progress = ExtResource("2_pymy7")
+script = ExtResource("3_cv7vp")
+progress = 24.15
