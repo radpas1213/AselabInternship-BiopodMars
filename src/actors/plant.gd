@@ -9,15 +9,15 @@ func _ready() -> void:
 	PlantManager.plants.push_front(self)
 	
 	# Start with water slightly randomized but still full
-	stats.current_watered -= randf_range(0, 5)
+	stats.current_hydration -= randf_range(0, 5)
 
 func interact() -> void:
-	stats.water(0.0065)
+	stats.hydrate(0.0065)
 	print("Watering plant")
 
 func _physics_process(_delta: float) -> void:
-	stats.water(-0.00015 * TimeManager.time_multiplier)
-	if stats.current_watered < 7.5:
+	stats.hydrate(-0.00015 * TimeManager.time_multiplier)
+	if stats.current_hydration < 7.5:
 		stats.heal(0.001)
-	if stats.current_watered > 7.5 and stats.current_watered <= 20:
+	if stats.current_hydration > 7.5 and stats.current_hydration <= 20:
 		stats.heal(0.001)

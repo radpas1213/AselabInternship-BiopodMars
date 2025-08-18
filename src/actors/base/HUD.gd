@@ -6,6 +6,8 @@ extends CanvasLayer
 @onready var day_label := $DayTransitionScreen/Label
 @onready var time_overlay: ColorRect = $time_overlay
 
+var world_labels = []
+
 func _process(delta: float) -> void:
 	if debug_label != null:
 		debug_label.text =  \
@@ -19,4 +21,3 @@ func _process(delta: float) -> void:
 		day_screen.visible = TimeManager.is_showing_day_screen
 	if time_overlay != null:
 		time_overlay.color = TimeManager.time_color
-	

@@ -12,7 +12,6 @@ var show_debug: bool = false
 var interact: Callable = func():
 	pass
 var type: Node2D
-var target
 
 func _ready() -> void:
 	type = owner

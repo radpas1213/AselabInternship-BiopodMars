@@ -20,9 +20,9 @@ config/icon="res://icon.svg"
 Global="*res://src/managers/global.gd"
 InteractionManager="*res://src/managers/interaction_manager.gd"
 TimeManager="*res://src/managers/time_manager.gd"
-HudManager="res://src/actors/base/HUD.gd"
 PlantManager="*res://src/managers/plant_manager.gd"
 Habitat="*res://src/managers/habitat_manager.gd"
+HUDLabelManager="*res://src/managers/label_manager.gd"
 
 [display]
 
