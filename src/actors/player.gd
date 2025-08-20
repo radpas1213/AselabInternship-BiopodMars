@@ -14,6 +14,8 @@ enum state {
 
 func _ready() -> void:
 	Global.player = self
+	stats.hunger_bar = Global.HUD.find_child("HungerBar")
+	stats.health_bar = Global.HUD.find_child("HealthBar")
 
 func _physics_process(delta: float) -> void:
 	

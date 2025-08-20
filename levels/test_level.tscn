@@ -10,7 +10,7 @@
 [node name="TestLevel" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_46lwt")]
-position = Vector2(116, 81)
+position = Vector2(104, 96)
 
 [node name="Camera" parent="." instance=ExtResource("2_w7r7j")]
 position = Vector2(161, 90)
@@ -47,12 +47,15 @@ texture = ExtResource("3_gmgay")
 
 [node name="Plant" parent="." instance=ExtResource("4_w7r7j")]
 position = Vector2(136, 80)
+label_text = "AAA"
 
 [node name="Plant2" parent="." instance=ExtResource("4_w7r7j")]
 position = Vector2(168, 80)
+label_text = "BBB"
 
 [node name="Plant3" parent="." instance=ExtResource("4_w7r7j")]
 position = Vector2(152, 112)
+label_text = "CCC"
 
 [node name="UI" type="CanvasLayer" parent="."]
 

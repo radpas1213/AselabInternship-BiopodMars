@@ -13,17 +13,21 @@ var interact: Callable = func():
 	pass
 var type: Node2D
 
-func _ready() -> void:
+func _init() -> void:
 	type = owner
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
 	_update_col_rad()
 
 func _on_body_entered(body: Node2D) -> void:
-	InteractionManager.register_area(self)
+	if not Engine.is_editor_hint():
+		HUDLabelManager.add_label(self)
+		InteractionManager.register_area(self)
 	
 func _on_body_exited(body: Node2D) -> void:
-	InteractionManager.unregister_area(self)
+	if not Engine.is_editor_hint():
+		HUDLabelManager.remove_label(self)
+		InteractionManager.unregister_area(self)
 	
 func _draw() -> void:
 	if not Engine.is_editor_hint() \
@@ -33,9 +37,9 @@ func _draw() -> void:
 		draw_circle(InteractionManager.active_areas.front().position, 3, Color.RED, true)
 
 func _process(delta: float) -> void:
+	queue_redraw()
 	if Engine.is_editor_hint():
 		_update_col_rad()
-	queue_redraw()
 
 func _update_col_rad() -> void:
 	if col_shape and col_shape.shape and col_shape.shape is RectangleShape2D:

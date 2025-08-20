@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dtgjuofcfh030"]
+[gd_scene load_steps=6 format=3 uid="uid://dtgjuofcfh030"]
 
 [ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/actors/base/HUD.gd" id="1_gg34b"]
 [ext_resource type="Script" uid="uid://qnma6ontuvbs" path="res://src/menu/pause_menu.gd" id="2_86in6"]
 [ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="2_fuh1x"]
-[ext_resource type="Script" uid="uid://dbyseab8l5okp" path="res://src/managers/label_manager.gd" id="4_ncv1s"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg34b"]
 bg_color = Color(0, 0, 0, 0.427451)
@@ -156,10 +155,12 @@ text = "Resume"
 layout_mode = 2
 text = "Quit to Main Menu"
 
-[node name="LabelManager" type="Control" parent="."]
+[node name="Labels" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-script = ExtResource("4_ncv1s")
-metadata/_custom_type_script = "uid://dbyseab8l5okp"
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4

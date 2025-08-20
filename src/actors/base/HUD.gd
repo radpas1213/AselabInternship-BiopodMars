@@ -6,7 +6,8 @@ extends CanvasLayer
 @onready var day_label := $DayTransitionScreen/Label
 @onready var time_overlay: ColorRect = $time_overlay
 
-var world_labels = []
+func _init() -> void:
+	Global.HUD = self
 
 func _process(delta: float) -> void:
 	if debug_label != null:

@@ -1,3 +1,4 @@
+@tool
 extends Resource
 class_name ItemData
 
@@ -10,6 +11,3 @@ class_name ItemData
 @export var texture: Texture2D
 ## Item texture size. Ukuran tekstur item
 @export var texture_size: float = 0.5
-
-func get_id() -> String:
-	return "item_" + item_name.replace(" ", "_").to_lower()
