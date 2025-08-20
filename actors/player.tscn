@@ -1,14 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://elevlirk2wiw"]
+[gd_scene load_steps=11 format=3 uid="uid://elevlirk2wiw"]
 
 [ext_resource type="Script" uid="uid://bnpf3pr2xkm5k" path="res://src/actors/player.gd" id="1_esgq3"]
 [ext_resource type="Texture2D" uid="uid://c1ovs2o6q1q32" path="res://sprites/actors/player/player_placeholder.png" id="1_niuxy"]
 [ext_resource type="Script" uid="uid://d10e6yqg3tpil" path="res://src/components/movement_component.gd" id="2_mvpqy"]
 [ext_resource type="Script" uid="uid://dp2hu4vfr62ky" path="res://src/components/input_component.gd" id="3_1yqc4"]
+[ext_resource type="Script" uid="uid://5vafneaewlhj" path="res://src/components/hit_box.gd" id="5_er1rk"]
 [ext_resource type="Script" uid="uid://buky2c38fbbep" path="res://src/components/stat_component.gd" id="5_kjkj0"]
 [ext_resource type="Script" uid="uid://nohl3crpcmgo" path="res://src/components/state_machine_component.gd" id="6_33vod"]
 [ext_resource type="Script" uid="uid://civq5tghtijid" path="res://src/components/state.gd" id="7_er1rk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvpqy"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_er1rk"]
 size = Vector2(16, 16)
 
 [node name="Player" type="CharacterBody2D"]
@@ -29,6 +33,14 @@ input_comp = NodePath("../InputComponent")
 
 [node name="InputComponent" type="Node2D" parent="."]
 script = ExtResource("3_1yqc4")
+
+[node name="HitBox" type="Area2D" parent="."]
+collision_mask = 2
+script = ExtResource("5_er1rk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+visibility_layer = 4
+shape = SubResource("RectangleShape2D_er1rk")
 
 [node name="StatComponent" type="Node2D" parent="."]
 script = ExtResource("5_kjkj0")

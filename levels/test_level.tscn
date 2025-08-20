@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://dcplp1jhkp36o"]
+[gd_scene load_steps=6 format=3 uid="uid://dcplp1jhkp36o"]
 
 [ext_resource type="PackedScene" uid="uid://elevlirk2wiw" path="res://actors/player.tscn" id="1_46lwt"]
 [ext_resource type="PackedScene" uid="uid://bynqxpsbof47b" path="res://actors/Camera.tscn" id="2_w7r7j"]
 [ext_resource type="Texture2D" uid="uid://jqf4ktvqse57" path="res://icon.svg" id="3_gmgay"]
 [ext_resource type="PackedScene" uid="uid://boqlyfsnfjjh7" path="res://actors/plant.tscn" id="4_w7r7j"]
+[ext_resource type="PackedScene" uid="uid://duon8tkhg4pgv" path="res://actors/enemy.tscn" id="5_o6mel"]
 
 [node name="TestLevel" type="Node2D"]
 
@@ -95,3 +96,6 @@ position = Vector2(26, 176)
 position = Vector2(26, 192)
 
 [node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Enemy" parent="." instance=ExtResource("5_o6mel")]
+position = Vector2(223, 128)
