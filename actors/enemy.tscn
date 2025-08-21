@@ -1,10 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://duon8tkhg4pgv"]
+[gd_scene load_steps=7 format=3 uid="uid://duon8tkhg4pgv"]
 
 [ext_resource type="Script" uid="uid://bmnw5buppkcke" path="res://src/actors/enemy.gd" id="1_c6xed"]
 [ext_resource type="Texture2D" uid="uid://b7ky2s5svmnk3" path="res://sprites/musuh_butan.png" id="2_c6xed"]
+[ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="3_8yred"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8yred"]
+size = Vector2(20, 23.5556)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ho334"]
-size = Vector2(17.3874, 23.5556)
+size = Vector2(20.5172, 23.5556)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8yred"]
+radius = 22.9514
 
 [node name="Enemy" type="Area2D"]
 scale = Vector2(1.43782, 1.10377)
@@ -17,7 +24,9 @@ texture = ExtResource("2_c6xed")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 4
 visibility_layer = 4
-shape = SubResource("RectangleShape2D_ho334")
+position = Vector2(0, 3.24006e-07)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_8yred")
 
 [node name="AttackBox" type="Area2D" parent="."]
 
@@ -25,3 +34,31 @@ shape = SubResource("RectangleShape2D_ho334")
 light_mask = 4
 visibility_layer = 4
 shape = SubResource("RectangleShape2D_ho334")
+
+[node name="HealthBar" parent="." instance=ExtResource("3_8yred")]
+visible = false
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -50.0758
+offset_top = -19.0257
+offset_right = 49.9242
+offset_bottom = -9.0257
+grow_horizontal = 1
+grow_vertical = 1
+scale = Vector2(0.2, 0.2)
+value = 100.0
+tint_progress = Color(0.842635, 3.56168e-06, 4.81307e-07, 1)
+bar_color = Color(0.842635, 3.56168e-06, 4.81307e-07, 1)
+progress = 100.0
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_8yred")
+
+[node name="AttackTimer" type="Timer" parent="."]
+
+[node name="ChaseTimer" type="Timer" parent="."]
