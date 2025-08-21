@@ -22,18 +22,20 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		initialize_item()
-	
-	if not Engine.is_editor_hint():
-		HUDLabelManager.add_label(self)
 
 func initialize_item():
-	if item_resource != null:
+	if self != null and item_resource != null:
 		if item_resource.texture != null:
 			sprite.texture = item_resource.texture
 		else:
 			sprite.texture = default_texture
 		sprite.scale = Vector2(item_resource.texture_size, item_resource.texture_size)
-		item_id = item_resource.get_id()
+		item_id = get_id()
 		#label.text = item_resource.item_name
 		name = item_resource.item_name
 	
+	
+func get_id() -> String:
+	if item_resource != null:
+		return "item_" + item_resource.item_name.replace(" ", "_").to_lower()
+	return "item"

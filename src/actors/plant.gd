@@ -3,6 +3,7 @@ class_name Plant
 
 @onready var interaction: InteractionComponent = $InteractionComponent
 @onready var stats: StatComponent = $StatComponent
+@export var label_text: String
 
 func _ready() -> void:
 	interaction.interact = Callable(self, "interact")

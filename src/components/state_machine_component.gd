@@ -50,7 +50,7 @@ func changeState(new_state: State):
 	current_state.onStateExit.emit()
 	current_state = new_state
 	current_state.onStateEnter.emit()
-	print("Changed state from " + previous_state.state_name, " to " + new_state.state_name, ".")
+	#print("Changed state from " + previous_state.state_name, " to " + new_state.state_name, ".")
 
 # Ambil state dari nama state
 func getStateByName(state_name: String):

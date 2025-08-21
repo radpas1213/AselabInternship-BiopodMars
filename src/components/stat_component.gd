@@ -3,7 +3,7 @@ class_name StatComponent
 
 
 @export_category("General Stats")
-@export var max_health: float = 25
+@export var max_health: float = 20
 @export var health_bar: HealthBarComponent
 
 @export_category("Player Specific Stats")

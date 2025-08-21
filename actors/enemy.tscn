@@ -17,8 +17,6 @@ texture = ExtResource("2_c6xed")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 light_mask = 4
 visibility_layer = 4
-position = Vector2(-0.347749, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ho334")
 
 [node name="AttackBox" type="Area2D" parent="."]
@@ -26,6 +24,4 @@ shape = SubResource("RectangleShape2D_ho334")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackBox"]
 light_mask = 4
 visibility_layer = 4
-position = Vector2(230.21, 90.5986)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ho334")
