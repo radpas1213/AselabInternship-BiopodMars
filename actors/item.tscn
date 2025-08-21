@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ccxs5rudwm50t"]
+
+[ext_resource type="Script" uid="uid://r55bent6whcw" path="res://src/actors/base/item.gd" id="1_in4m3"]
+[ext_resource type="Texture2D" uid="uid://q8jj2pvan21d" path="res://sprites/actors/item_placeholder.png" id="2_4ljsg"]
+[ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="4_fhfel"]
+
+[node name="Item" type="Node2D"]
+script = ExtResource("1_in4m3")
+metadata/_custom_type_script = "uid://r55bent6whcw"
+
+[node name="Texture" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_4ljsg")
+
+[node name="InteractionComponent" parent="." instance=ExtResource("4_fhfel")]
+collision_size = 12.0

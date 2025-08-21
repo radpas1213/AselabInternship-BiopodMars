@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=2 format=3 uid="uid://dwhmiqrleafrr"]
+
+[ext_resource type="Script" uid="uid://gqbwcscoa6gj" path="res://src/actors/base/item_resource.gd" id="1_ipqvo"]
+
+[resource]
+script = ExtResource("1_ipqvo")
+item_name = "Repair Tool"
+texture_size = 0.5
+metadata/_custom_type_script = "uid://gqbwcscoa6gj"

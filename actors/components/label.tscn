@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=3 uid="uid://cyxwpkuvtx1o1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_p4idi"]
+font_size = 6
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+size_flags_horizontal = 6
+size_flags_vertical = 6
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -46.5
+offset_right = 41.5
+offset_bottom = 46.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "ItemName"
+label_settings = SubResource("LabelSettings_p4idi")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

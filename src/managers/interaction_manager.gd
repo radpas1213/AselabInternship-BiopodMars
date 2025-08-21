@@ -22,14 +22,16 @@ func _process(delta: float) -> void:
 func _sort_by_distance_to_player(area1: InteractionComponent, area2: InteractionComponent):
 	var area1_to_plr = Global.player.global_position.distance_to(area1.global_position)
 	var area2_to_plr = Global.player.global_position.distance_to(area2.global_position)
+	
+	if area1_to_plr == area2_to_plr:
+		# tie-breaker → pick the one with the smaller instance_id
+		return area1.get_instance_id() < area2.get_instance_id()
+	
 	return area1_to_plr < area2_to_plr
 
-# tells the interaction component if it can be interacted with
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("interact") and can_interact:
+func _physics_process(delta: float) -> void:
+	if Input.is_action_pressed("interact") and can_interact:
 		if active_areas.size() > 0:
 			can_interact = false
-			
 			await active_areas[0].interact.call()
-			
 			can_interact = true

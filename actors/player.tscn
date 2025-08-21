@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://civq5tghtijid" path="res://src/components/state.gd" id="7_er1rk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvpqy"]
-size = Vector2(16, 16)
+size = Vector2(12, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_er1rk"]
 size = Vector2(16, 16)
@@ -44,8 +44,6 @@ shape = SubResource("RectangleShape2D_er1rk")
 
 [node name="StatComponent" type="Node2D" parent="."]
 script = ExtResource("5_kjkj0")
-max_watered = 0.0
-max_fertilized = 0.0
 metadata/_custom_type_script = "uid://buky2c38fbbep"
 
 [node name="StateMachineComponent" type="Node" parent="."]
@@ -60,4 +58,9 @@ metadata/_custom_type_script = "uid://civq5tghtijid"
 [node name="MovingState" type="Node" parent="StateMachineComponent"]
 script = ExtResource("7_er1rk")
 state_name = "Moving"
+metadata/_custom_type_script = "uid://civq5tghtijid"
+
+[node name="InteractState" type="Node" parent="StateMachineComponent"]
+script = ExtResource("7_er1rk")
+state_name = "Interacting"
 metadata/_custom_type_script = "uid://civq5tghtijid"
