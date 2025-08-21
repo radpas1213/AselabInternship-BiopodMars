@@ -45,4 +45,4 @@ func take_damage(amount: float) -> void:
 
 func _die() -> void:
 	print("💀 Player mati")
-	get_tree().change_scene_to_file("res://menu/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://menu/GameOverMenu.tscn")

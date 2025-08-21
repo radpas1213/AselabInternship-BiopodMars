@@ -1,0 +1,39 @@
+[gd_scene load_steps=2 format=3 uid="uid://8rakrwrw7d0v"]
+
+[ext_resource type="Script" uid="uid://ckuf583rrkme0" path="res://src/menu/game_over_menu.gd" id="1_omxtm"]
+
+[node name="GameOverMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_omxtm")
+
+[node name="TitleOver" type="Label" parent="."]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 29.0
+offset_right = 210.0
+offset_bottom = 59.0
+text = "GAME OVER!!!"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 83.0
+offset_top = 62.0
+offset_right = 237.0
+offset_bottom = 128.0
+grow_horizontal = 0
+grow_vertical = 0
+alignment = 1
+
+[node name="RestartButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Restart"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Quit to Main Menu"
