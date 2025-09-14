@@ -1,14 +1,15 @@
+@tool
 extends Camera2D
 class_name Camera
 
 ## Interpolation speed of camera zoom following the player, lower is slower, higher is faster
-@export var cam_smoothness: float = 5
+@export var cam_smoothness: float = 1
 ## Interpolation speed of the camera zoom, lower is slower, higher is faster
 @export var cam_zoom_lerp_speed: float = 0.075
 ## Amount of scroll for camera zooming
 @export var cam_zoom_scroll_amount: float = 0.25
 
-@onready var viewport: SubViewport = $SubViewportContainer/SubViewport
+@onready var hud: CanvasLayer = $HUD
 
 var zoom_lerp: float = 1
 
@@ -26,7 +27,12 @@ func _input(event: InputEvent) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	
-	position = lerp(position, Global.player.position, delta * cam_smoothness)
-	zoom_lerp = clampf(zoom_lerp, 0.65, 2)
-	var target_zoom = lerpf(zoom.x, zoom_lerp, cam_zoom_lerp_speed)
-	zoom = Vector2(target_zoom, target_zoom)
+	if not Engine.is_editor_hint():
+		position = lerp(position, Global.player.position, delta * cam_smoothness)
+		zoom_lerp = clampf(zoom_lerp, 0.65, 2)
+		var target_zoom = lerpf(zoom.x, zoom_lerp, cam_zoom_lerp_speed)
+		zoom = Vector2(target_zoom, target_zoom)
+	
+func _process(_delta: float) -> void:
+	if Engine.is_editor_hint():
+		hud.visible = self.visible

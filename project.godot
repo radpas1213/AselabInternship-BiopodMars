@@ -22,7 +22,6 @@ InteractionManager="*res://src/managers/interaction_manager.gd"
 TimeManager="*res://src/managers/time_manager.gd"
 PlantManager="*res://src/managers/plant_manager.gd"
 Habitat="*res://src/managers/habitat_manager.gd"
-HUDLabelManager="*res://src/managers/label_manager.gd"
 
 [display]
 
@@ -31,6 +30,10 @@ window/size/viewport_height=180
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="canvas_items"
+
+[gui]
+
+theme/default_font_subpixel_positioning=3
 
 [input]
 
@@ -95,3 +98,4 @@ menu_pause={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=3
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

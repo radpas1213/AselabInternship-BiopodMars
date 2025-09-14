@@ -11,6 +11,7 @@ enum state {
 @onready var movement: MovementComponent = $MovementComponent
 @onready var inputs: InputComponent = $InputComponent
 @onready var stats: StatComponent = $StatComponent
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready() -> void:
 	Global.player = self
@@ -28,3 +29,17 @@ func _process(delta: float) -> void:
 		state_machine.changeState($StateMachineComponent/MovingState)
 	else:
 		state_machine.changeState($StateMachineComponent/IdleState)
+	
+	_handle_sprites()
+
+func _handle_sprites():
+	if movement.direction:
+		var target_anim = "walk_" + movement.real_direction_names[movement.current_direction]
+		sprite.flip_h = movement.current_direction == 0
+		if sprite.animation != target_anim:
+			sprite.play(target_anim)
+	else:
+		var target_anim = "idle_" + movement.real_direction_names[movement.current_direction]
+		sprite.flip_h = movement.current_direction == 0
+		if sprite.animation != target_anim:
+			sprite.play(target_anim)

@@ -21,12 +21,11 @@ func _init() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if not Engine.is_editor_hint():
-		HUDLabelManager.add_label(self)
+		Global.HUD.show_item_label(self)
 		InteractionManager.register_area(self)
 	
 func _on_body_exited(body: Node2D) -> void:
 	if not Engine.is_editor_hint():
-		HUDLabelManager.remove_label(self)
 		InteractionManager.unregister_area(self)
 	
 func _draw() -> void:

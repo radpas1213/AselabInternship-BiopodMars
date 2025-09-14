@@ -1,7 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://cyxwpkuvtx1o1"]
+[gd_scene load_steps=3 format=3 uid="uid://cyxwpkuvtx1o1"]
+
+[ext_resource type="FontFile" uid="uid://byw5v2xtpq7sv" path="res://fonts/Spritecoder_Regular.ttf" id="1_1mxa0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_p4idi"]
-font_size = 6
+font = ExtResource("1_1mxa0")
+font_size = 72
+font_color = Color(1, 0.816667, 0, 1)
+outline_size = 16
+outline_color = Color(0.68586, 0.469603, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -22,17 +28,11 @@ size_flags_vertical = 6
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -41.5
-offset_top = -46.5
-offset_right = 41.5
-offset_bottom = 46.5
-grow_horizontal = 2
-grow_vertical = 2
+offset_left = -4.0
+offset_top = 2.0
+offset_right = 387.0
+offset_bottom = 279.0
+scale = Vector2(0.125, 0.125)
 size_flags_horizontal = 4
 text = "ItemName"
 label_settings = SubResource("LabelSettings_p4idi")

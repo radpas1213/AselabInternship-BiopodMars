@@ -5,7 +5,9 @@ class_name MovementComponent
 @export var speed: float = 75
 
 var direction: Vector2
-var direction_names: PackedStringArray = ["left", "down", "up", " right"]
+var current_direction: int = 1
+var direction_names: PackedStringArray = ["left", "down", "up", "right"]
+var real_direction_names: PackedStringArray = ["right", "down", "up", "right"]
 
 @export var input_comp: InputComponent
 
@@ -18,3 +20,12 @@ func handle_movement(delta: float) -> void:
 	else:
 		owner.velocity.x = lerpf(owner.velocity.x, 0, 0.35) 
 		owner.velocity.y = lerpf(owner.velocity.y, 0, 0.35) 
+	
+	if direction.x < 0:
+		current_direction = 0
+	if direction.x > 0:
+		current_direction = 3
+	if direction.y < 0:
+		current_direction = 2
+	if direction.y > 0:
+		current_direction = 1
