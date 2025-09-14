@@ -167,3 +167,4 @@ layout_mode = 2
 text = "Quit to Main Menu"
 
 [node name="Item_Label" parent="." instance=ExtResource("7_hi46l")]
+visible = false

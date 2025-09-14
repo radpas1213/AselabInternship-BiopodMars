@@ -315,5 +315,6 @@ state_name = "Interacting"
 metadata/_custom_type_script = "uid://civq5tghtijid"
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+visible = false
 occluder = SubResource("OccluderPolygon2D_er1rk")
 sdf_collision = false
