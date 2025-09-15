@@ -13,6 +13,8 @@ enum state {
 @onready var stats: StatComponent = $StatComponent
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
+var holding: bool = true
+
 func _ready() -> void:
 	Global.player = self
 	stats.hunger_bar = Global.HUD.find_child("HungerBar")
@@ -33,13 +35,13 @@ func _process(delta: float) -> void:
 	_handle_sprites()
 
 func _handle_sprites():
+	var target_anim = target_animation()
+	sprite.flip_h = movement.current_direction == 0
+	if sprite.animation != target_anim:
+		sprite.play(target_anim)
+
+func target_animation() -> String:
 	if movement.direction:
-		var target_anim = "walk_" + movement.real_direction_names[movement.current_direction]
-		sprite.flip_h = movement.current_direction == 0
-		if sprite.animation != target_anim:
-			sprite.play(target_anim)
+		return "walk_" + movement.real_direction_names[movement.current_direction] + ("_holding" if holding else "")
 	else:
-		var target_anim = "idle_" + movement.real_direction_names[movement.current_direction]
-		sprite.flip_h = movement.current_direction == 0
-		if sprite.animation != target_anim:
-			sprite.play(target_anim)
+		return "idle_" + movement.real_direction_names[movement.current_direction] + ("_holding" if holding else "")

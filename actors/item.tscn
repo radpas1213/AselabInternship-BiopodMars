@@ -6,10 +6,12 @@
 
 [node name="Item" type="Node2D"]
 script = ExtResource("1_in4m3")
+item_quantity = null
+item_durability = null
 metadata/_custom_type_script = "uid://r55bent6whcw"
 
 [node name="Texture" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
+y_sort_enabled = true
 texture = ExtResource("2_4ljsg")
 
 [node name="InteractionComponent" parent="." instance=ExtResource("4_fhfel")]

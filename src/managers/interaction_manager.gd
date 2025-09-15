@@ -32,5 +32,5 @@ func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed("interact") and can_interact:
 		if active_areas.size() > 0:
 			can_interact = false
-			await active_areas[0].interact.call()
+			await active_areas.front().interact.call()
 			can_interact = true

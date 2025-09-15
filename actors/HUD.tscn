@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dtgjuofcfh030"]
 
 [ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/actors/base/HUD.gd" id="1_gg34b"]
-[ext_resource type="Script" uid="uid://qnma6ontuvbs" path="res://src/menu/pause_menu.gd" id="2_86in6"]
+[ext_resource type="Script" uid="uid://qnma6ontuvbs" path="res://src/ui/pause_menu.gd" id="2_86in6"]
 [ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="2_fuh1x"]
 [ext_resource type="Texture2D" uid="uid://vr3o6nhlddwa" path="res://sprites/UI/bars/health_bar_bg.png" id="3_817h3"]
 [ext_resource type="Texture2D" uid="uid://gj5ebqym4o3t" path="res://sprites/UI/bars/health_bar_frame.png" id="4_hi46l"]
@@ -44,13 +44,13 @@ grow_horizontal = 0
 theme_override_font_sizes/font_size = 6
 text = "FPS : "
 
-[node name="Bars" type="Control" parent="."]
+[node name="UI" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="HealthBar" parent="Bars" instance=ExtResource("2_fuh1x")]
+[node name="HealthBar" parent="UI" instance=ExtResource("2_fuh1x")]
 layout_mode = 1
 anchors_preset = 2
 anchor_left = 0.0
@@ -58,40 +58,23 @@ anchor_top = 1.0
 anchor_right = 0.0
 anchor_bottom = 1.0
 offset_left = 8.0
-offset_top = 120.0
+offset_top = 116.0
 offset_right = 108.0
-offset_bottom = 160.0
+offset_bottom = 156.0
 grow_horizontal = 1
 grow_vertical = 0
 scale = Vector2(0.75, 0.75)
 step = 0.1
-value = 53.0
+value = 100.0
 rounded = true
 texture_under = ExtResource("3_817h3")
 texture_over = ExtResource("4_hi46l")
 texture_progress = ExtResource("5_1e7va")
 tint_progress = Color(0.448285, 0.989666, 0, 1)
 bar_color = Color(0.448285, 0.989666, 0, 1)
-progress = 53.05
-
-[node name="HungerBar" parent="Bars" instance=ExtResource("2_fuh1x")]
-layout_mode = 1
-anchors_preset = 2
-anchor_left = 0.0
-anchor_top = 1.0
-anchor_right = 0.0
-anchor_bottom = 1.0
-offset_left = -5.495
-offset_top = 108.87
-offset_right = 94.505
-offset_bottom = 148.87
-grow_horizontal = 1
-grow_vertical = 0
-scale = Vector2(0.75, 0.75)
-value = 100.0
-tint_progress = Color(0.793049, 0.41625, 0.238643, 1)
-bar_color = Color(0.793049, 0.41625, 0.238643, 1)
 progress = 100.0
+
+[node name="Item_Label" parent="." instance=ExtResource("7_hi46l")]
 
 [node name="DayTransitionScreen" type="CanvasLayer" parent="."]
 visible = false
@@ -118,6 +101,20 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="InventoryUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
@@ -165,6 +162,3 @@ text = "Resume"
 [node name="QuitButton" type="Button" parent="PauseMenu/MenuPanel/VBoxContainer"]
 layout_mode = 2
 text = "Quit to Main Menu"
-
-[node name="Item_Label" parent="." instance=ExtResource("7_hi46l")]
-visible = false

@@ -1,10 +1,11 @@
-@tool
 extends Resource
 class_name ItemData
 
 @export_category("Item Properties")
 ## Name of item. Nama item.
-@export var item_name:String = "Item"
+@export var item_name: String = "Item"
+@export var is_tool: bool = false
+@export_range(1, 16, 1) var max_stack: int = 16
 
 @export_category("Visual Properties")
 ## Item texture

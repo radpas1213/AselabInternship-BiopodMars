@@ -28,15 +28,7 @@ func _on_body_exited(body: Node2D) -> void:
 	if not Engine.is_editor_hint():
 		InteractionManager.unregister_area(self)
 	
-func _draw() -> void:
-	if not Engine.is_editor_hint() \
-	and type is Plant \
-	and InteractionManager.active_areas.size() > 0 \
-	and InteractionManager.active_areas.front() == self:
-		draw_circle(InteractionManager.active_areas.front().position, 3, Color.RED, true)
-
 func _process(delta: float) -> void:
-	queue_redraw()
 	if Engine.is_editor_hint():
 		_update_col_rad()
 

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://b4tum4mfgq0x5"]
+
+[ext_resource type="Script" uid="uid://gqbwcscoa6gj" path="res://src/actors/base/item_resource.gd" id="1_p2gfr"]
+[ext_resource type="Texture2D" uid="uid://5hnfm7a2xxpv" path="res://sprites/items/item_iron.png" id="2_101ey"]
+
+[resource]
+script = ExtResource("1_p2gfr")
+item_name = "Iron"
+is_tool = false
+max_stack = 16
+texture = ExtResource("2_101ey")
+texture_size = 1.0
+metadata/_custom_type_script = "uid://gqbwcscoa6gj"

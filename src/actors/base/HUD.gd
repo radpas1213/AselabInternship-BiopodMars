@@ -31,17 +31,14 @@ func _process(delta: float) -> void:
 	if item_label != null and item_label.visible:
 		if InteractionManager.active_areas.is_empty():
 			item_label.hide()
-			print("item label hidden")
 		else:
 			var area_owner = InteractionManager.active_areas.front().owner
 			if area_owner is Item:
 				if item_label.get_child(0).text != area_owner.item_resource.item_name:
 					item_label.get_child(0).text = area_owner.item_resource.item_name
-					print("item label shown with text: ", area_owner.item_resource.item_name)
 			if area_owner is Plant:
 				if item_label.get_child(0).text != area_owner.label_text:
 					item_label.get_child(0).text = area_owner.label_text
-					print("item label shown with text: ", area_owner.label_text)
 
 func show_item_label(area: Area2D) -> void:
 	item_label.show()

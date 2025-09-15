@@ -13,9 +13,17 @@ class_name Item
 ## ID of the item, can't be changed. ID itemnya, tidak bisa diubah.
 @export var item_id:String = ""
 
+## Quantity of the item
+@export var item_quantity: int = 1
+
+## Durability of the tool
+@export var item_durability: float = 20
+
+
 var default_texture: Texture2D
 
 func _ready() -> void:
+	interaction.interact = Callable(self, "pickup_item")
 	default_texture = sprite.texture
 	initialize_item()
 
@@ -31,10 +39,23 @@ func initialize_item():
 			sprite.texture = default_texture
 		sprite.scale = Vector2(item_resource.texture_size, item_resource.texture_size)
 		item_id = get_id()
-		#label.text = item_resource.item_name
 		name = item_resource.item_name
-	
-	
+
+func pickup_item():
+	var item = {
+		"name": item_resource.item_name,
+		"id": get_id(),
+		"is_tool": item_resource.is_tool,
+		"texture": item_resource.texture,
+		"texture_size": item_resource.texture_size,
+		"quantity": item_quantity,
+		"max_stack": item_resource.max_stack,
+		"durability": item_durability
+	}
+	InventoryManager.add_item(item)
+	get_parent().remove_child(self)
+	queue_free()
+
 func get_id() -> String:
 	if item_resource != null:
 		return "item_" + item_resource.item_name.replace(" ", "_").to_lower()

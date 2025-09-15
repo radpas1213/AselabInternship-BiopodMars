@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=4 uid="uid://dcplp1jhkp36o"]
+[gd_scene load_steps=10 format=4 uid="uid://dcplp1jhkp36o"]
 
 [ext_resource type="PackedScene" uid="uid://elevlirk2wiw" path="res://actors/player.tscn" id="1_46lwt"]
 [ext_resource type="PackedScene" uid="uid://bynqxpsbof47b" path="res://actors/Camera.tscn" id="2_w7r7j"]
 [ext_resource type="PackedScene" uid="uid://boqlyfsnfjjh7" path="res://actors/plant.tscn" id="4_w7r7j"]
 [ext_resource type="PackedScene" uid="uid://ccxs5rudwm50t" path="res://actors/item.tscn" id="5_o6mel"]
 [ext_resource type="Resource" uid="uid://dwhmiqrleafrr" path="res://data/items/item_repair_tool.tres" id="6_e7anx"]
+[ext_resource type="Resource" uid="uid://b4tum4mfgq0x5" path="res://data/items/item_iron.tres" id="6_ur00s"]
 [ext_resource type="TileSet" uid="uid://kigso6olc1p6" path="res://sprites/tilesets/interior_tileset.tres" id="7_ur00s"]
 
 [sub_resource type="Gradient" id="Gradient_e7anx"]
@@ -45,6 +46,13 @@ position = Vector2(216, 88)
 scale = Vector2(0.984727, 1.04367)
 item_resource = ExtResource("6_e7anx")
 item_id = "item_repair_tool"
+
+[node name="Iron" parent="." instance=ExtResource("5_o6mel")]
+position = Vector2(120, 120)
+scale = Vector2(0.984727, 1.04367)
+item_resource = ExtResource("6_ur00s")
+item_id = "item_iron"
+item_quantity = 64
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 y_sort_enabled = true

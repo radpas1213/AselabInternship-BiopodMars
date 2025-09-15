@@ -274,6 +274,7 @@ position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_5nkr1")
 animation = &"idle_down"
 autoplay = "idle_down"
+frame_progress = 0.0910251
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 visible = false
