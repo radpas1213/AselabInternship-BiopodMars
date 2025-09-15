@@ -52,7 +52,7 @@ position = Vector2(120, 120)
 scale = Vector2(0.984727, 1.04367)
 item_resource = ExtResource("6_ur00s")
 item_id = "item_iron"
-item_quantity = 64
+item_quantity = 256
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 y_sort_enabled = true
