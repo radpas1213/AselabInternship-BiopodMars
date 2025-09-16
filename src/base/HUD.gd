@@ -12,7 +12,6 @@ func _init() -> void:
 	
 func _ready() -> void:
 	Global.HUD = self
-	print(item_label.get_child(0).text)
 
 func _process(delta: float) -> void:
 	if debug_label != null:
@@ -28,6 +27,9 @@ func _process(delta: float) -> void:
 	if time_overlay != null:
 		time_overlay.color = TimeManager.time_color
 	
+	update_item_label()
+
+func update_item_label():
 	if item_label != null and item_label.visible:
 		if InteractionManager.active_areas.is_empty():
 			item_label.hide()

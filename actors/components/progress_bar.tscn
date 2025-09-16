@@ -2,7 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://dyxem85x50iba" path="res://sprites/progress_bar_bg.png" id="1_tgsqi"]
 [ext_resource type="Texture2D" uid="uid://bdpsgep842n22" path="res://sprites/progress_bar_col.png" id="2_pymy7"]
-[ext_resource type="Script" uid="uid://yl1yca1uju0l" path="res://src/actors/base/progress_bar.gd" id="3_cv7vp"]
+[ext_resource type="Script" uid="uid://yl1yca1uju0l" path="res://src/base/progress_bar.gd" id="3_cv7vp"]
+
 
 [node name="TextureProgressBar" type="TextureProgressBar"]
 anchors_preset = 8

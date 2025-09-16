@@ -13,7 +13,7 @@ enum state {
 @onready var stats: StatComponent = $StatComponent
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-var holding: bool = true
+var holding: bool = false
 
 func _ready() -> void:
 	Global.player = self

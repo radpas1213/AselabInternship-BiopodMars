@@ -1,47 +1,25 @@
 extends Node
 
-var inventory = []
+var player_inventory: Array
 
-signal inventory_updated
-
-func _ready() -> void:
-	inventory.resize(10)
-	inventory_updated.connect(update_inventory)
-
-func add_item(item: Dictionary):
-	var remaining = item["quantity"]
+func transfer_item(from: ContainerComponent, to: ContainerComponent, item: Dictionary, slot_index: int, quantity: int = 1) -> void:
+	var source_item = from.container[slot_index]
+	if source_item == null:
+		return
+	var move_quantity = min(quantity, source_item["quantity"])
+	if move_quantity <= 0:
+		return
 	
-	# Pass 1: fill existing stacks of same item
-	for i in range(inventory.size()):
-		if inventory[i] != null and inventory[i]["id"] == item["id"] and inventory[i]["quantity"] < item["max_stack"]:
-			var space = item["max_stack"] - inventory[i]["quantity"]
-			var to_add = min(remaining, space)
-			inventory[i]["quantity"] += to_add
-			remaining -= to_add
-			inventory_updated.emit()
-			if remaining <= 0:
-				return true  # fully added
-	
-	# Pass 2: insert into empty slots
-	for i in range(inventory.size()):
-		if inventory[i] == null and remaining > 0:
-			var new_stack = item.duplicate(true)
-			new_stack["quantity"] = min(remaining, item["max_stack"])
-			inventory[i] = new_stack
-			remaining -= new_stack["quantity"]
-			inventory_updated.emit()
-			print("item inserted at slot ", i)
-			if remaining <= 0:
-				return true
-				
-	# If we reach here, inventory is full and some items didn’t fit
-	return false
-
-func remove_item(index: int, quantity: int) -> void:
-	inventory_updated.emit()
-
-func get_index_from_item(item: Dictionary) -> int:
-	return inventory.find(item)
-
-func update_inventory():
-	print(inventory)
+	# Reduce from source
+	source_item["quantity"] -= move_quantity
+	# Make a copy for the destination
+	var moving_item = source_item.duplicate(true)
+	moving_item["quantity"] = move_quantity
+	# Add to target container
+	var added = to.add_item(moving_item)
+	# If not all were added, put leftovers back
+	if added < move_quantity:
+		source_item["quantity"] += (move_quantity - added)
+	# If source stack is empty, clear the slot
+	if source_item["quantity"] <= 0:
+		from.container[slot_index] = null

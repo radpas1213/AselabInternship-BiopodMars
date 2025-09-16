@@ -1,0 +1,96 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfnuoudsvltye"]
+
+[ext_resource type="Texture2D" uid="uid://dgcjnpur4nl67" path="res://sprites/UI/inventory/inventory.png" id="1_52bdt"]
+[ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="2_nrne1"]
+[ext_resource type="PackedScene" uid="uid://c83olw5gs380b" path="res://actors/ui/inventory_item.tscn" id="3_nrne1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r1fvx"]
+font = ExtResource("2_nrne1")
+font_size = 8
+font_color = Color(0.619608, 0.682353, 0.670588, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.490196)
+shadow_offset = Vector2(-0.81, 1)
+
+[node name="PlayerInventory" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 20)
+texture = ExtResource("1_52bdt")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -32.0
+offset_right = 73.0
+offset_bottom = -9.0
+text = "Inventory"
+label_settings = SubResource("LabelSettings_r1fvx")
+
+[node name="ItemGrid" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -20.0
+offset_right = 35.0
+offset_bottom = 20.0
+theme_override_constants/h_separation = 1
+theme_override_constants/v_separation = 1
+columns = 3
+
+[node name="InventoryItem" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem2" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem3" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem4" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem5" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem6" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem7" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem8" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem9" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem10" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem11" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem12" parent="ItemGrid" instance=ExtResource("3_nrne1")]
+layout_mode = 2
+manual_slot_index_override = -1
+
+[node name="InventoryItem" parent="." instance=ExtResource("3_nrne1")]
+layout_mode = 1
+offset_left = 12.0
+offset_top = 55.0
+offset_right = 28.0
+offset_bottom = 71.0
+manual_slot_index_override = 12

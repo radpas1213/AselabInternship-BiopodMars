@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cu4aj1rrg6djv"]
+
+[ext_resource type="Texture2D" uid="uid://itewp6utg8xy" path="res://sprites/UI/inventory/storage.png" id="1_j6gfs"]
+[ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="2_fsspa"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_r1fvx"]
+font = ExtResource("2_fsspa")
+font_size = 8
+font_color = Color(0.619608, 0.682353, 0.670588, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.490196)
+shadow_offset = Vector2(-0.81, 1)
+
+[node name="Storage" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(20, 20)
+texture = ExtResource("1_j6gfs")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = -13.0
+offset_top = -37.0
+offset_right = 65.0
+offset_bottom = -14.0
+text = "Storage"
+label_settings = SubResource("LabelSettings_r1fvx")

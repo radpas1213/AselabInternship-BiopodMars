@@ -40,11 +40,14 @@ func initialize_item():
 		sprite.scale = Vector2(item_resource.texture_size, item_resource.texture_size)
 		item_id = get_id()
 		name = item_resource.item_name
+	if item_resource == null:
+		name = "InventoryItem"
 
 func pickup_item():
 	var item = {
 		"name": item_resource.item_name,
 		"id": get_id(),
+		"resouce": item_resource,
 		"is_tool": item_resource.is_tool,
 		"texture": item_resource.texture,
 		"texture_size": item_resource.texture_size,

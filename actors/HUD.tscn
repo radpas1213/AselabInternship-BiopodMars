@@ -1,12 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://dtgjuofcfh030"]
+[gd_scene load_steps=13 format=3 uid="uid://dtgjuofcfh030"]
 
-[ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/actors/base/HUD.gd" id="1_gg34b"]
+[ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/base/HUD.gd" id="1_gg34b"]
 [ext_resource type="Script" uid="uid://qnma6ontuvbs" path="res://src/ui/pause_menu.gd" id="2_86in6"]
 [ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="2_fuh1x"]
 [ext_resource type="Texture2D" uid="uid://vr3o6nhlddwa" path="res://sprites/UI/bars/health_bar_bg.png" id="3_817h3"]
 [ext_resource type="Texture2D" uid="uid://gj5ebqym4o3t" path="res://sprites/UI/bars/health_bar_frame.png" id="4_hi46l"]
 [ext_resource type="Texture2D" uid="uid://b6ocu0draocv1" path="res://sprites/UI/bars/health_bar.png" id="5_1e7va"]
+[ext_resource type="Texture2D" uid="uid://c34wuu8gdhqsc" path="res://sprites/UI/inventory/hotbar.png" id="6_1e7va"]
+[ext_resource type="PackedScene" uid="uid://b8wtyqprnh4ut" path="res://actors/ui/Inventory_UI.tscn" id="7_5s1vc"]
 [ext_resource type="PackedScene" uid="uid://cyxwpkuvtx1o1" path="res://actors/components/label.tscn" id="7_hi46l"]
+[ext_resource type="PackedScene" uid="uid://c83olw5gs380b" path="res://actors/ui/inventory_item.tscn" id="9_gdnib"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg34b"]
 bg_color = Color(0, 0, 0, 0.427451)
@@ -46,9 +49,11 @@ text = "FPS : "
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HealthBar" parent="UI" instance=ExtResource("2_fuh1x")]
 layout_mode = 1
@@ -57,10 +62,10 @@ anchor_left = 0.0
 anchor_top = 1.0
 anchor_right = 0.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 116.0
-offset_right = 108.0
-offset_bottom = 156.0
+offset_left = 1.49
+offset_top = -20.025
+offset_right = 101.49
+offset_bottom = 19.975
 grow_horizontal = 1
 grow_vertical = 0
 scale = Vector2(0.75, 0.75)
@@ -73,6 +78,33 @@ texture_progress = ExtResource("5_1e7va")
 tint_progress = Color(0.448285, 0.989666, 0, 1)
 bar_color = Color(0.448285, 0.989666, 0, 1)
 progress = 100.0
+
+[node name="Inventories" parent="UI" instance=ExtResource("7_5s1vc")]
+layout_mode = 1
+
+[node name="Hotbar" type="Control" parent="UI/Inventories"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -14.0
+offset_top = -28.0
+offset_right = 14.0
+grow_horizontal = 2
+grow_vertical = 0
+pivot_offset = Vector2(14, 14)
+
+[node name="HotbarSprite" type="Sprite2D" parent="UI/Inventories/Hotbar"]
+position = Vector2(14, 14)
+texture = ExtResource("6_1e7va")
+
+[node name="InventoryItem" parent="UI/Inventories/Hotbar" instance=ExtResource("9_gdnib")]
+layout_mode = 1
+scale = Vector2(1.15, 1.15)
+pivot_offset = Vector2(8, 8)
+manual_slot_index_override = -1
 
 [node name="Item_Label" parent="." instance=ExtResource("7_hi46l")]
 
