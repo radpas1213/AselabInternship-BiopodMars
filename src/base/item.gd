@@ -19,7 +19,10 @@ class_name Item
 ## Durability of the tool
 @export var item_durability: float = 20
 
+## Does item despawn?
+@export var item_despawns: bool = true
 
+var item_despawn_time: float = 150
 var default_texture: Texture2D
 
 func _ready() -> void:
@@ -47,7 +50,7 @@ func pickup_item():
 	var item = {
 		"name": item_resource.item_name,
 		"id": get_id(),
-		"resouce": item_resource,
+		"resource": item_resource,
 		"is_tool": item_resource.is_tool,
 		"texture": item_resource.texture,
 		"texture_size": item_resource.texture_size,
@@ -55,7 +58,7 @@ func pickup_item():
 		"max_stack": item_resource.max_stack,
 		"durability": item_durability
 	}
-	InventoryManager.add_item(item)
+	Global.player.inventory.add_item(item)
 	get_parent().remove_child(self)
 	queue_free()
 

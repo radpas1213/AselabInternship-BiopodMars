@@ -12,6 +12,7 @@ enum state {
 @onready var inputs: InputComponent = $InputComponent
 @onready var stats: StatComponent = $StatComponent
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var inventory: ContainerComponent = $ContainerComponent
 
 var holding: bool = false
 
@@ -19,9 +20,9 @@ func _ready() -> void:
 	Global.player = self
 	stats.hunger_bar = Global.HUD.find_child("HungerBar")
 	stats.health_bar = Global.HUD.find_child("HealthBar")
+	InventoryManager.player_inventory = inventory
 
-func _physics_process(delta: float) -> void:
-	
+func _physics_process(delta: float) -> void:	
 	movement.handle_movement(delta)
 	
 	move_and_slide()

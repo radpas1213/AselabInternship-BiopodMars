@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj7rrem70gdbr"]
+
+[ext_resource type="Texture2D" uid="uid://q8jj2pvan21d" path="res://sprites/actors/item_placeholder.png" id="1_5v778"]
+[ext_resource type="Script" uid="uid://b6p3lpb0yn2rr" path="res://src/components/container_component.gd" id="2_pyd1d"]
+
+[node name="StorageContainer" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_5v778")
+
+[node name="ContainerComponent" type="Node2D" parent="."]
+script = ExtResource("2_pyd1d")
+metadata/_custom_type_script = "uid://b6p3lpb0yn2rr"

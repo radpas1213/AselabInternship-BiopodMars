@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=2 format=3 uid="uid://cmgbjke7jmlsb"]
+
+[ext_resource type="Script" uid="uid://ctyq2er7hxvnt" path="res://src/base/data/loot_table_resource.gd" id="1_mojdk"]
+
+[resource]
+script = ExtResource("1_mojdk")
+items = null
+metadata/_custom_type_script = "uid://ctyq2er7hxvnt"

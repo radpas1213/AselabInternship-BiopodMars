@@ -1,6 +1,9 @@
 extends Node
 
-var player_inventory: Array
+var player_inventory: ContainerComponent
+var currently_opened_container: ContainerComponent
+var player_inventory_ui: ContainerUI
+var currently_opened_container_ui: ContainerUI
 
 func transfer_item(from: ContainerComponent, to: ContainerComponent, item: Dictionary, slot_index: int, quantity: int = 1) -> void:
 	var source_item = from.container[slot_index]
@@ -23,3 +26,6 @@ func transfer_item(from: ContainerComponent, to: ContainerComponent, item: Dicti
 	# If source stack is empty, clear the slot
 	if source_item["quantity"] <= 0:
 		from.container[slot_index] = null
+
+func update_container_ui() -> void:
+	player_inventory_ui.update_container_ui()

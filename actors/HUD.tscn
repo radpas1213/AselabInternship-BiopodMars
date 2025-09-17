@@ -104,7 +104,6 @@ texture = ExtResource("6_1e7va")
 layout_mode = 1
 scale = Vector2(1.15, 1.15)
 pivot_offset = Vector2(8, 8)
-manual_slot_index_override = -1
 
 [node name="Item_Label" parent="." instance=ExtResource("7_hi46l")]
 

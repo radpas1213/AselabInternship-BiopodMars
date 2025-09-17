@@ -32,10 +32,8 @@ func _ready() -> void:
 			slot_index = manual_slot_index_override
 
 func _process(_delta: float) -> void:
-	if Engine.is_editor_hint():
-		initialize_item()
-	else:
-		item_visibility()
+	initialize_item()
+	item_visibility()
 
 func initialize_item():
 	if self != null and item_resource != null:
@@ -45,22 +43,27 @@ func initialize_item():
 			sprite.texture = default_texture
 		sprite.scale = Vector2(item_resource.texture_size, item_resource.texture_size)
 		name = item_resource.item_name
-		count_label.visible = item_quantity != 1
 		count_label.text = str(item_quantity)
 		item_quantity = clamp(item_quantity, 1, item_resource.max_stack)
 		durability_bar.progress = item_durability / 20 * 100
-		durability_bar.visible = item_resource.is_tool
 	if item_resource == null:
 		name = "InventoryItem"
 		sprite.texture = default_texture
 		sprite.scale = Vector2(1, 1)
-		durability_bar.visible = false
 
 func item_visibility():
 	var visibility: bool = item_resource != null
 	sprite.visible = visibility
-	count_label.visible = visibility
-	durability_bar.visible = visibility
+	count_label.visible = visibility and item_quantity != 1
+	durability_bar.visible = visibility and item_resource.is_tool
 
 func on_press():
-	print("Slot ", slot_index, " pressed")
+	var text: String
+	if item_resource != null:
+		text = (": Slot " + str(slot_index)  +" of item " + item_resource.item_name + " with a quantity of " + str(item_quantity) + " is pressed")
+	else:
+		text = (": Slot " + str(slot_index) + " is pressed")
+	if get_parent().name == "Hotbar":
+		print(get_parent(), text)
+	else:
+		print(get_parent().get_parent(), text)
