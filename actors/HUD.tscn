@@ -19,6 +19,7 @@ bg_color = Color(0.187176, 0.187176, 0.187176, 1)
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_gg34b")
+metadata/_custom_type_script = "uid://kk8sigk6rc4v"
 
 [node name="time_overlay" type="ColorRect" parent="."]
 visible = false
@@ -54,6 +55,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Item_Label" parent="UI" instance=ExtResource("7_hi46l")]
+layout_mode = 1
 
 [node name="HealthBar" parent="UI" instance=ExtResource("2_fuh1x")]
 layout_mode = 1
@@ -105,7 +109,14 @@ layout_mode = 1
 scale = Vector2(1.15, 1.15)
 pivot_offset = Vector2(8, 8)
 
-[node name="Item_Label" parent="." instance=ExtResource("7_hi46l")]
+[node name="MovingItem" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="InventoryItem" parent="UI/MovingItem" instance=ExtResource("9_gdnib")]
+layout_mode = 1
+mouse_filter = 2
+disable_button = true
 
 [node name="DayTransitionScreen" type="CanvasLayer" parent="."]
 visible = false

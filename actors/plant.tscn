@@ -11,6 +11,7 @@ size = Vector2(15.9, 15.9)
 
 [node name="Plant" type="StaticBody2D"]
 script = ExtResource("1_qywu8")
+metadata/_custom_type_script = "uid://b1ceyb3knucv6"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3

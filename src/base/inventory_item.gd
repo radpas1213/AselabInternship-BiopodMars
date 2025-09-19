@@ -19,9 +19,14 @@ var slot_index: int
 
 @export var manual_slot_index_override: int = -1
 
+@export var disable_button: bool = false
+
 var default_texture: Texture2D = ResourceLoader.load("res://sprites/actors/item_placeholder.png")
 
 func _ready() -> void:
+	button.disabled = disable_button
+	mouse_filter = Control.MOUSE_FILTER_IGNORE if disable_button else Control.MOUSE_FILTER_STOP
+	button.mouse_filter = Control.MOUSE_FILTER_IGNORE if disable_button else Control.MOUSE_FILTER_STOP
 	sprite.texture = default_texture
 	initialize_item()
 	if not Engine.is_editor_hint():
@@ -67,3 +72,10 @@ func on_press():
 		print(get_parent(), text)
 	else:
 		print(get_parent().get_parent(), text)
+	
+	if get_parent().get_parent() is ContainerUI: 
+		if item_resource != null:
+			ContainerManager.pickup_container_item(slot_index, get_parent().get_parent())
+		elif item_resource == null:
+			#pass
+			ContainerManager.put_down_container_item(slot_index, get_parent().get_parent())

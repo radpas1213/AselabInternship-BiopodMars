@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://cu4aj1rrg6djv"]
+[gd_scene load_steps=7 format=3 uid="uid://cu4aj1rrg6djv"]
 
 [ext_resource type="Script" uid="uid://cvvwd5j748qtj" path="res://src/ui/containers/container_ui.gd" id="1_bvrro"]
 [ext_resource type="Texture2D" uid="uid://itewp6utg8xy" path="res://sprites/UI/inventory/storage.png" id="1_j6gfs"]
 [ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="2_fsspa"]
 [ext_resource type="PackedScene" uid="uid://c83olw5gs380b" path="res://actors/ui/inventory_item.tscn" id="3_fsspa"]
+[ext_resource type="PackedScene" uid="uid://blaud4skdywbe" path="res://actors/ui/Item_Panel.tscn" id="5_5dihl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r1fvx"]
 font = ExtResource("2_fsspa")
@@ -113,3 +114,10 @@ layout_mode = 2
 
 [node name="InventoryItem24" parent="ItemGrid" instance=ExtResource("3_fsspa")]
 layout_mode = 2
+
+[node name="ItemPanel" parent="." instance=ExtResource("5_5dihl")]
+layout_mode = 1
+offset_left = -16.0
+offset_top = 60.0
+offset_right = -16.0
+offset_bottom = 60.0

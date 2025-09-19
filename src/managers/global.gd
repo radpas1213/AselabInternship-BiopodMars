@@ -2,7 +2,7 @@ extends Node
 
 var player: Player
 var camera: Camera2D
-var HUD: CanvasLayer
+var HUD: HUD
 
 var default_item_font_size: int = 6
 

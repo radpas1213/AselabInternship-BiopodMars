@@ -1,16 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://cfnuoudsvltye"]
+[gd_scene load_steps=7 format=3 uid="uid://cfnuoudsvltye"]
 
 [ext_resource type="Texture2D" uid="uid://dgcjnpur4nl67" path="res://sprites/UI/inventory/inventory.png" id="1_52bdt"]
 [ext_resource type="Script" uid="uid://cvvwd5j748qtj" path="res://src/ui/containers/container_ui.gd" id="1_cv1ii"]
 [ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="2_nrne1"]
 [ext_resource type="PackedScene" uid="uid://c83olw5gs380b" path="res://actors/ui/inventory_item.tscn" id="3_nrne1"]
+[ext_resource type="Script" uid="uid://dxyawhvgp7krw" path="res://src/ui/autofit_label.gd" id="4_40fxd"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_r1fvx"]
 font = ExtResource("2_nrne1")
 font_size = 8
 font_color = Color(0.619608, 0.682353, 0.670588, 1)
 shadow_size = 2
-shadow_color = Color(0, 0, 0, 0.490196)
+shadow_color = Color(0, 0, 0, 0.509804)
 shadow_offset = Vector2(-0.81, 1)
 
 [node name="PlayerInventory" type="Control"]
@@ -27,11 +28,19 @@ texture = ExtResource("1_52bdt")
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = -5.0
-offset_top = -32.0
-offset_right = 73.0
-offset_bottom = -9.0
+offset_top = -34.0
+offset_right = 45.0
+offset_bottom = -22.0
 text = "Inventory"
 label_settings = SubResource("LabelSettings_r1fvx")
+vertical_alignment = 1
+clip_text = true
+visible_characters = 0
+visible_ratio = 0.0
+script = ExtResource("4_40fxd")
+scroll_speed = 25.0
+edge_pause = 1.5
+metadata/_custom_type_script = "uid://dxyawhvgp7krw"
 
 [node name="ItemGrid" type="GridContainer" parent="."]
 layout_mode = 0
@@ -79,10 +88,14 @@ layout_mode = 2
 [node name="InventoryItem12" parent="ItemGrid" instance=ExtResource("3_nrne1")]
 layout_mode = 2
 
-[node name="InventoryItem" parent="." instance=ExtResource("3_nrne1")]
+[node name="LastSlot" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="InventoryItem" parent="LastSlot" instance=ExtResource("3_nrne1")]
 layout_mode = 1
-offset_left = 12.0
-offset_top = 55.0
-offset_right = 28.0
-offset_bottom = 71.0
+offset_top = 35.0
+offset_bottom = 51.0
 manual_slot_index_override = 12

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://c6m0elr2hlbkt"]
+
+[ext_resource type="Script" uid="uid://gqbwcscoa6gj" path="res://src/base/data/item_resource.gd" id="1_2rp7b"]
+[ext_resource type="Texture2D" uid="uid://cpag4n76250k1" path="res://sprites/items/item_battery_unit.png" id="2_s1hhd"]
+
+[resource]
+script = ExtResource("1_2rp7b")
+item_name = "Watering Can"
+is_tool = true
+max_stack = 1
+texture = ExtResource("2_s1hhd")
+texture_size = 0.875
+metadata/_custom_type_script = "uid://gqbwcscoa6gj"

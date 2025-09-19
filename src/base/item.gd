@@ -2,8 +2,8 @@
 extends Node2D
 class_name Item
 
-@onready var sprite = $Texture
-@onready var interaction = $InteractionComponent
+@onready var sprite: Sprite2D = $Texture
+@onready var interaction: InteractionComponent = $InteractionComponent
 #@onready var control: Control = $Control
 #@onready var label: Label = control.get_child(0)
 
@@ -21,6 +21,9 @@ class_name Item
 
 ## Does item despawn?
 @export var item_despawns: bool = true
+
+@export_category("Equipped Tool Properties")
+@export var disable_interaction: bool = false
 
 var item_despawn_time: float = 150
 var default_texture: Texture2D
@@ -44,7 +47,9 @@ func initialize_item():
 		item_id = get_id()
 		name = item_resource.item_name
 	if item_resource == null:
-		name = "InventoryItem"
+		name = "Item"
+	interaction.get_child(0).disabled = disable_interaction
+	interaction.visible = !disable_interaction
 
 func pickup_item():
 	var item = {

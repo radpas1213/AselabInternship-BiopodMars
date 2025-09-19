@@ -1,11 +1,14 @@
 extends CanvasLayer
+class_name HUD
 
-@onready var item_label: Control = $Item_Label
+@onready var item_label: Control = $UI/Item_Label
 @onready var debug_label: Label = $debug
 @onready var time_label : Label = $TimeLabel
 @onready var day_screen := $DayTransitionScreen
 @onready var day_label := $DayTransitionScreen/Label
 @onready var time_overlay: ColorRect = $time_overlay
+@onready var hotbar: Control = $UI/Inventories/Hotbar
+@onready var moving_item: Control = $UI/MovingItem
 
 func _init() -> void:
 	Global.HUD = self
@@ -26,6 +29,8 @@ func _process(delta: float) -> void:
 		day_screen.visible = TimeManager.is_showing_day_screen
 	if time_overlay != null:
 		time_overlay.color = TimeManager.time_color
+	
+	moving_item.position = get_viewport().get_mouse_position()
 	
 	update_item_label()
 

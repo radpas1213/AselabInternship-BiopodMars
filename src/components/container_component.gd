@@ -16,7 +16,7 @@ signal container_updated
 
 func _ready() -> void:
 	initialize_container_slots()
-	container_updated.connect(InventoryManager.update_container_ui)
+	container_updated.connect(ContainerManager.update_container_ui)
 
 func add_item(item: Dictionary):
 	var remaining = item["quantity"]
@@ -52,7 +52,7 @@ func add_item(item: Dictionary):
 
 func remove_item(item: Dictionary) -> void:
 	container_updated.emit()
-	container[container.find(item)] = null
+	container[container.find(item)]["slot"] = null
 
 func initialize_container_slots():
 	container.resize(slot_amount)

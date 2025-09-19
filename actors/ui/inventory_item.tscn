@@ -48,6 +48,7 @@ grow_vertical = 2
 script = ExtResource("1_x1xek")
 
 [node name="Texture" type="Sprite2D" parent="."]
+visible = false
 y_sort_enabled = true
 position = Vector2(8, 8)
 texture = ExtResource("2_e0sqw")
@@ -64,6 +65,7 @@ bar_color = Color(0.25066, 0.801168, 0, 1)
 progress = 100.0
 
 [node name="Count" type="Label" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -96,3 +98,4 @@ theme_override_styles/pressed = SubResource("StyleBoxEmpty_w2sxe")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_nfbwx")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tpf4h")
 action_mode = 0
+button_mask = 3

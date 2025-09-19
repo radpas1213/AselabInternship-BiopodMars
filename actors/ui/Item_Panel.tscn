@@ -1,0 +1,113 @@
+[gd_scene load_steps=17 format=3 uid="uid://blaud4skdywbe"]
+
+[ext_resource type="Texture2D" uid="uid://cqx6odhaj1xl2" path="res://sprites/UI/inventory/panels/item_panel.png" id="1_bjp3a"]
+[ext_resource type="Texture2D" uid="uid://b0fvqhnkvcxy4" path="res://sprites/UI/inventory/panels/button_pressed.png" id="2_873c1"]
+[ext_resource type="Texture2D" uid="uid://6tgia7fsvr20" path="res://sprites/UI/inventory/panels/button_hover.png" id="3_0uiwh"]
+[ext_resource type="Texture2D" uid="uid://dc1gj8njxkc57" path="res://sprites/UI/inventory/panels/button.png" id="4_w3e1w"]
+[ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="5_ut5sa"]
+[ext_resource type="Script" uid="uid://dxyawhvgp7krw" path="res://src/ui/autofit_label.gd" id="6_457n4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ulqwv"]
+texture = ExtResource("2_873c1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rgud5"]
+texture = ExtResource("2_873c1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u8bpr"]
+texture = ExtResource("3_0uiwh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wjpo6"]
+texture = ExtResource("3_0uiwh")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_w0vh1"]
+texture = ExtResource("2_873c1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iqluk"]
+texture = ExtResource("2_873c1")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iw7y5"]
+texture = ExtResource("4_w3e1w")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rql78"]
+texture = ExtResource("4_w3e1w")
+
+[sub_resource type="LabelSettings" id="LabelSettings_836lx"]
+font = ExtResource("5_ut5sa")
+font_size = 7
+font_color = Color(0.117647, 0.160784, 0.215686, 1)
+shadow_color = Color(0, 0, 0, 0.258824)
+shadow_offset = Vector2(-0.81, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ucsyj"]
+font = ExtResource("5_ut5sa")
+font_size = 7
+font_color = Color(0.619608, 0.682353, 0.670588, 1)
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.490196)
+shadow_offset = Vector2(-0.81, 1)
+
+[node name="ItemPanel" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+
+[node name="ItemPanel" type="Sprite2D" parent="."]
+position = Vector2(25, -17.5)
+texture = ExtResource("1_bjp3a")
+
+[node name="DropButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -23.0
+offset_right = 48.0
+offset_bottom = -13.0
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_ulqwv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rgud5")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_u8bpr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wjpo6")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_w0vh1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_iqluk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_iw7y5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_rql78")
+
+[node name="Label" type="Label" parent="DropButton"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 1.0
+offset_right = 44.0
+offset_bottom = 9.0
+text = "Dropaaaaaaaaawwwwwww"
+label_settings = SubResource("LabelSettings_836lx")
+clip_text = true
+visible_characters = -2
+visible_ratio = -0.125
+script = ExtResource("6_457n4")
+scroll_speed = 25.0
+metadata/_custom_type_script = "uid://dxyawhvgp7krw"
+
+[node name="EquipButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 2.0
+offset_top = -12.0
+offset_right = 48.0
+offset_bottom = -2.0
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_ulqwv")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rgud5")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_u8bpr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wjpo6")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxTexture_w0vh1")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_iqluk")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxTexture_iw7y5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_rql78")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = -32.0
+offset_right = 46.0
+offset_bottom = -24.0
+text = "Itemaaaaaaaa"
+label_settings = SubResource("LabelSettings_ucsyj")
+text_overrun_behavior = 3

@@ -4,7 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://bdpsgep842n22" path="res://sprites/progress_bar_col.png" id="2_pymy7"]
 [ext_resource type="Script" uid="uid://yl1yca1uju0l" path="res://src/base/progress_bar.gd" id="3_cv7vp"]
 
-
 [node name="TextureProgressBar" type="TextureProgressBar"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -20,6 +19,7 @@ grow_vertical = 2
 scale = Vector2(0.25, 0.25)
 pivot_offset = Vector2(50, 10)
 step = 0.01
+value = 24.15
 texture_under = ExtResource("1_tgsqi")
 texture_progress = ExtResource("2_pymy7")
 script = ExtResource("3_cv7vp")
