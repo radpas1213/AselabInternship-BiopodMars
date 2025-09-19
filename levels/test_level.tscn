@@ -48,14 +48,12 @@ position = Vector2(216, 88)
 scale = Vector2(0.984727, 1.04367)
 item_resource = ExtResource("6_e7anx")
 item_id = "item_repair_tool"
-disable_interaction = false
 
 [node name="Watering Can" parent="." instance=ExtResource("5_o6mel")]
 position = Vector2(200, 120)
 scale = Vector2(0.984727, 1.04367)
 item_resource = ExtResource("6_wndkh")
 item_id = "item_watering_can"
-disable_interaction = false
 
 [node name="Iron" parent="." instance=ExtResource("5_o6mel")]
 position = Vector2(120, 120)
@@ -63,7 +61,6 @@ scale = Vector2(0.984727, 1.04367)
 item_resource = ExtResource("6_ur00s")
 item_id = "item_iron"
 item_quantity = 256
-disable_interaction = false
 
 [node name="Tiles" type="TileMapLayer" parent="."]
 y_sort_enabled = true

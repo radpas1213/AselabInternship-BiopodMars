@@ -73,9 +73,23 @@ func on_press():
 	else:
 		print(get_parent().get_parent(), text)
 	
-	if get_parent().get_parent() is ContainerUI: 
-		if item_resource != null:
+	var slot = ContainerManager.player_inventory.container[slot_index]
+	# Case 1: slot has an item
+	if item_resource != null:
+		if ContainerManager.moving_item == null:
+			# Pick it up
 			ContainerManager.pickup_container_item(slot_index, get_parent().get_parent())
-		elif item_resource == null:
-			#pass
+		else:
+			# Switch items
+			if slot["tool_only"] and not ContainerManager.moving_item["is_tool"]:
+				# Prevent putting non-tool in tool-only slot
+				return
+			ContainerManager.switch_container_item(slot_index, get_parent().get_parent())
+
+	# Case 2: slot empty
+	else:
+		if ContainerManager.moving_item != null:
+			if slot["tool_only"] and not ContainerManager.moving_item["is_tool"]:
+				# Prevent putting non-tool in tool-only slot
+				return
 			ContainerManager.put_down_container_item(slot_index, get_parent().get_parent())

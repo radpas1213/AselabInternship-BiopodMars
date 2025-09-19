@@ -56,6 +56,8 @@ func pickup_container_item(slot_index: int, container_ui: ContainerUI):
 		moving_item = container_ui.linked_container.container[slot_index]["slot"]
 		container_ui.linked_container.container[slot_index]["slot"] = null
 		Global.HUD.moving_item.get_child(0).item_resource = moving_item["resource"]
+		Global.HUD.moving_item.get_child(0).item_quantity = moving_item["quantity"]
+		Global.HUD.moving_item.get_child(0).item_durability = moving_item["durability"]
 	update_container_ui()
 
 func put_down_container_item(slot_index: int, container_ui: ContainerUI):
@@ -63,6 +65,28 @@ func put_down_container_item(slot_index: int, container_ui: ContainerUI):
 		container_ui.linked_container.container[slot_index]["slot"] = moving_item
 		moving_item = null
 		Global.HUD.moving_item.get_child(0).item_resource = null
+	update_container_ui()
+	
+func switch_container_item(slot_index: int, container_ui: ContainerUI):
+	if moving_item != null:
+		# Get the slot reference
+		var slot = container_ui.linked_container.container[slot_index]
+		# Keep the item currently in the slot
+		var slot_item = slot["slot"]
+		# Place moving_item into the slot
+		slot["slot"] = moving_item
+		# Now set moving_item to what was in the slot
+		moving_item = slot_item
+		# Update HUD preview
+		if moving_item != null:
+			Global.HUD.moving_item.get_child(0).item_resource = moving_item["resource"]
+			Global.HUD.moving_item.get_child(0).item_quantity = moving_item["quantity"]
+			Global.HUD.moving_item.get_child(0).item_durability = moving_item["durability"]
+		else:
+			# Clear HUD preview if nothing is in cursor
+			Global.HUD.moving_item.get_child(0).item_resource = null
+			Global.HUD.moving_item.get_child(0).item_quantity = 0
+			Global.HUD.moving_item.get_child(0).item_durability = 0
 	update_container_ui()
 
 func update_container_ui() -> void:
