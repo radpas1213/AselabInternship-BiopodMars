@@ -22,6 +22,7 @@ var slot_index: int
 @export var disable_button: bool = false
 
 var default_texture: Texture2D = ResourceLoader.load("res://sprites/actors/item_placeholder.png")
+var rmb_hold: bool = false
 
 func _ready() -> void:
 	button.disabled = disable_button
@@ -31,6 +32,8 @@ func _ready() -> void:
 	initialize_item()
 	if not Engine.is_editor_hint():
 		button.pressed.connect(on_press)
+		button.gui_input.connect(on_input)
+		button.mouse_entered.connect(on_mouse_enter)
 		if get_parent() is GridContainer:
 			slot_index = get_index()
 		if manual_slot_index_override != -1:
@@ -39,6 +42,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	initialize_item()
 	item_visibility()
+	rmb_hold = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
 
 func initialize_item():
 	if self != null and item_resource != null:
@@ -72,24 +76,51 @@ func on_press():
 		print(get_parent(), text)
 	else:
 		print(get_parent().get_parent(), text)
-	
-	var slot = ContainerManager.player_inventory.container[slot_index]
-	# Case 1: slot has an item
-	if item_resource != null:
-		if ContainerManager.moving_item == null:
-			# Pick it up
-			ContainerManager.pickup_container_item(slot_index, get_parent().get_parent())
-		else:
-			# Switch items
-			if slot["tool_only"] and not ContainerManager.moving_item["is_tool"]:
-				# Prevent putting non-tool in tool-only slot
-				return
-			ContainerManager.switch_container_item(slot_index, get_parent().get_parent())
 
-	# Case 2: slot empty
-	else:
+func on_mouse_enter():
+	if rmb_hold:
 		if ContainerManager.moving_item != null:
-			if slot["tool_only"] and not ContainerManager.moving_item["is_tool"]:
-				# Prevent putting non-tool in tool-only slot
-				return
-			ContainerManager.put_down_container_item(slot_index, get_parent().get_parent())
+			var container_ui := get_parent().get_parent()
+			# Handle tool-only restriction
+			ContainerManager.put_down_one_container_item(slot_index, container_ui)
+
+func on_input(event: InputEvent):
+	if event is InputEventMouseButton:
+		if event.is_pressed():
+			var container_ui := get_parent().get_parent()
+			var slot = container_ui.linked_container.container[slot_index]["slot"]
+			# LEFT CLICK LOGIC
+			if event.button_index == MOUSE_BUTTON_LEFT:
+				# Case 1: slot has an item
+				if item_resource != null:
+					if ContainerManager.moving_item == null:
+						# Pick up
+						ContainerManager.pickup_container_item(slot_index, container_ui)
+					else:
+						if slot["resource"] == ContainerManager.moving_item["resource"]:
+							ContainerManager.put_down_container_item(slot_index, container_ui)
+						else:
+							# Different item → swap (check tool-only restriction first)
+							if container_ui.player_inventory \
+							and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
+							and not ContainerManager.moving_item["is_tool"]:
+								return
+							ContainerManager.switch_container_item(slot_index, container_ui)
+				# Case 2: slot empty
+				else:
+					if ContainerManager.moving_item != null:
+						# Tool slot restriction
+						if container_ui.player_inventory \
+						and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
+						and not ContainerManager.moving_item["is_tool"]:
+							return
+						ContainerManager.put_down_container_item(slot_index, container_ui)
+			# RIGHT CLICK LOGIC
+			if event.button_index == MOUSE_BUTTON_RIGHT:
+				if ContainerManager.moving_item != null:
+					# Tool slot restriction
+					if container_ui.player_inventory \
+					and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
+					and not ContainerManager.moving_item["is_tool"]:
+						return
+					ContainerManager.put_down_one_container_item(slot_index, container_ui)

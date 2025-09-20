@@ -15,22 +15,34 @@ shadow_color = Color(0, 0, 0, 0.509804)
 shadow_offset = Vector2(-0.81, 1)
 
 [node name="PlayerInventory" type="Control"]
+custom_minimum_size = Vector2(40, 40)
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(28, 43.5)
 script = ExtResource("1_cv1ii")
 player_inventory = true
 metadata/_custom_type_script = "uid://cvvwd5j748qtj"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(20, 20)
+position = Vector2(20, 28)
 texture = ExtResource("1_52bdt")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = -5.0
-offset_top = -34.0
+offset_top = -26.0
 offset_right = 45.0
-offset_bottom = -22.0
+offset_bottom = -14.0
 text = "Inventory"
 label_settings = SubResource("LabelSettings_r1fvx")
 vertical_alignment = 1
@@ -45,9 +57,10 @@ metadata/_custom_type_script = "uid://dxyawhvgp7krw"
 [node name="ItemGrid" type="GridContainer" parent="."]
 layout_mode = 0
 offset_left = -5.0
-offset_top = -20.0
-offset_right = 35.0
-offset_bottom = 20.0
+offset_top = -12.0
+offset_right = 45.0
+offset_bottom = 55.0
+mouse_filter = 2
 theme_override_constants/h_separation = 1
 theme_override_constants/v_separation = 1
 columns = 3
@@ -89,13 +102,18 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LastSlot" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 
 [node name="InventoryItem" parent="LastSlot" instance=ExtResource("3_nrne1")]
 layout_mode = 1
-offset_top = 35.0
-offset_bottom = 51.0
+offset_top = 43.0
+offset_bottom = 59.0
 manual_slot_index_override = 12

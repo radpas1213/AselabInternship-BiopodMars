@@ -14,3 +14,4 @@ texture = ExtResource("2_4ljsg")
 
 [node name="InteractionComponent" parent="." instance=ExtResource("4_fhfel")]
 collision_size = 12.0
+interact_mode = 1

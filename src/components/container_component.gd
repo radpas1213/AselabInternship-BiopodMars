@@ -16,7 +16,7 @@ signal container_updated
 
 func _ready() -> void:
 	initialize_container_slots()
-	container_updated.connect(ContainerManager.update_container_ui)
+	container_updated.connect(update_container)
 
 func add_item(item: Dictionary):
 	var remaining = item["quantity"]
@@ -50,10 +50,6 @@ func add_item(item: Dictionary):
 	# If we reach here, container is full and some items didn’t fit
 	return false
 
-func remove_item(item: Dictionary) -> void:
-	container_updated.emit()
-	container[container.find(item)]["slot"] = null
-
 func initialize_container_slots():
 	container.resize(slot_amount)
 	print("Container initialized with ", slot_amount, " slots")
@@ -67,3 +63,9 @@ func initialize_container_slots():
 		if not hotbar_slots.is_empty() and i in hotbar_slots:
 			container[i]["tool_only"] = true
 			print("Slot ",i," is now a hotbar slot")
+
+func update_container():
+	ContainerManager.update_container_ui()
+	for i in range(container.size()):
+		if container[i]["slot"] != null and container[i]["slot"]["quantity"] < 1:
+			container[i]["slot"] = null

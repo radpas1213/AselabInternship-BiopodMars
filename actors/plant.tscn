@@ -20,6 +20,9 @@ texture = ExtResource("2_4isd2")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_mvpqy")
 
+[node name="InteractionComponent" parent="." instance=ExtResource("4_4isd2")]
+interact_mode = 0
+
 [node name="StatComponent" type="Node2D" parent="." node_paths=PackedStringArray("health_bar", "water_bar")]
 script = ExtResource("5_u0axf")
 health_bar = NodePath("HealthBar")
@@ -27,6 +30,7 @@ water_bar = NodePath("WaterBar")
 metadata/_custom_type_script = "uid://buky2c38fbbep"
 
 [node name="WaterBar" parent="StatComponent" instance=ExtResource("4_jmanq")]
+value = 0.0
 tint_progress = Color(0, 0.502551, 0.870167, 1)
 bar_color = Color(0, 0.502551, 0.870167, 1)
 progress = 0.0
@@ -34,8 +38,7 @@ progress = 0.0
 [node name="HealthBar" parent="StatComponent" instance=ExtResource("4_jmanq")]
 offset_top = -24.0
 offset_bottom = 16.0
+value = 0.0
 tint_progress = Color(1, 0, 0, 1)
 bar_color = Color(1, 0, 0, 1)
 progress = 0.0
-
-[node name="InteractionComponent" parent="." instance=ExtResource("4_4isd2")]

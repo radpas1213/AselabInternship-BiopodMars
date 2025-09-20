@@ -38,10 +38,6 @@ func _process(delta: float) -> void:
 	_handle_sprites()
 	_handle_held_item()
 
-func _input(event: InputEvent) -> void:
-	if Input.is_key_pressed(KEY_0):
-		ContainerManager.equip_tool(0)
-
 func _handle_sprites():
 	var target_anim = target_animation()
 	sprite.flip_h = movement.current_direction == 0

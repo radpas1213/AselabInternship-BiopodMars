@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://dcplp1jhkp36o"]
+[gd_scene load_steps=12 format=4 uid="uid://dcplp1jhkp36o"]
 
 [ext_resource type="PackedScene" uid="uid://elevlirk2wiw" path="res://actors/player.tscn" id="1_46lwt"]
 [ext_resource type="PackedScene" uid="uid://bynqxpsbof47b" path="res://actors/Camera.tscn" id="2_w7r7j"]
@@ -8,6 +8,7 @@
 [ext_resource type="Resource" uid="uid://b4tum4mfgq0x5" path="res://data/items/item_iron.tres" id="6_ur00s"]
 [ext_resource type="Resource" uid="uid://c6m0elr2hlbkt" path="res://data/items/item_watering_can.tres" id="6_wndkh"]
 [ext_resource type="TileSet" uid="uid://kigso6olc1p6" path="res://sprites/tilesets/interior_tileset.tres" id="7_ur00s"]
+[ext_resource type="PackedScene" uid="uid://dj7rrem70gdbr" path="res://actors/storage_container.tscn" id="9_ly3hx"]
 
 [sub_resource type="Gradient" id="Gradient_e7anx"]
 interpolation_mode = 2
@@ -114,3 +115,6 @@ shadow_enabled = true
 shadow_filter = 1
 texture = SubResource("GradientTexture2D_ur00s")
 texture_scale = 3.8
+
+[node name="StorageContainer" parent="." instance=ExtResource("9_ly3hx")]
+position = Vector2(72, 40)

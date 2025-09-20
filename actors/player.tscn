@@ -302,7 +302,7 @@ metadata/_custom_type_script = "uid://buky2c38fbbep"
 script = ExtResource("6_er1rk")
 slot_amount = 13
 hotbar_slots = PackedInt64Array(12)
-container_name_ui = "Inventory asdasdasdasd"
+container_name_ui = "Inventory"
 metadata/_custom_type_script = "uid://b6p3lpb0yn2rr"
 
 [node name="StateMachineComponent" type="Node" parent="."]

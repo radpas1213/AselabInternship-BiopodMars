@@ -43,7 +43,7 @@ func update_item_label():
 			if area_owner is Item:
 				if item_label.get_child(0).text != area_owner.item_resource.item_name:
 					item_label.get_child(0).text = area_owner.item_resource.item_name
-			if area_owner is Plant:
+			else:
 				if item_label.get_child(0).text != area_owner.label_text:
 					item_label.get_child(0).text = area_owner.label_text
 

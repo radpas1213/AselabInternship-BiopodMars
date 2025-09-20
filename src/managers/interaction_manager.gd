@@ -29,8 +29,17 @@ func _sort_by_distance_to_player(area1: InteractionComponent, area2: Interaction
 	return area1_to_plr < area2_to_plr
 
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_pressed("interact") and can_interact:
-		if active_areas.size() > 0:
-			can_interact = false
-			await active_areas.front().interact.call()
-			can_interact = true
+	if not active_areas.is_empty() and active_areas.front().interact_mode == 0:
+		if Input.is_action_pressed("interact") and can_interact:
+			if active_areas.size() > 0:
+				can_interact = false
+				await active_areas.front().interact.call()
+				can_interact = true
+
+func _input(event: InputEvent) -> void:
+	if not active_areas.is_empty() and active_areas.front().interact_mode == 1:
+		if event.is_action_pressed("interact") and can_interact:
+			if active_areas.size() > 0:
+				can_interact = false
+				await active_areas.front().interact.call()
+				can_interact = true

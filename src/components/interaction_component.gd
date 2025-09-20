@@ -7,9 +7,14 @@ class_name InteractionComponent
 	set(value):
 		collision_size = value
 		_update_col_rad()
+@export_enum("Hold","Toggle") var interact_mode: int
 
 var show_debug: bool = false
 var interact: Callable = func():
+	pass
+var on_enter: Callable = func():
+	pass
+var on_exit: Callable = func():
 	pass
 var type: Node2D
 
@@ -23,10 +28,12 @@ func _on_body_entered(body: Node2D) -> void:
 	if not Engine.is_editor_hint():
 		Global.HUD.show_item_label(self)
 		InteractionManager.register_area(self)
+		on_enter.call()
 	
 func _on_body_exited(body: Node2D) -> void:
 	if not Engine.is_editor_hint():
 		InteractionManager.unregister_area(self)
+		on_exit.call()
 	
 func _process(delta: float) -> void:
 	if Engine.is_editor_hint():
