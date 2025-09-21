@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://blaud4skdywbe"]
+[gd_scene load_steps=20 format=3 uid="uid://blaud4skdywbe"]
 
 [ext_resource type="Texture2D" uid="uid://cqx6odhaj1xl2" path="res://sprites/UI/inventory/panels/item_panel.png" id="1_bjp3a"]
 [ext_resource type="Texture2D" uid="uid://b0fvqhnkvcxy4" path="res://sprites/UI/inventory/panels/button_pressed.png" id="2_873c1"]
@@ -37,6 +37,12 @@ font_size = 7
 font_color = Color(0.117647, 0.160784, 0.215686, 1)
 shadow_color = Color(0, 0, 0, 0.258824)
 shadow_offset = Vector2(-0.81, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bjp3a"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_873c1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0uiwh"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ucsyj"]
 font = ExtResource("5_ut5sa")
@@ -93,6 +99,9 @@ offset_left = 2.0
 offset_top = -12.0
 offset_right = 48.0
 offset_bottom = -2.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bjp3a")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_873c1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_0uiwh")
 theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxTexture_ulqwv")
 theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_rgud5")
 theme_override_styles/hover_mirrored = SubResource("StyleBoxTexture_u8bpr")

@@ -101,3 +101,11 @@ theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_nfbwx")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_tpf4h")
 action_mode = 0
 button_mask = 3
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 16.0
+offset_bottom = 16.0
+mouse_filter = 2
+color = Color(1, 1, 1, 0.137255)

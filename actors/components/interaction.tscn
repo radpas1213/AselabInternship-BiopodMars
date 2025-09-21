@@ -10,7 +10,6 @@ collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_7jcmb")
 collision_size = 25.0
-interact_mode = null
 metadata/_custom_type_script = "uid://bjgb1seu0ul60"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

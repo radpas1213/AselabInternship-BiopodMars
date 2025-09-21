@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_ipqvo")
 item_name = "Repair Tool"
-is_tool = true
+item_type = 2
 max_stack = 1
 texture = ExtResource("2_ughy4")
 texture_size = 0.875

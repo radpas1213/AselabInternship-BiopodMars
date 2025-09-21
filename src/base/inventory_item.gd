@@ -6,6 +6,7 @@ class_name InventoryItem
 @onready var count_label: Label = $Count
 @onready var durability_bar: TextureProgressBar = $DurabilityBar
 @onready var button: Button = $Button
+@onready var highlight : ColorRect = $ColorRect
 var slot_index: int
 
 ## Item data for this item. Data item untuk item ini.
@@ -22,9 +23,10 @@ var slot_index: int
 @export var disable_button: bool = false
 
 var default_texture: Texture2D = ResourceLoader.load("res://sprites/actors/item_placeholder.png")
-var rmb_hold: bool = false
+var draw_hover_rect := false
 
 func _ready() -> void:
+	highlight.hide()
 	button.disabled = disable_button
 	mouse_filter = Control.MOUSE_FILTER_IGNORE if disable_button else Control.MOUSE_FILTER_STOP
 	button.mouse_filter = Control.MOUSE_FILTER_IGNORE if disable_button else Control.MOUSE_FILTER_STOP
@@ -42,7 +44,9 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	initialize_item()
 	item_visibility()
-	rmb_hold = Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT)
+	if not Engine.is_editor_hint():
+		if get_parent().name != "MovingItem":
+			highlight.visible = is_mouse_on_slot(button)
 
 func initialize_item():
 	if self != null and item_resource != null:
@@ -64,7 +68,7 @@ func item_visibility():
 	var visibility: bool = item_resource != null
 	sprite.visible = visibility
 	count_label.visible = visibility and item_quantity != 1
-	durability_bar.visible = visibility and item_resource.is_tool
+	durability_bar.visible = visibility and item_resource.item_type == 2
 
 func on_press():
 	var text: String
@@ -78,49 +82,85 @@ func on_press():
 		print(get_parent().get_parent(), text)
 
 func on_mouse_enter():
-	if rmb_hold:
+	if Global.player.inputs.rmb_held:
 		if ContainerManager.moving_item != null:
 			var container_ui := get_parent().get_parent()
 			# Handle tool-only restriction
 			ContainerManager.put_down_one_container_item(slot_index, container_ui)
 
+func is_mouse_on_slot(slot: Control) -> bool:
+	var mouse_pos = get_viewport().get_mouse_position()
+	var slot_rect = slot.get_global_rect()
+	return slot_rect.has_point(mouse_pos)
+
 func on_input(event: InputEvent):
-	if event is InputEventMouseButton:
-		if event.is_pressed():
-			var container_ui := get_parent().get_parent()
-			var slot = container_ui.linked_container.container[slot_index]["slot"]
-			# LEFT CLICK LOGIC
-			if event.button_index == MOUSE_BUTTON_LEFT:
-				# Case 1: slot has an item
-				if item_resource != null:
-					if ContainerManager.moving_item == null:
-						# Pick up
-						ContainerManager.pickup_container_item(slot_index, container_ui)
+	if event is InputEventMouseButton and event.is_pressed():
+		var container_ui := get_parent().get_parent()
+		# SHIFT CLICK (Quick move)
+		if event.button_index == MOUSE_BUTTON_LEFT and Global.player.inputs.shift_held:
+			if container_ui.linked_container.container[slot_index]["slot"] != null:
+				# Decide where to send it
+				var target_container_ui: ContainerUI = null
+				if container_ui == ContainerManager.player_inventory_ui:
+					if ContainerManager.currently_opened_container_ui != null \
+					and ContainerManager.currently_opened_container_ui.visible:
+						# Player inventory → send to opened container
+						target_container_ui = ContainerManager.currently_opened_container_ui
 					else:
-						if slot["resource"] == ContainerManager.moving_item["resource"]:
+						# Only player inventory open → quick move within itself
+						target_container_ui = ContainerManager.player_inventory_ui
+				else:
+					# From container → send to player inventory
+					target_container_ui = ContainerManager.player_inventory_ui
+				if target_container_ui != null:
+					ContainerManager.quick_move_item(slot_index, container_ui, target_container_ui)
+				return  # Prevent normal logic from running
+		# LEFT CLICK LOGIC
+		if event.button_index == MOUSE_BUTTON_LEFT:
+			# Case 1: slot has an item
+			if item_resource != null:
+				if ContainerManager.moving_item == null:
+					# Pick up
+					ContainerManager.pickup_container_item(slot_index, container_ui)
+				else:
+					# Same item → try stacking
+					if container_ui.linked_container.container[slot_index]["slot"]["resource"] == ContainerManager.moving_item["resource"]:
+						var max_stack_size = ContainerManager.moving_item.get("max_stack", 16)
+						if container_ui.linked_container.container[slot_index]["slot"]["quantity"] < max_stack_size:
 							ContainerManager.put_down_container_item(slot_index, container_ui)
 						else:
-							# Different item → swap (check tool-only restriction first)
+							# Full → fallback to swap
 							if container_ui.player_inventory \
 							and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
-							and not ContainerManager.moving_item["is_tool"]:
+							and not ContainerManager.moving_item["type"] == 2:
 								return
 							ContainerManager.switch_container_item(slot_index, container_ui)
-				# Case 2: slot empty
-				else:
-					if ContainerManager.moving_item != null:
-						# Tool slot restriction
+					else:
+						# Different item → swap
 						if container_ui.player_inventory \
 						and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
-						and not ContainerManager.moving_item["is_tool"]:
+						and not ContainerManager.moving_item["type"] == 2:
 							return
-						ContainerManager.put_down_container_item(slot_index, container_ui)
-			# RIGHT CLICK LOGIC
-			if event.button_index == MOUSE_BUTTON_RIGHT:
+						ContainerManager.switch_container_item(slot_index, container_ui)
+			# Case 2: slot empty
+			else:
 				if ContainerManager.moving_item != null:
 					# Tool slot restriction
 					if container_ui.player_inventory \
 					and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
-					and not ContainerManager.moving_item["is_tool"]:
+					and not ContainerManager.moving_item["type"] == 2:
 						return
-					ContainerManager.put_down_one_container_item(slot_index, container_ui)
+					ContainerManager.put_down_container_item(slot_index, container_ui)
+		# RIGHT CLICK LOGIC
+		elif event.button_index == MOUSE_BUTTON_RIGHT:
+			if ContainerManager.moving_item != null:
+				# Tool slot restriction
+				if container_ui.player_inventory \
+				and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
+				and not ContainerManager.moving_item["type"] == 2:
+					return
+				ContainerManager.put_down_one_container_item(slot_index, container_ui)
+			if item_resource != null:
+				if ContainerManager.moving_item == null:
+					# Pick up
+					ContainerManager.pickup_container_item(slot_index, container_ui, true)

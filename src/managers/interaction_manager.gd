@@ -14,7 +14,7 @@ func unregister_area(area: InteractionComponent):
 		active_areas.remove_at(index)
 
 func _process(_delta: float) -> void:
-	# tells godot to sort the cards based on distance to the player
+	# tells godot to sort the areas based on distance to the player
 	if active_areas.size() > 0 && can_interact:
 		active_areas.sort_custom(_sort_by_distance_to_player)
 

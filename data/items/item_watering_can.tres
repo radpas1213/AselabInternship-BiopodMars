@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_2rp7b")
 item_name = "Watering Can"
-is_tool = true
+item_type = 2
 max_stack = 1
 texture = ExtResource("2_s1hhd")
 texture_size = 0.875

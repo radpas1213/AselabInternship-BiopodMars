@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_101ey")
 item_name = "Iron"
-is_tool = false
+item_type = 1
 max_stack = 16
 texture = ExtResource("2_101ey")
 texture_size = 0.875

@@ -18,25 +18,55 @@ func _ready() -> void:
 	initialize_container_slots()
 	container_updated.connect(update_container)
 
-func add_item(item: Dictionary):
+func add_item(item: Dictionary) -> bool:
+	var slot_index
 	var remaining = item["quantity"]
-	# Pass 1: fill existing stacks of same item
+	# --- Special case: tools → try hotbar first (slot 12) ---
+	if item.get("type", 0) == 2:
+		var hotbar_slot = container[12]["slot"]
+		if hotbar_slot == null:
+			# Insert tool directly into slot 12
+			var new_stack = item.duplicate(true)
+			new_stack["quantity"] = min(remaining, item["max_stack"])
+			container[12]["slot"] = new_stack
+			remaining -= new_stack["quantity"]
+			container_updated.emit()
+			slot_index = 12
+			print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " at slot ",slot_index)
+			if remaining <= 0:
+				return true
+		elif hotbar_slot["resource"] == item["resource"] and hotbar_slot["quantity"] < item["max_stack"]:
+			# Merge into existing tool stack in slot 12
+			var space = item["max_stack"] - hotbar_slot["quantity"]
+			var to_add = min(remaining, space)
+			hotbar_slot["quantity"] += to_add
+			remaining -= to_add
+			container_updated.emit()
+			print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " at slot ",slot_index)
+			if remaining <= 0:
+				return true
+		# If hotbar slot is full or contains another item → fall through
+	# --- Pass 1: fill existing stacks of same item ---
 	for i in range(container.size()):
-		if container[i]["slot"] != null and \
-		container[i]["slot"]["id"] == item["id"] and \
-		container[i]["slot"]["quantity"] < item["max_stack"]:
-			# respect tool_only slot restriction
+		if container[i]["slot"] != null \
+		and container[i]["slot"]["resource"] == item["resource"] \
+		and container[i]["slot"]["quantity"] < item["max_stack"]:
+			# Respect tool_only slot restriction
+			if container[i]["tool_only"] and not item.get("type", 0) == 2:
+				continue
 			var space = item["max_stack"] - container[i]["slot"]["quantity"]
 			var to_add = min(remaining, space)
 			container[i]["slot"]["quantity"] += to_add
 			remaining -= to_add
 			container_updated.emit()
+			slot_index = i
+			print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " at slot ",slot_index)
 			if remaining <= 0:
 				return true  # fully added
-	# Pass 2: insert into empty slots
+	# --- Pass 2: insert into empty slots ---
 	for i in range(container.size()):
-		# respect tool_only slot restriction
-		if container[i]["tool_only"] and not item.get("is_tool", true):
+		# Respect tool_only slot restriction
+		if container[i]["tool_only"] and not item.get("type", 0) == 2:
 			continue
 		if container[i]["slot"] == null and remaining > 0:
 			var new_stack = item.duplicate(true)
@@ -44,11 +74,12 @@ func add_item(item: Dictionary):
 			container[i]["slot"] = new_stack
 			remaining -= new_stack["quantity"]
 			container_updated.emit()
-			#print("item inserted at slot ", i)
+			slot_index = i
+			print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " at slot ",slot_index)
 			if remaining <= 0:
 				return true
-	# If we reach here, container is full and some items didn’t fit
-	return false
+	# --- If we reach here, container is full ---
+	return remaining <= 0
 
 func initialize_container_slots():
 	container.resize(slot_amount)

@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=4 uid="uid://dcplp1jhkp36o"]
+[gd_scene load_steps=13 format=4 uid="uid://dcplp1jhkp36o"]
 
+[ext_resource type="Script" uid="uid://bgwh5mnscm0op" path="res://src/test_level.gd" id="1_4n8tn"]
 [ext_resource type="PackedScene" uid="uid://elevlirk2wiw" path="res://actors/player.tscn" id="1_46lwt"]
 [ext_resource type="PackedScene" uid="uid://bynqxpsbof47b" path="res://actors/Camera.tscn" id="2_w7r7j"]
 [ext_resource type="PackedScene" uid="uid://boqlyfsnfjjh7" path="res://actors/plant.tscn" id="4_w7r7j"]
@@ -22,6 +23,7 @@ fill_to = Vector2(1, 0.5)
 
 [node name="TestLevel" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_4n8tn")
 
 [node name="Player" parent="." instance=ExtResource("1_46lwt")]
 y_sort_enabled = true
@@ -118,3 +120,6 @@ texture_scale = 3.8
 
 [node name="StorageContainer" parent="." instance=ExtResource("9_ly3hx")]
 position = Vector2(72, 40)
+
+[node name="StorageContainer2" parent="." instance=ExtResource("9_ly3hx")]
+position = Vector2(72, 24)

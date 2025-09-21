@@ -11,15 +11,24 @@ func _ready() -> void:
 	interaction.on_exit = Callable(self, "hide_ui")
 	interaction.on_enter = Callable(self, "show_ui")
 
+func _process(delta: float) -> void:
+	if not InteractionManager.active_areas.is_empty():
+		if InteractionManager.active_areas.front().owner is ContainerComponent and\
+		 ContainerManager.inventory_opened:
+			ContainerManager.show_container_ui(InteractionManager.active_areas.front().owner.container)
+
 func interact():
 	if not ContainerManager.inventory_opened:
-		ContainerManager.show_container_ui(container)
+		if not InteractionManager.active_areas.is_empty():
+			ContainerManager.show_container_ui(InteractionManager.active_areas.front().owner.container)
 	else:
 		ContainerManager.hide_container_ui()
 
 func hide_ui():
-	ContainerManager.currently_opened_container_ui.hide_ui()
+	if InteractionManager.active_areas.is_empty():
+		ContainerManager.hide_container_ui(true)
 
 func show_ui():
 	if ContainerManager.inventory_opened:
-		ContainerManager.currently_opened_container_ui.show_ui()
+		if not InteractionManager.active_areas.is_empty():
+			ContainerManager.show_container_ui(InteractionManager.active_areas.front().owner.container)

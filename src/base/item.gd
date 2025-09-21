@@ -56,7 +56,7 @@ func pickup_item():
 		"name": item_resource.item_name,
 		"id": get_id(),
 		"resource": item_resource,
-		"is_tool": item_resource.is_tool,
+		"type": item_resource.item_type,
 		"texture": item_resource.texture,
 		"texture_size": item_resource.texture_size,
 		"quantity": item_quantity,
