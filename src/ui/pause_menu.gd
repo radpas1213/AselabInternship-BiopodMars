@@ -1,7 +1,7 @@
 extends Control
 
-@onready var resume_button: Button = $MenuPanel/VBoxContainer/ResumeButton
-@onready var quit_button: Button = $MenuPanel/VBoxContainer/QuitButton
+@onready var resume_button: Button = $VBoxContainer/ResumeButton
+@onready var quit_button: Button = $VBoxContainer/QuitButton
 
 func _ready() -> void:
 	if not resume_button.pressed.is_connected(_on_resume_pressed):
@@ -35,4 +35,4 @@ func _on_resume_pressed() -> void:
 
 func _on_quit_pressed() -> void:
 	get_tree().paused = false
-	get_tree().change_scene_to_file("res://menu/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://menu/menu_main.tscn")

@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://djoqjo06pswg3"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qion4"]
+load_path = "res://.godot/imported/cursor.png-368779234fa824d28c53feeb6de7baab.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_fu8rk"]
+load_path = "res://.godot/imported/cursor_click.png-646b18701e352169b2cc3f6e1c0b8794.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2478l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_qion4")
+}, {
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_fu8rk")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Cursor" type="Node2D"]
+
+[node name="CursorSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 2)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_2478l")
+autoplay = "default"

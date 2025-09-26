@@ -1,22 +1,33 @@
-[gd_scene load_steps=14 format=3 uid="uid://dtgjuofcfh030"]
+[gd_scene load_steps=20 format=3 uid="uid://dtgjuofcfh030"]
 
 [ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/base/HUD.gd" id="1_gg34b"]
 [ext_resource type="Script" uid="uid://qnma6ontuvbs" path="res://src/ui/pause_menu.gd" id="2_86in6"]
 [ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="2_fuh1x"]
 [ext_resource type="Texture2D" uid="uid://vr3o6nhlddwa" path="res://sprites/UI/bars/health_bar_bg.png" id="3_817h3"]
+[ext_resource type="Texture2D" uid="uid://d3q0cqm7b8pim" path="res://sprites/UI/bars/health_icon.png" id="3_vjdpb"]
 [ext_resource type="Texture2D" uid="uid://gj5ebqym4o3t" path="res://sprites/UI/bars/health_bar_frame.png" id="4_hi46l"]
 [ext_resource type="Texture2D" uid="uid://b6ocu0draocv1" path="res://sprites/UI/bars/health_bar.png" id="5_1e7va"]
 [ext_resource type="Texture2D" uid="uid://c34wuu8gdhqsc" path="res://sprites/UI/inventory/hotbar.png" id="6_1e7va"]
 [ext_resource type="PackedScene" uid="uid://b8wtyqprnh4ut" path="res://actors/ui/Inventory_UI.tscn" id="7_5s1vc"]
-[ext_resource type="PackedScene" uid="uid://cyxwpkuvtx1o1" path="res://actors/components/label.tscn" id="7_hi46l"]
+[ext_resource type="PackedScene" uid="uid://cyxwpkuvtx1o1" path="res://actors/ui/item_label.tscn" id="7_hi46l"]
 [ext_resource type="Script" uid="uid://cvvwd5j748qtj" path="res://src/ui/containers/container_ui.gd" id="8_5s1vc"]
+[ext_resource type="Texture2D" uid="uid://pmw17hpcse7j" path="res://sprites/UI/bars/health_icon_frame.png" id="8_ptbar"]
 [ext_resource type="PackedScene" uid="uid://c83olw5gs380b" path="res://actors/ui/inventory_item.tscn" id="9_gdnib"]
+[ext_resource type="PackedScene" uid="uid://lsispv2cyd8v" path="res://actors/ui/menu_button.tscn" id="13_ih4kc"]
+[ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="14_ots6i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ih4kc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg34b"]
 bg_color = Color(0, 0, 0, 0.427451)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_86in6"]
-bg_color = Color(0.187176, 0.187176, 0.187176, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_luvi2"]
+font = ExtResource("14_ots6i")
+font_size = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_ots6i"]
+font = ExtResource("14_ots6i")
+font_size = 6
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_gg34b")
@@ -60,29 +71,46 @@ grow_vertical = 2
 [node name="Item_Label" parent="UI" instance=ExtResource("7_hi46l")]
 layout_mode = 1
 
-[node name="HealthBar" parent="UI" instance=ExtResource("2_fuh1x")]
+[node name="Bars" type="Control" parent="UI"]
 layout_mode = 1
 anchors_preset = 2
-anchor_left = 0.0
 anchor_top = 1.0
-anchor_right = 0.0
 anchor_bottom = 1.0
-offset_left = 1.49
-offset_top = -20.025
-offset_right = 101.49
-offset_bottom = 19.975
-grow_horizontal = 1
+offset_top = -40.0
+offset_right = 40.0
 grow_vertical = 0
-scale = Vector2(0.75, 0.75)
+
+[node name="HealthBar" parent="UI/Bars" node_paths=PackedStringArray("health_icon") instance=ExtResource("2_fuh1x")]
+layout_mode = 1
+offset_left = -2.0
+offset_top = 1.0
+offset_right = 98.0
+offset_bottom = 41.0
+scale = Vector2(1, 1)
 step = 0.1
-value = 100.0
 rounded = true
 texture_under = ExtResource("3_817h3")
 texture_over = ExtResource("4_hi46l")
 texture_progress = ExtResource("5_1e7va")
-tint_progress = Color(0.448285, 0.989666, 0, 1)
-bar_color = Color(0.448285, 0.989666, 0, 1)
-progress = 100.0
+tint_progress = Color(0, 1, 0, 1)
+bar_color = Color(0, 1, 0, 1)
+bar_colors = {
+0.5: Color(0.09, 0.0297, 0.0297, 1),
+15.0: Color(1, 0.275833, 0.21, 1),
+40.0: Color(1, 0.866667, 0, 1)
+}
+health_icon = NodePath("HealthIcon")
+
+[node name="HealthIcon" type="Sprite2D" parent="UI/Bars/HealthBar"]
+modulate = Color(0, 1, 0, 1)
+material = SubResource("ShaderMaterial_ih4kc")
+position = Vector2(34, 9)
+texture = ExtResource("3_vjdpb")
+
+[node name="HealthIconFrame" type="Sprite2D" parent="UI/Bars/HealthBar"]
+material = SubResource("ShaderMaterial_ih4kc")
+position = Vector2(34, 9)
+texture = ExtResource("8_ptbar")
 
 [node name="Inventories" parent="UI" instance=ExtResource("7_5s1vc")]
 layout_mode = 1
@@ -110,13 +138,13 @@ metadata/_custom_type_script = "uid://cvvwd5j748qtj"
 position = Vector2(14, 14)
 texture = ExtResource("6_1e7va")
 
-[node name="Control" type="Control" parent="UI/Inventories/Hotbar"]
+[node name="ItemParent" type="Control" parent="UI/Inventories/Hotbar"]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 mouse_filter = 2
 
-[node name="InventoryItem" parent="UI/Inventories/Hotbar/Control" instance=ExtResource("9_gdnib")]
+[node name="InventoryItem" parent="UI/Inventories/Hotbar/ItemParent" instance=ExtResource("9_gdnib")]
 layout_mode = 1
 offset_left = -14.0
 offset_top = -14.0
@@ -125,6 +153,21 @@ offset_bottom = 2.0
 scale = Vector2(1.15, 1.15)
 pivot_offset = Vector2(8, 8)
 manual_slot_index_override = 12
+
+[node name="MouseDetect" type="Control" parent="UI/Inventories/Hotbar"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_right = 28.0
+offset_bottom = 28.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="UI/Inventories/Hotbar"]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 47.0
+offset_right = 39.0
+offset_bottom = 70.0
 
 [node name="MovingItem" type="Control" parent="UI"]
 layout_mode = 1
@@ -173,38 +216,56 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_86in6")
 
-[node name="MenuPanel" type="Panel" parent="PauseMenu"]
+[node name="ColorRect" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_86in6")
+color = Color(0, 0, 0, 0.294118)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu/MenuPanel"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -77.0
-offset_top = -46.5
-offset_right = 77.0
-offset_bottom = 46.5
+offset_left = -64.0
+offset_top = -46.0
+offset_right = 64.0
+offset_bottom = 46.0
 grow_horizontal = 2
 grow_vertical = 2
+alignment = 1
 
-[node name="Label" type="Label" parent="PauseMenu/MenuPanel/VBoxContainer"]
+[node name="Label" type="Label" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "Pause"
+label_settings = SubResource("LabelSettings_luvi2")
 horizontal_alignment = 1
 
-[node name="ResumeButton" type="Button" parent="PauseMenu/MenuPanel/VBoxContainer"]
+[node name="ResumeButton" parent="PauseMenu/VBoxContainer" instance=ExtResource("13_ih4kc")]
 layout_mode = 2
 text = "Resume"
+font_size = 10.0
 
-[node name="QuitButton" type="Button" parent="PauseMenu/MenuPanel/VBoxContainer"]
+[node name="QuitButton" parent="PauseMenu/VBoxContainer" instance=ExtResource("13_ih4kc")]
 layout_mode = 2
 text = "Quit to Main Menu"
+font_size = 10.0
+
+[node name="Label" type="Label" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 77.0
+offset_bottom = 69.0
+text = "Move			: WASD / Arrow Keys
+Inventory	: I / Tab
+Interact		: E
+Drop Item	: Q"
+label_settings = SubResource("LabelSettings_ots6i")
+
+[connection signal="draw" from="UI" to="." method="_on_ui_draw"]

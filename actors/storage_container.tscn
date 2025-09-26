@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://dj7rrem70gdbr"]
+[gd_scene load_steps=7 format=3 uid="uid://dj7rrem70gdbr"]
 
 [ext_resource type="Script" uid="uid://dy4ltd3fxseom" path="res://src/base/storage_container.gd" id="1_0nvma"]
-[ext_resource type="Texture2D" uid="uid://q8jj2pvan21d" path="res://sprites/actors/item_placeholder.png" id="1_5v778"]
+[ext_resource type="Texture2D" uid="uid://ccxuiwk030wce" path="res://sprites/actors/storage_crate.png" id="2_0nvma"]
 [ext_resource type="Script" uid="uid://b6p3lpb0yn2rr" path="res://src/components/container_component.gd" id="2_pyd1d"]
+[ext_resource type="Resource" uid="uid://bo41hvlolr5d6" path="res://data/loot_tables/storage_container.tres" id="2_tf61b"]
 [ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="4_tf61b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lj1ab"]
@@ -10,13 +11,15 @@ size = Vector2(15.9, 15.9)
 
 [node name="StorageContainer" type="StaticBody2D"]
 script = ExtResource("1_0nvma")
+loot_table = ExtResource("2_tf61b")
 metadata/_custom_type_script = "uid://dy4ltd3fxseom"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lj1ab")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_5v778")
+texture = ExtResource("2_0nvma")
+offset = Vector2(0, -4)
 
 [node name="ContainerComponent" type="Node2D" parent="."]
 script = ExtResource("2_pyd1d")
@@ -25,5 +28,5 @@ container_name_ui = "Storage Container"
 metadata/_custom_type_script = "uid://b6p3lpb0yn2rr"
 
 [node name="InteractionComponent" parent="." instance=ExtResource("4_tf61b")]
-collision_size = 22.5
-interact_mode = 1
+collision_size = Vector2(25, 25)
+interaction_duration = 0.75

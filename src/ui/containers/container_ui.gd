@@ -3,6 +3,7 @@ class_name ContainerUI
 
 var linked_container: ContainerComponent
 var inventory_items = []
+var mouse_on_gui := false
 
 @onready var label: Label = $Label
 
@@ -10,6 +11,7 @@ var inventory_items = []
 @export var hotbar_slot: bool = false
 
 func _ready() -> void:
+	queue_redraw()
 	init_containers()
 	for i in find_children("*", "InventoryItem"):
 		if i is InventoryItem:
@@ -19,6 +21,21 @@ func _ready() -> void:
 				if linked_container != null:
 					inventory_items.resize(linked_container.slot_amount)
 					inventory_items[linked_container.hotbar_slots[0]] = i
+
+func _process(delta: float) -> void:
+	if visible:
+		if player_inventory and not hotbar_slot:
+			if $MouseDetect/Control != null:
+				mouse_on_gui = is_mouse_on_gui($MouseDetect) or is_mouse_on_gui($MouseDetect/Control)
+		elif name == "Hotbar":
+			mouse_on_gui = is_mouse_on_gui($MouseDetect)
+		else:
+			mouse_on_gui = is_mouse_on_gui($MouseDetect)
+
+func is_mouse_on_gui(gui: Control) -> bool:
+	var mouse_pos = get_viewport().get_mouse_position()
+	var gui_rect = gui.get_global_rect()
+	return gui_rect.has_point(mouse_pos)
 
 func update_container_ui() -> void:
 	clear_container_ui()

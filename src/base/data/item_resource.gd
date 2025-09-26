@@ -18,4 +18,5 @@ enum Type {
 ## Item texture
 @export var texture: Texture2D
 ## Item texture size. Ukuran tekstur item
-@export var texture_size: float = 0.5
+@export var item_texture_size: float = 0.5
+@export var inventory_texture_size: float = 0.5

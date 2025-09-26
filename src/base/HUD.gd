@@ -40,12 +40,14 @@ func update_item_label():
 			item_label.hide()
 		else:
 			var area_owner = InteractionManager.active_areas.front().owner
-			if area_owner is Item:
-				if item_label.get_child(0).text != area_owner.item_resource.item_name:
-					item_label.get_child(0).text = area_owner.item_resource.item_name
-			else:
-				if item_label.get_child(0).text != area_owner.label_text:
-					item_label.get_child(0).text = area_owner.label_text
+			match area_owner:
+				_ when area_owner is Item:
+					item_label.get_child(0).text = "Press E to pick up\n" + area_owner.item_resource.item_name
+				_ when area_owner is StorageContainer:
+					item_label.get_child(0).text = "Press E to open\n" + area_owner.label_text
+				_ when area_owner is Plant:
+					if item_label.get_child(0).text != area_owner.label_text:
+						item_label.get_child(0).text = area_owner.label_text
 
 func show_item_label(area: Area2D) -> void:
 	item_label.show()

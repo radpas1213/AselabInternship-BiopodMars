@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://dwhmiqrleafrr"]
 
 [ext_resource type="Script" uid="uid://gqbwcscoa6gj" path="res://src/base/data/item_resource.gd" id="1_ipqvo"]
-[ext_resource type="Texture2D" uid="uid://digfovj0vnrd6" path="res://sprites/items/item_screw.png" id="2_ughy4"]
+[ext_resource type="Texture2D" uid="uid://coy2bx4lko0dj" path="res://sprites/items/item_repair_tool.png" id="2_ughy4"]
 
 [resource]
 script = ExtResource("1_ipqvo")
@@ -9,5 +9,6 @@ item_name = "Repair Tool"
 item_type = 2
 max_stack = 1
 texture = ExtResource("2_ughy4")
-texture_size = 0.875
+item_texture_size = 0.7
+inventory_texture_size = 0.875
 metadata/_custom_type_script = "uid://gqbwcscoa6gj"

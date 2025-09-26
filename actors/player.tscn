@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://elevlirk2wiw"]
+[gd_scene load_steps=41 format=3 uid="uid://elevlirk2wiw"]
 
 [ext_resource type="Script" uid="uid://bnpf3pr2xkm5k" path="res://src/actors/player.gd" id="1_esgq3"]
 [ext_resource type="Texture2D" uid="uid://dl3y6o044xneq" path="res://sprites/actors/player/player.png" id="2_er1rk"]
@@ -9,6 +9,10 @@
 [ext_resource type="Script" uid="uid://nohl3crpcmgo" path="res://src/components/state_machine_component.gd" id="6_33vod"]
 [ext_resource type="Script" uid="uid://b6p3lpb0yn2rr" path="res://src/components/container_component.gd" id="6_er1rk"]
 [ext_resource type="Script" uid="uid://civq5tghtijid" path="res://src/components/state.gd" id="7_er1rk"]
+[ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="10_5nkr1"]
+[ext_resource type="Texture2D" uid="uid://bae6bonbub2qo" path="res://sprites/UI/bars/interact_bar_under.png" id="11_31m4k"]
+[ext_resource type="Texture2D" uid="uid://cbn64a5n4klw4" path="res://sprites/UI/bars/interact_bar_frame.png" id="12_opp7g"]
+[ext_resource type="Texture2D" uid="uid://co28j63niiyy0" path="res://sprites/UI/bars/interact_bar.png" id="13_jglmw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e7yfm"]
 atlas = ExtResource("2_er1rk")
@@ -276,7 +280,7 @@ metadata/_custom_type_script = "uid://bnpf3pr2xkm5k"
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Sprites"]
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_5nkr1")
-animation = &"idle_down_holding"
+animation = &"walk_down"
 autoplay = "idle_down"
 
 [node name="ItemSprite" type="Sprite2D" parent="Sprites"]
@@ -328,3 +332,18 @@ metadata/_custom_type_script = "uid://civq5tghtijid"
 visible = false
 occluder = SubResource("OccluderPolygon2D_er1rk")
 sdf_collision = false
+
+[node name="InteractionProgressBar" parent="." instance=ExtResource("10_5nkr1")]
+z_index = 5
+offset_left = -15.5
+offset_top = -27.0
+offset_right = 15.5
+offset_bottom = -23.0
+scale = Vector2(0.75, 0.75)
+pivot_offset = Vector2(15.5, 2)
+texture_under = ExtResource("11_31m4k")
+texture_over = ExtResource("12_opp7g")
+texture_progress = ExtResource("13_jglmw")
+
+[node name="Timer" type="Timer" parent="InteractionProgressBar"]
+wait_time = 2.106

@@ -54,7 +54,7 @@ func initialize_item():
 			sprite.texture = item_resource.texture
 		else:
 			sprite.texture = default_texture
-		sprite.scale = Vector2(item_resource.texture_size, item_resource.texture_size)
+		sprite.scale = Vector2(item_resource.inventory_texture_size, item_resource.inventory_texture_size)
 		name = item_resource.item_name
 		count_label.text = str(item_quantity)
 		item_quantity = clamp(item_quantity, 1, item_resource.max_stack)
@@ -77,11 +77,14 @@ func on_press():
 	else:
 		text = (": Slot " + str(slot_index) + " is pressed")
 	if get_parent().name == "Hotbar":
-		print(get_parent(), text)
+		pass
+		#print(get_parent(), text)
 	else:
-		print(get_parent().get_parent(), text)
+		pass
+		#print(get_parent().get_parent(), text)
 
 func on_mouse_enter():
+	ContainerManager.currently_hovered_slot_index = slot_index
 	if Global.player.inputs.rmb_held:
 		if ContainerManager.moving_item != null:
 			var container_ui := get_parent().get_parent()
@@ -92,6 +95,17 @@ func is_mouse_on_slot(slot: Control) -> bool:
 	var mouse_pos = get_viewport().get_mouse_position()
 	var slot_rect = slot.get_global_rect()
 	return slot_rect.has_point(mouse_pos)
+
+func _input(event: InputEvent) -> void:
+	if get_parent().name == "MovingItem":
+		return
+	if event.is_action_pressed("drop") and is_mouse_on_slot(button):
+		if ContainerManager.currently_hovered_slot_index == slot_index and\
+		get_parent().get_parent().player_inventory:
+			ContainerManager.drop_item(slot_index if get_parent().name != "MovingItem" else 12, ContainerManager.player_inventory_ui, true)
+	if event.is_action_pressed("mouse_left"):
+		if ContainerManager.moving_item != null and ContainerManager.last_interacted_container_ui == get_parent().get_parent(): 
+			ContainerManager.drop_item(slot_index, get_parent().get_parent())
 
 func on_input(event: InputEvent):
 	if event is InputEventMouseButton and event.is_pressed():
@@ -132,14 +146,14 @@ func on_input(event: InputEvent):
 							# Full → fallback to swap
 							if container_ui.player_inventory \
 							and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
-							and not ContainerManager.moving_item["type"] == 2:
+							and ContainerManager.moving_item["type"] != 2:
 								return
 							ContainerManager.switch_container_item(slot_index, container_ui)
 					else:
 						# Different item → swap
 						if container_ui.player_inventory \
 						and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
-						and not ContainerManager.moving_item["type"] == 2:
+						and ContainerManager.moving_item["type"] != 2:
 							return
 						ContainerManager.switch_container_item(slot_index, container_ui)
 			# Case 2: slot empty
@@ -148,7 +162,7 @@ func on_input(event: InputEvent):
 					# Tool slot restriction
 					if container_ui.player_inventory \
 					and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
-					and not ContainerManager.moving_item["type"] == 2:
+					and ContainerManager.moving_item["type"] != 2:
 						return
 					ContainerManager.put_down_container_item(slot_index, container_ui)
 		# RIGHT CLICK LOGIC
@@ -157,7 +171,7 @@ func on_input(event: InputEvent):
 				# Tool slot restriction
 				if container_ui.player_inventory \
 				and ContainerManager.player_inventory.container[slot_index]["tool_only"] \
-				and not ContainerManager.moving_item["type"] == 2:
+				and ContainerManager.moving_item["type"] != 2:
 					return
 				ContainerManager.put_down_one_container_item(slot_index, container_ui)
 			if item_resource != null:

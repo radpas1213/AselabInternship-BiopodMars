@@ -93,10 +93,12 @@ func initialize_container_slots():
 		# assign tool_only if this index is in hotbar_slots
 		if not hotbar_slots.is_empty() and i in hotbar_slots:
 			container[i]["tool_only"] = true
-			print("Slot ",i," is now a hotbar slot")
+			print("Slot ", i, " is now a hotbar slot")
 
 func update_container():
 	ContainerManager.update_container_ui()
 	for i in range(container.size()):
-		if container[i]["slot"] != null and container[i]["slot"]["quantity"] < 1:
-			container[i]["slot"] = null
+		if container[i]["slot"] != null:
+			if container[i]["slot"]["quantity"] < 1:
+				container[i]["slot"] = null
+			

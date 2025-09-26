@@ -14,6 +14,7 @@ enum state {
 @onready var sprite: AnimatedSprite2D = $Sprites/PlayerSprite
 @onready var inventory: ContainerComponent = $ContainerComponent
 @onready var held_item: Sprite2D = $Sprites/ItemSprite
+@onready var interaction_bar: TextureProgressBar = $InteractionProgressBar
 var held_item_anim_offset = 0
 
 var holding: bool = false
@@ -37,10 +38,16 @@ func _process(delta: float) -> void:
 	
 	_handle_sprites()
 	_handle_held_item()
+	
+	interaction_bar.visible = InteractionManager.interact_timer != null
+	if not InteractionManager.active_areas.is_empty() and InteractionManager.interact_timer != null:
+		var progress = InteractionManager.interact_timer.time_left / InteractionManager.active_areas.front().interaction_duration * 100
+		interaction_bar.progress = 100 - progress
 
 func _handle_sprites():
 	var target_anim = target_animation()
 	sprite.flip_h = movement.current_direction == 0
+	held_item.flip_h = sprite.flip_h
 	if sprite.animation != target_anim:
 		sprite.play(target_anim)
 

@@ -1,0 +1,107 @@
+[gd_scene load_steps=12 format=3 uid="uid://lsispv2cyd8v"]
+
+[ext_resource type="Texture2D" uid="uid://d3mdlbv65ljws" path="res://sprites/UI/menu/button_normal.png" id="1_cilfd"]
+[ext_resource type="Texture2D" uid="uid://b7qtn3vqnv53s" path="res://sprites/UI/menu/button_pressed.png" id="2_li6gd"]
+[ext_resource type="Texture2D" uid="uid://bxv0wdxqf3qet" path="res://sprites/UI/menu/button_hover.png" id="3_i872c"]
+[ext_resource type="Script" uid="uid://b1gqpbe5a4ext" path="res://src/ui/menu_button.gd" id="4_i872c"]
+[ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="4_li6gd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_64s4s"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r5xgr"]
+texture = ExtResource("1_cilfd")
+texture_margin_left = 7.0
+texture_margin_top = 11.0
+texture_margin_right = 7.0
+texture_margin_bottom = 11.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hjjut"]
+texture = ExtResource("2_li6gd")
+texture_margin_left = 7.0
+texture_margin_top = 11.0
+texture_margin_right = 7.0
+texture_margin_bottom = 11.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hq44l"]
+texture = ExtResource("3_i872c")
+texture_margin_left = 7.0
+texture_margin_top = 11.0
+texture_margin_right = 7.0
+texture_margin_bottom = 11.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hflku"]
+texture = ExtResource("2_li6gd")
+texture_margin_left = 7.0
+texture_margin_top = 11.0
+texture_margin_right = 7.0
+texture_margin_bottom = 11.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ltii3"]
+texture = ExtResource("1_cilfd")
+texture_margin_left = 7.0
+texture_margin_top = 11.0
+texture_margin_right = 7.0
+texture_margin_bottom = 11.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="Button" type="Button"]
+custom_minimum_size = Vector2(65, 25)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -47.0
+offset_top = -17.0
+offset_right = 48.0
+offset_bottom = 18.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(0.184314, 0.184314, 0.184314, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.184314, 0.184314, 0.184314, 1)
+theme_override_colors/font_hover_color = Color(0.184314, 0.184314, 0.184314, 1)
+theme_override_colors/font_color = Color(0.184314, 0.184314, 0.184314, 1)
+theme_override_colors/font_focus_color = Color(0.184314, 0.184314, 0.184314, 1)
+theme_override_colors/font_pressed_color = Color(0.184314, 0.184314, 0.184314, 1)
+theme_override_font_sizes/font_size = 1
+theme_override_styles/focus = SubResource("StyleBoxEmpty_64s4s")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_r5xgr")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_hjjut")
+theme_override_styles/hover = SubResource("StyleBoxTexture_hq44l")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_hflku")
+theme_override_styles/normal = SubResource("StyleBoxTexture_ltii3")
+text = "Button"
+script = ExtResource("4_i872c")
+
+[node name="Text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_right = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.380392, 0.819608, 0.384314, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("4_li6gd")
+theme_override_font_sizes/font_size = 12
+text = "Button"
+horizontal_alignment = 1
+vertical_alignment = 1
+text_overrun_behavior = 3
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
+[connection signal="button_up" from="." to="." method="_on_button_up"]
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

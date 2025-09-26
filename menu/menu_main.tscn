@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://dqeylprk2e2u"]
+
+[ext_resource type="Script" uid="uid://crupbvn5iqmgr" path="res://src/ui/main_menu.gd" id="1_jdpk4"]
+[ext_resource type="Texture2D" uid="uid://d1fj23j210ik4" path="res://menu/background/main_bg.png" id="2_x5t6h"]
+[ext_resource type="PackedScene" uid="uid://lsispv2cyd8v" path="res://actors/ui/menu_button.tscn" id="3_hejbu"]
+[ext_resource type="FontFile" uid="uid://byw5v2xtpq7sv" path="res://fonts/Spritecoder_Regular.ttf" id="4_x5t6h"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hejbu"]
+font = ExtResource("4_x5t6h")
+font_size = 31
+font_color = Color(0.4898, 0.79, 0.494803, 1)
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jdpk4")
+
+[node name="MainBg" type="Sprite2D" parent="."]
+position = Vector2(160.111, 90.25)
+scale = Vector2(0.166204, 0.166204)
+texture = ExtResource("2_x5t6h")
+
+[node name="StartButton" parent="." instance=ExtResource("3_hejbu")]
+layout_mode = 1
+offset_left = -140.0
+offset_top = 50.0
+offset_right = -59.0
+offset_bottom = 75.0
+text = "Start Game"
+font_size = 9.0
+
+[node name="TitleLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 12.0
+offset_right = 208.0
+offset_bottom = 44.0
+text = "Mars Biopod"
+label_settings = SubResource("LabelSettings_hejbu")

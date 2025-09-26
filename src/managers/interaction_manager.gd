@@ -2,6 +2,8 @@ extends Node
 
 var active_areas = []
 var can_interact: bool = true
+var interact_timer: Timer = null
+var is_interacting: bool = false
 
 # registers an interaction component to active_areas
 func register_area(area: InteractionComponent):
@@ -28,18 +30,49 @@ func _sort_by_distance_to_player(area1: InteractionComponent, area2: Interaction
 	
 	return area1_to_plr < area2_to_plr
 
-func _physics_process(_delta: float) -> void:
-	if not active_areas.is_empty() and active_areas.front().interact_mode == 0:
-		if Input.is_action_pressed("interact") and can_interact:
-			if active_areas.size() > 0:
-				can_interact = false
-				await active_areas.front().interact.call()
-				can_interact = true
-
 func _input(event: InputEvent) -> void:
-	if not active_areas.is_empty() and active_areas.front().interact_mode == 1:
-		if event.is_action_pressed("interact") and can_interact:
-			if active_areas.size() > 0:
-				can_interact = false
-				await active_areas.front().interact.call()
-				can_interact = true
+	if active_areas.is_empty():
+		return
+
+	# Start interaction attempt
+	if event.is_action_pressed("interact") and can_interact and not is_interacting:
+		start_interaction()
+
+	# Cancel interaction if released
+	if event.is_action_released("interact") and is_interacting:
+		reset_interaction()
+
+
+func start_interaction() -> void:
+	is_interacting = true
+	can_interact = false
+	var duration = active_areas.front().interaction_duration
+	interact_timer = Timer.new()
+	interact_timer.one_shot = true
+	add_child(interact_timer)
+	interact_timer.start(duration)
+
+	# Use detached async block so we can cancel cleanly
+	_run_interaction(duration)
+
+func _run_interaction(duration: float) -> void:
+	if duration != 0:
+		await interact_timer.timeout
+
+	# If canceled midway, do nothing
+	if not is_interacting:
+		return
+
+	# Only interact if key still held
+	if Input.is_action_pressed("interact") and active_areas.size() > 0:
+		await active_areas.front().interact.call()
+
+	reset_interaction()
+
+func reset_interaction() -> void:
+	is_interacting = false
+	can_interact = true
+	if interact_timer != null:
+		interact_timer.stop()
+		interact_timer.queue_free()
+	interact_timer = null

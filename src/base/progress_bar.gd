@@ -10,8 +10,19 @@ class_name HealthBarComponent
 	set(new_progress):
 		progress = new_progress
 		value = new_progress
+@export var bar_colors: Dictionary
+@export var health_icon: Sprite2D
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	tint_progress = bar_color
+	tint_progress = change_bar_color()
+	if health_icon != null:
+		health_icon.modulate = change_bar_color()
 	value = progress
+	bar_colors.sort()
+
+func change_bar_color() -> Color:
+	if not bar_colors.is_empty():
+		for i in bar_colors:
+			if progress < i:
+				return bar_colors.get(i)
+	return bar_color

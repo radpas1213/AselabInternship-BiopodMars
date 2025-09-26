@@ -8,6 +8,8 @@
 [sub_resource type="LabelSettings" id="LabelSettings_x1xek"]
 font = ExtResource("4_w2sxe")
 font_size = 5
+shadow_color = Color(0, 0, 0, 0.498039)
+shadow_offset = Vector2(-1, 1)
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_an5n7"]
 
@@ -59,10 +61,8 @@ layout_mode = 1
 offset_top = -3.0
 offset_bottom = 37.0
 scale = Vector2(0.14, 0.1)
-value = 100.0
 tint_progress = Color(0.25066, 0.801168, 0, 1)
 bar_color = Color(0.25066, 0.801168, 0, 1)
-progress = 100.0
 
 [node name="Count" type="Label" parent="."]
 visible = false

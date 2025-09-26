@@ -36,7 +36,6 @@ columns = 2
 
 [node name="PlayerInventory" parent="InventoryCenter/InventoryContainer" instance=ExtResource("1_5qche")]
 layout_mode = 2
-mouse_filter = 2
 
 [node name="Storage" parent="InventoryCenter/InventoryContainer" instance=ExtResource("2_6fs4t")]
 layout_mode = 2

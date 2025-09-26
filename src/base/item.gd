@@ -22,16 +22,22 @@ class_name Item
 ## Does item despawn?
 @export var item_despawns: bool = true
 
-@export_category("Equipped Tool Properties")
-@export var disable_interaction: bool = false
-
-var item_despawn_time: float = 150
+var item_despawn_time: float = 300
 var default_texture: Texture2D
+
+var despawn_timer: Timer
 
 func _ready() -> void:
 	interaction.interact = Callable(self, "pickup_item")
 	default_texture = sprite.texture
 	initialize_item()
+	if not Engine.is_editor_hint():
+		despawn_timer = Timer.new()
+		despawn_timer.wait_time = item_despawn_time
+		despawn_timer.one_shot = true
+		add_child(despawn_timer)
+		despawn_timer.start()
+		despawn_timer.timeout.connect(destroy_item)
 
 func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
@@ -43,13 +49,11 @@ func initialize_item():
 			sprite.texture = item_resource.texture
 		else:
 			sprite.texture = default_texture
-		sprite.scale = Vector2(item_resource.texture_size, item_resource.texture_size)
+		sprite.scale = Vector2(item_resource.item_texture_size, item_resource.item_texture_size)
 		item_id = get_id()
 		name = item_resource.item_name
 	if item_resource == null:
 		name = "Item"
-	interaction.get_child(0).disabled = disable_interaction
-	interaction.visible = !disable_interaction
 
 func pickup_item():
 	var item = {
@@ -57,13 +61,14 @@ func pickup_item():
 		"id": get_id(),
 		"resource": item_resource,
 		"type": item_resource.item_type,
-		"texture": item_resource.texture,
-		"texture_size": item_resource.texture_size,
 		"quantity": item_quantity,
 		"max_stack": item_resource.max_stack,
 		"durability": item_durability
 	}
 	Global.player.inventory.add_item(item)
+	destroy_item()
+
+func destroy_item():
 	get_parent().remove_child(self)
 	queue_free()
 

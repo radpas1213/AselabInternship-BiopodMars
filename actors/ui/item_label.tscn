@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://cyxwpkuvtx1o1"]
 
-[ext_resource type="FontFile" uid="uid://byw5v2xtpq7sv" path="res://fonts/Spritecoder_Regular.ttf" id="1_1mxa0"]
+[ext_resource type="FontFile" uid="uid://byw5v2xtpq7sv" path="res://fonts/Spritecoder_Regular.ttf" id="1_fb6h0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_p4idi"]
-font = ExtResource("1_1mxa0")
+font = ExtResource("1_fb6h0")
 font_size = 72
 font_color = Color(1, 0.816667, 0, 1)
 outline_size = 16
@@ -28,9 +28,9 @@ size_flags_vertical = 6
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
-offset_left = -4.0
+offset_left = -27.0
 offset_top = 2.0
-offset_right = 387.0
+offset_right = 732.0
 offset_bottom = 279.0
 scale = Vector2(0.125, 0.125)
 size_flags_horizontal = 4

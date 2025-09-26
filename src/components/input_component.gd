@@ -5,6 +5,7 @@ var move_input_dir: Vector2
 var mouse_scroll_dir: float
 
 var interact_button: bool = false
+var interact_held: bool = false
 var shift_held: bool = false
 var ctrl_held: bool = false
 var lmb_held: bool = false
@@ -15,11 +16,7 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("inventory"):
 		if ContainerManager.inventory_opened == false:
-			if not InteractionManager.active_areas.is_empty() and \
-			InteractionManager.active_areas.front().owner is StorageContainer:
-				ContainerManager.show_container_ui(InteractionManager.active_areas.front().owner.container)
-			else:
-				ContainerManager.show_container_ui()
+			ContainerManager.show_container_ui()
 		else:
 			ContainerManager.hide_container_ui()
 	

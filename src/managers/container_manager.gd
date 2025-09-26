@@ -5,11 +5,57 @@ var currently_opened_container: ContainerComponent
 var player_inventory_ui: ContainerUI
 var currently_opened_container_ui: ContainerUI
 
+var currently_hovered_slot_index := -1
+
 var moving_item
 var last_interacted_slot: int
 var last_interacted_container_ui: ContainerUI
 
 var inventory_opened: bool = false
+
+func drop_item(slot_index: int, container_ui: ContainerUI, hover_drop: bool = false):
+	if container_ui == null:
+		return
+	var target_slot
+	if hover_drop:
+		target_slot = container_ui.linked_container.container[slot_index]["slot"]
+		if target_slot == null:
+			return
+	if not hover_drop:
+		if player_inventory_ui.mouse_on_gui:
+			return
+		if currently_opened_container_ui.mouse_on_gui:
+			return
+	# Spawn dropped item
+	var dropped_item = preload("res://actors/item.tscn").instantiate()
+	if not hover_drop:
+		dropped_item.item_resource = moving_item["resource"]
+		dropped_item.item_quantity = moving_item["quantity"]
+		dropped_item.item_durability = moving_item["durability"]
+	else:
+		dropped_item.item_resource = target_slot["resource"]
+		dropped_item.item_quantity = target_slot["quantity"]
+		dropped_item.item_durability = target_slot["durability"]
+	dropped_item.position = Global.player.position
+	Global.level.find_child("Items").add_child(dropped_item)
+	# Remove selected item
+	if not hover_drop:
+		if moving_item != null:
+			moving_item = null
+			init_moving_item()
+	else:
+		if target_slot != null:
+			container_ui.linked_container.container[slot_index]["slot"] = null
+			container_ui.linked_container.container_updated.emit()
+
+func drop_moving_item_full_inventory(item) -> void:
+	var dropped_item = preload("res://actors/item.tscn").instantiate()
+	dropped_item.item_resource = item["resource"]
+	dropped_item.item_quantity = item["quantity"]
+	dropped_item.item_durability = item.get("durability", null)
+	dropped_item.position = Global.player.position
+	Global.level.find_child("Items").add_child(dropped_item)
+
 
 # Container manipulation
 func pickup_container_item(slot_index: int, container_ui: ContainerUI, half: bool = false):
@@ -30,7 +76,7 @@ func pickup_container_item(slot_index: int, container_ui: ContainerUI, half: boo
 			"quantity": half_amount,
 			"durability": slot.get("durability", null),
 			"type": slot.get("type", 0) == 2,
-			"max_stack": slot.get("max_stack", 64),
+			"max_stack": slot.get("max_stack", 16),
 		}
 		# Reduce slot by half
 		slot["quantity"] -= half_amount
@@ -82,7 +128,7 @@ func quick_move_item(slot_index: int, from_container_ui: ContainerUI, to_contain
 		return
 
 	var item = slot
-	var max_stack = item.get("max_stack", 64)
+	var max_stack = item.get("max_stack", 16)
 
 	# Detect if only the player inventory is open
 	var only_player_inventory_open = to_container_ui == ContainerManager.player_inventory_ui \
@@ -116,7 +162,7 @@ func quick_move_item(slot_index: int, from_container_ui: ContainerUI, to_contain
 	# Try merging into existing stacks first
 	for i in range(to_container_ui.linked_container.container.size()):
 		# Skip hotbar slot for non-tools
-		if i == 12 and not item.get("type", 0) == 2:
+		if i == 12 and item.get("type", 0) != 2:
 			continue
 		var target_slot = to_container_ui.linked_container.container[i]["slot"]
 		if target_slot != null and target_slot["resource"] == item["resource"]:
@@ -135,7 +181,7 @@ func quick_move_item(slot_index: int, from_container_ui: ContainerUI, to_contain
 	if item["quantity"] > 0:
 		for i in range(to_container_ui.linked_container.container.size()):
 			# Skip hotbar slot for non-tools
-			if i == 12 and not item.get("type", 0) == 2:
+			if i == 12 and item.get("type", 0) != 2:
 				continue
 			# Skip hotbar if container is open and slot already filled
 			if i == 12 and not only_player_inventory_open and to_container_ui.linked_container.container[12]["slot"] != null:
@@ -213,9 +259,18 @@ func hide_container_ui(hide_container_only: bool = false) -> void:
 	if hide_container_only:
 		currently_opened_container_ui.hide_ui()
 		if moving_item != null and last_interacted_container_ui == currently_opened_container_ui:
-			last_interacted_container_ui.linked_container.container[last_interacted_slot]["slot"] = moving_item
-			moving_item = null
-			init_moving_item()
+			# Check tool-only restriction
+			var slot_data = last_interacted_container_ui.linked_container.container[last_interacted_slot]
+			var is_tool_only = slot_data.get("tool_only", false)
+			if is_tool_only and not moving_item.get("is_tool", false):
+				# Drop item instead of forcing into hotbar
+				drop_moving_item_full_inventory(moving_item)
+				moving_item = null
+				init_moving_item()
+			else:
+				slot_data["slot"] = moving_item
+				moving_item = null
+				init_moving_item()
 			update_container_ui()
 	else:
 		inventory_opened = false
@@ -223,11 +278,20 @@ func hide_container_ui(hide_container_only: bool = false) -> void:
 		currently_opened_container_ui.hide_ui()
 		player_inventory_ui.hide_ui()
 		if moving_item != null:
-			last_interacted_container_ui.linked_container.container[last_interacted_slot]["slot"] = moving_item
-			moving_item = null
-			init_moving_item()
+			var slot_data = last_interacted_container_ui.linked_container.container[last_interacted_slot]
+			var is_tool_only = slot_data.get("tool_only", false)
+			if is_tool_only and not moving_item.get("is_tool", false):
+				# Drop item instead of forcing into hotbar
+				drop_moving_item_full_inventory(moving_item)
+				moving_item = null
+				init_moving_item()
+			else:
+				slot_data["slot"] = moving_item
+				moving_item = null
+				init_moving_item()
 			update_container_ui()
 		Global.HUD.hotbar.visible = !player_inventory_ui.visible and !currently_opened_container_ui.visible
+
 
 func init_moving_item():
 	if moving_item != null:
