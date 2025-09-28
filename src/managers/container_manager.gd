@@ -13,6 +13,29 @@ var last_interacted_container_ui: ContainerUI
 
 var inventory_opened: bool = false
 
+func give_player_tools():
+	var can = preload("res://data/items/item_watering_can.tres")
+	var tool = preload("res://data/items/item_repair_tool.tres")
+	var cancan = {
+		"name": can.item_name,
+		"resource": can,
+		"type": can.item_type,
+		"quantity": 1,
+		"max_stack": can.max_stack,
+		"durability": 0
+	}
+	var toool = {
+		"name": tool.item_name,
+		"resource": tool,
+		"type": tool.item_type,
+		"quantity": 1,
+		"max_stack": tool.max_stack,
+		"durability": randf_range(15.0, 18.0)
+	}
+	if ContainerManager.player_inventory != null:
+		ContainerManager.player_inventory.container[0]["slot"] = toool
+		ContainerManager.player_inventory.container[1]["slot"] = cancan
+
 func is_player_holding_water_can() -> bool:
 	if player_inventory != null:
 		if player_inventory.container[12]["slot"] != null and\
@@ -44,17 +67,33 @@ func check_for_items_for_repairs(items_needed: Dictionary) -> Dictionary:
 		var count: int = 0
 		var needed: int = items_needed[item_id]
 		# Load the resource once per item_id
-		var item_res: Resource = load("res://data/items/" + item_id + ".tres")
 		for slot_data in player_inventory.container:
 			var slot = slot_data["slot"]
 			if slot != null and slot.has("resource") and slot["resource"] != null:
 				# Compare by path instead of raw reference
-				if slot["resource"].resource_path == item_res.resource_path:
+				if slot["resource"] == item_id:
 					count += slot["quantity"]
 					if count >= needed:
 						break
 		results[item_id] = clamp(count, 0, needed)
 	return results
+
+func use_energy_cell_for_repair_tool(tool) -> void:
+	for slot_data in player_inventory.container:
+		var slot = slot_data["slot"]
+		if slot != null and slot["resource"] == preload("res://data/items/item_energy_cell.tres"):
+			
+			# Recharge repair tool durability
+			var recharge_value = 20 / 3
+			if tool["durability"] < 20.0 - recharge_value:
+				tool["durability"] += recharge_value
+				# Consume one energy cell
+				slot["quantity"] -= 1
+				player_inventory.container_updated.emit()
+				Global.HUD.show_notif_label("Repair tool recharged with one Energy Cell.", true)
+			else:
+				Global.HUD.show_notif_label("Repair tool has enough durability.", true)
+			return
 
 func drop_item(slot_index: int, container_ui: ContainerUI, hover_drop: bool = false):
 	if container_ui == null:
@@ -300,6 +339,7 @@ func show_container_ui(target_container: ContainerComponent = null) -> void:
 
 func hide_container_ui(hide_container_only: bool = false) -> void:
 	if hide_container_only:
+		currently_opened_container_ui.linked_container.owner.close_sound.play()
 		currently_opened_container_ui.hide_ui()
 		if moving_item != null and last_interacted_container_ui == currently_opened_container_ui:
 			# Check tool-only restriction

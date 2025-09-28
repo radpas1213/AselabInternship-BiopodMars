@@ -12,11 +12,13 @@ var small := true
 var dead := false
   
 func _ready() -> void:
+	interaction.on_interact_press = Callable(self, "press")
+	interaction.on_interact_release = Callable(self, "release")
 	interaction.interact = Callable(self, "interact")
 	Global.plants.push_back(self)
 	
 	# Start with water slightly randomized but still full
-	stats.current_hydration -= randf_range(0, 5)
+	stats.current_hydration -= randf_range(0, 8)
 
 func interact() -> void:
 	stats.hydrate(5)
@@ -25,8 +27,8 @@ func interact() -> void:
 		ContainerManager.player_inventory_ui.linked_container.container_updated.emit()
 
 func _physics_process(_delta: float) -> void:
-	stats.hydrate(-0.0005 if small else -0.00035 * TimeManager.time_multiplier * random_stat)
-	if stats.current_hydration < 7.5:
+	stats.hydrate(-0.0006 if small else -0.00045 * TimeManager.time_multiplier * random_stat)
+	if stats.current_hydration < 7.5 or Global.start_hurting_actors:
 		stats.heal(-0.001 if small else -0.00075 * random_stat)
 	if stats.current_hydration > 7.5 and stats.current_hydration <= 20:
 		stats.heal(0.001 if small else 0.00075 * random_stat)
@@ -70,3 +72,9 @@ func plant_label() -> String:
 func kill():
 	dead = true
 	death.emit()
+
+func press():
+	$AudioStreamPlayer2D.play()
+
+func release():
+	$AudioStreamPlayer2D.stop()

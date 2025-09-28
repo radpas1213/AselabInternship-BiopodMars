@@ -1,0 +1,76 @@
+[gd_resource type="Resource" script_class="LootTable" load_steps=15 format=3 uid="uid://bo41hvlolr5d6"]
+
+[ext_resource type="Script" uid="uid://bm1q7wjv1o1oo" path="res://src/base/data/loot_table_entry.gd" id="1_oe5m6"]
+[ext_resource type="Resource" uid="uid://b3tuj4yf7od2e" path="res://data/items/item_control_chip.tres" id="2_2jvx3"]
+[ext_resource type="Resource" uid="uid://bqt8f2ue3geip" path="res://data/items/item_screw.tres" id="3_xh516"]
+[ext_resource type="Resource" uid="uid://cato4v7ghet1i" path="res://data/items/item_energy_cell.tres" id="4_bufhy"]
+[ext_resource type="Resource" uid="uid://b4tum4mfgq0x5" path="res://data/items/item_iron.tres" id="5_gc3xy"]
+[ext_resource type="Resource" uid="uid://b3341y0l5ijdn" path="res://data/items/item_wiring_unit.tres" id="6_le1yx"]
+[ext_resource type="Resource" uid="uid://ceh82wj6u6dh0" path="res://data/items/item_silicone.tres" id="7_m8vsk"]
+[ext_resource type="Script" uid="uid://ctyq2er7hxvnt" path="res://src/base/data/loot_table_resource.gd" id="8_ljyc8"]
+
+[sub_resource type="Resource" id="Resource_d122o"]
+script = ExtResource("1_oe5m6")
+item = ExtResource("2_2jvx3")
+chance_to_appear = 7.0
+min_quantity = 3
+max_quantity = 5
+min_durability = 20.0
+max_durability = 20.0
+metadata/_custom_type_script = "uid://bm1q7wjv1o1oo"
+
+[sub_resource type="Resource" id="Resource_vit5h"]
+script = ExtResource("1_oe5m6")
+item = ExtResource("3_xh516")
+chance_to_appear = 8.0
+min_quantity = 4
+max_quantity = 6
+min_durability = 20.0
+max_durability = 20.0
+metadata/_custom_type_script = "uid://bm1q7wjv1o1oo"
+
+[sub_resource type="Resource" id="Resource_hteht"]
+script = ExtResource("1_oe5m6")
+item = ExtResource("4_bufhy")
+chance_to_appear = 3.0
+min_quantity = 1
+max_quantity = 2
+min_durability = 20.0
+max_durability = 20.0
+metadata/_custom_type_script = "uid://bm1q7wjv1o1oo"
+
+[sub_resource type="Resource" id="Resource_mx0l6"]
+script = ExtResource("1_oe5m6")
+item = ExtResource("5_gc3xy")
+chance_to_appear = 9.0
+min_quantity = 5
+max_quantity = 8
+min_durability = 20.0
+max_durability = 20.0
+metadata/_custom_type_script = "uid://bm1q7wjv1o1oo"
+
+[sub_resource type="Resource" id="Resource_e6y04"]
+script = ExtResource("1_oe5m6")
+item = ExtResource("6_le1yx")
+chance_to_appear = 7.0
+min_quantity = 2
+max_quantity = 5
+min_durability = 20.0
+max_durability = 20.0
+metadata/_custom_type_script = "uid://bm1q7wjv1o1oo"
+
+[sub_resource type="Resource" id="Resource_vomla"]
+script = ExtResource("1_oe5m6")
+item = ExtResource("7_m8vsk")
+chance_to_appear = 8.0
+min_quantity = 3
+max_quantity = 6
+min_durability = 20.0
+max_durability = 20.0
+metadata/_custom_type_script = "uid://bm1q7wjv1o1oo"
+
+[resource]
+script = ExtResource("8_ljyc8")
+items = Array[ExtResource("1_oe5m6")]([SubResource("Resource_d122o"), SubResource("Resource_vit5h"), SubResource("Resource_hteht"), SubResource("Resource_mx0l6"), SubResource("Resource_e6y04"), SubResource("Resource_vomla")])
+chance_multiplier = 1.25
+metadata/_custom_type_script = "uid://ctyq2er7hxvnt"

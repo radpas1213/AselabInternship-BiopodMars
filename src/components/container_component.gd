@@ -19,7 +19,7 @@ func _ready() -> void:
 		loot_table = owner.loot_table
 	initialize_container_slots()
 	container_updated.connect(update_container)
-	if loot_table != null:
+	if loot_table != null and ContainerManager.player_inventory_ui != null:
 		populate_with_loot()
 
 func add_item(item: Dictionary) -> bool:
@@ -94,7 +94,7 @@ func populate_with_loot() -> void:
 	
 	for entry in loot_table.items:
 		# Roll chance
-		if rng.randf() * 20.0 > entry.chance_to_appear:
+		if rng.randf() * 20.0 / loot_table.chance_multiplier > entry.chance_to_appear:
 			continue
 		
 		var quantity = rng.randi_range(entry.min_quantity, entry.max_quantity)

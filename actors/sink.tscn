@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxymrnds5hkqq"]
+[gd_scene load_steps=4 format=3 uid="uid://bxymrnds5hkqq"]
 
 [ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="1_hkf7n"]
 [ext_resource type="Script" uid="uid://byw7run8lan0c" path="res://src/actors/sink.gd" id="1_lyhjt"]
+[ext_resource type="AudioStream" uid="uid://dkim2farr4km1" path="res://sounds/water_fill.wav" id="3_uf6ig"]
 
 [node name="Sink" type="Node2D"]
 script = ExtResource("1_lyhjt")
@@ -13,5 +14,6 @@ collision_size = Vector2(30, 30)
 highlight_size = Vector2(28, 18)
 highlight_offset = Vector2(3, -8.14)
 interaction_duration = 10.0
-trigger_interaction = true
-use_repair_key = false
+
+[node name="sound_fill" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_uf6ig")

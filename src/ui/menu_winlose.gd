@@ -14,8 +14,10 @@ func show_screen(win: bool = true):
 	Global.game_started = false
 	if win:
 		$Win.visible = true
+		$win.play()
 	else:
 		$Lose.visible = true
+		$lose.play()
 
 func retry():
 		Global.game_started = true

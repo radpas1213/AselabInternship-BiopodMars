@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://353ksrd84163"]
+[gd_scene load_steps=9 format=3 uid="uid://353ksrd84163"]
 
 [ext_resource type="Script" uid="uid://csl10ylamw2dg" path="res://src/ui/menu_winlose.gd" id="1_bamqh"]
 [ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="2_hf50e"]
 [ext_resource type="PackedScene" uid="uid://lsispv2cyd8v" path="res://actors/ui/menu_button.tscn" id="3_gigb3"]
+[ext_resource type="AudioStream" uid="uid://blfq8i32ycktm" path="res://sounds/win.wav" id="4_gigb3"]
+[ext_resource type="AudioStream" uid="uid://maq7np7yleul" path="res://sounds/lose.wav" id="5_4wdfu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bamqh"]
 bg_color = Color(0.069, 0.10545, 0.15, 1)
@@ -92,3 +94,10 @@ horizontal_alignment = 1
 [node name="RetryButton" parent="Lose" instance=ExtResource("3_gigb3")]
 layout_mode = 2
 text = "Start Again"
+
+[node name="win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_gigb3")
+
+[node name="lose" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_4wdfu")
+volume_db = -10.0

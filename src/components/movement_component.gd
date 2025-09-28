@@ -12,6 +12,9 @@ var real_direction_names: PackedStringArray = ["right", "down", "up", "right"]
 @export var input_comp: InputComponent
 
 func handle_movement(delta: float) -> void:
+	if InteractionManager.is_interacting:
+		owner.velocity = Vector2(0, 0)
+		return
 	# Movement
 	direction = input_comp.move_input_dir
 	if direction:

@@ -21,11 +21,12 @@ item = ExtResource("3_cx4v8")
 chance_to_appear = 20.0
 min_quantity = 1
 max_quantity = 1
-min_durability = 13.0
+min_durability = 15.0
 max_durability = 18.0
 metadata/_custom_type_script = "uid://bm1q7wjv1o1oo"
 
 [resource]
 script = ExtResource("4_322l3")
 items = Array[ExtResource("1_bjijf")]([SubResource("Resource_6j27e"), SubResource("Resource_oe5m6")])
+chance_multiplier = 1.0
 metadata/_custom_type_script = "uid://ctyq2er7hxvnt"

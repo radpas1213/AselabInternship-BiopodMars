@@ -10,6 +10,7 @@ class_name HUD
 @onready var hotbar: Control = $UI/Inventories/Hotbar
 @onready var moving_item: Control = $UI/MovingItem
 @onready var items_needed_repair_hud: Control = $UI/ItemsNeededForRepair
+@onready var notification_label: Label = $UI/NotificationLabel
 
 var tween_finished := false
 
@@ -18,10 +19,15 @@ func _init() -> void:
 	
 func _ready() -> void:
 	Global.HUD = self
+	notification_label.hide()
 	await get_tree().create_timer(30).timeout
 	var tween = get_tree().create_tween()
 	tween.tween_property($Tutorial, "modulate", Color(1, 1, 1, 0), 1)
 	tween.tween_callback(tween_fin)
+
+func _input(event: InputEvent) -> void:
+	if Input.is_key_pressed(KEY_0):
+		show_notif_label("boo", true)
 
 func _process(delta: float) -> void:
 	if debug_label != null:
@@ -70,3 +76,17 @@ func show_item_label(area: Area2D) -> void:
 
 func tween_fin():
 	tween_finished = true
+
+func show_notif_label(text: String, fade_out: bool = false):
+	notification_label.show()
+	notification_label.text = text
+	if fade_out:
+		notification_label.modulate = Color(1.0, 1.0, 1.0, 1.0)
+		await get_tree().create_timer(1).timeout
+		var notif_tween = get_tree().create_tween()
+		notif_tween.tween_property(notification_label, "modulate", Color(1.0, 1.0, 1.0, 0.0), 0.75)
+		notif_tween.tween_callback(hide_notif_label)
+
+func hide_notif_label():
+	notification_label.hide()
+	notification_label.modulate = Color(1.0, 1.0, 1.0, 1.0)

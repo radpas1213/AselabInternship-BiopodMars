@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://dj7rrem70gdbr"]
+[gd_scene load_steps=9 format=3 uid="uid://dj7rrem70gdbr"]
 
 [ext_resource type="Script" uid="uid://dy4ltd3fxseom" path="res://src/base/storage_container.gd" id="1_0nvma"]
 [ext_resource type="Texture2D" uid="uid://ccxuiwk030wce" path="res://sprites/actors/storage_crate.png" id="2_0nvma"]
 [ext_resource type="Script" uid="uid://b6p3lpb0yn2rr" path="res://src/components/container_component.gd" id="2_pyd1d"]
-[ext_resource type="Resource" uid="uid://bo41hvlolr5d6" path="res://data/loot_tables/storage_container_day1.tres" id="2_tf61b"]
+[ext_resource type="Resource" uid="uid://bo41hvlolr5d6" path="res://data/loot_tables/storage_container.tres" id="2_tf61b"]
 [ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="4_tf61b"]
+[ext_resource type="AudioStream" uid="uid://bhbmivd6bqtdd" path="res://sounds/crate_open.wav" id="6_iafwl"]
+[ext_resource type="AudioStream" uid="uid://ej1iocrnilk7" path="res://sounds/crate_close.wav" id="7_ebxx5"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lj1ab"]
 size = Vector2(15.9, 15.9)
@@ -33,5 +35,9 @@ collision_size = Vector2(25, 25)
 highlight_size = Vector2(22, 26)
 highlight_offset = Vector2(0, -2)
 interaction_duration = 0.75
-trigger_interaction = true
-use_repair_key = false
+
+[node name="opensond" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_iafwl")
+
+[node name="closeso" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_ebxx5")

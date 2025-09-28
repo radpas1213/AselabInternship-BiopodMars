@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dtgjuofcfh030"]
+[gd_scene load_steps=36 format=3 uid="uid://dtgjuofcfh030"]
 
 [ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/base/HUD.gd" id="1_gg34b"]
 [ext_resource type="Script" uid="uid://qnma6ontuvbs" path="res://src/ui/pause_menu.gd" id="2_86in6"]
@@ -29,7 +29,7 @@ font_color = Color(0.518, 0.56, 0.28, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ih4kc"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_ots6i"]
+[sub_resource type="LabelSettings" id="LabelSettings_luhih"]
 font = ExtResource("14_ots6i")
 font_size = 6
 shadow_size = 2
@@ -66,6 +66,13 @@ texture = ExtResource("17_luhih")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iylpx"]
 texture = ExtResource("19_0kle3")
+
+[sub_resource type="LabelSettings" id="LabelSettings_ots6i"]
+font = ExtResource("14_ots6i")
+font_size = 5
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.243137)
+shadow_offset = Vector2(-2, 2)
 
 [sub_resource type="LabelSettings" id="LabelSettings_luvi2"]
 font = ExtResource("14_ots6i")
@@ -250,21 +257,6 @@ offset_bottom = 40.0
 grow_horizontal = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="UI/ItemsNeededForRepair"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -16.5
-offset_top = 3.0
-offset_right = 16.5
-offset_bottom = 3.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Items needed for repair:"
-label_settings = SubResource("LabelSettings_ots6i")
-horizontal_alignment = 1
-
 [node name="ItemsNeeded" type="HBoxContainer" parent="UI/ItemsNeededForRepair"]
 layout_mode = 1
 anchors_preset = 8
@@ -280,6 +272,20 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 alignment = 1
+
+[node name="NotificationLabel" type="Label" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -63.0
+offset_top = 2.0
+offset_right = 64.0
+offset_bottom = 27.0
+grow_horizontal = 2
+text = "Items needed for repair:"
+label_settings = SubResource("LabelSettings_luhih")
+horizontal_alignment = 1
 
 [node name="DayTransitionScreen" type="CanvasLayer" parent="."]
 visible = false
@@ -421,11 +427,12 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 80.0
 offset_bottom = 69.0
-text = "Move			: WASD / Arrow Keys
-Inventory	: I / Tab
-Interact		: E
-Drop Item	: Q
-Repair			: R
+text = "Move					: WASD / Arrow Keys
+Inventory			: I / Tab
+Interact				: E
+Drop Item			: Q
+Repair					: R
+Recharge Tool	: R
 
 Reach Day 5 to win the game!
 Don't let all the plants die!
@@ -468,15 +475,18 @@ offset_left = 5.0
 offset_top = 5.0
 offset_right = 92.0
 offset_bottom = 72.0
-text = "Move			: WASD / Arrow Keys
-Inventory	: I / Tab
-Interact		: E
-Drop Item	: Q
-Repair			: R
+text = "Move					: WASD / Arrow Keys
+Inventory			: I / Tab
+Interact				: E
+Drop Item			: Q
+Repair					: R
+Recharge Tool	: R
 
 Reach Day 5 to win the game!
 Don't let all the plants die!
-And don't forget to do repairs!"
+And don't forget to do repairs!
+Take the tools from the 
+storage room!"
 label_settings = SubResource("LabelSettings_ots6i")
 
 [connection signal="draw" from="UI" to="." method="_on_ui_draw"]

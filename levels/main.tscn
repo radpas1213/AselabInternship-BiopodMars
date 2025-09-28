@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=4 uid="uid://dcplp1jhkp36o"]
+[gd_scene load_steps=12 format=4 uid="uid://dcplp1jhkp36o"]
 
 [ext_resource type="Script" uid="uid://bgwh5mnscm0op" path="res://src/main_level.gd" id="1_jw1n3"]
 [ext_resource type="PackedScene" uid="uid://bxymrnds5hkqq" path="res://actors/sink.tscn" id="2_5k4jt"]
 [ext_resource type="PackedScene" uid="uid://br0xijir4ooyy" path="res://actors/temperature_control.tscn" id="3_6et1j"]
+[ext_resource type="Script" uid="uid://cjn4t4btivilk" path="res://src/lights.gd" id="6_etqu2"]
 [ext_resource type="PackedScene" uid="uid://elevlirk2wiw" path="res://actors/player.tscn" id="7_21ko3"]
-[ext_resource type="Resource" uid="uid://dmnrhoig7n28a" path="res://data/loot_tables/storage_container_starter_tools.tres" id="7_qy63d"]
 [ext_resource type="PackedScene" uid="uid://bynqxpsbof47b" path="res://actors/Camera.tscn" id="8_s07ge"]
+[ext_resource type="AudioStream" uid="uid://bnc1p3dh2gbkk" path="res://music/game_ost_no_trap.wav" id="9_etqu2"]
 [ext_resource type="TileSet" uid="uid://kigso6olc1p6" path="res://sprites/tilesets/interior_tileset.tres" id="9_iwo8l"]
 [ext_resource type="PackedScene" uid="uid://dj7rrem70gdbr" path="res://actors/storage_container.tscn" id="10_j7211"]
 
@@ -46,8 +47,11 @@ cam_zoom_lerp_speed = 0.15
 y_sort_enabled = true
 
 [node name="Lights" type="Node2D" parent="LevelTiles"]
-visible = false
 position = Vector2(40, 32)
+script = ExtResource("6_etqu2")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="LevelTiles/Lights"]
+color = Color(0.210377, 0.19793, 0.38695, 1)
 
 [node name="PointLight2D8" type="PointLight2D" parent="LevelTiles/Lights"]
 position = Vector2(344, 64)
@@ -59,9 +63,6 @@ shadow_enabled = true
 shadow_filter = 1
 texture = SubResource("GradientTexture2D_ur00s")
 texture_scale = 3.8
-
-[node name="CanvasModulate" type="CanvasModulate" parent="LevelTiles/Lights"]
-color = Color(0.210377, 0.19793, 0.38695, 1)
 
 [node name="PointLight2D" type="PointLight2D" parent="LevelTiles/Lights"]
 position = Vector2(-16, -8)
@@ -211,7 +212,11 @@ position = Vector2(120, -72)
 
 [node name="StorageContainer4" parent="Containers" instance=ExtResource("10_j7211")]
 position = Vector2(80, -56)
-loot_table = ExtResource("7_qy63d")
 
 [node name="StorageContainer5" parent="Containers" instance=ExtResource("10_j7211")]
 position = Vector2(128, -120)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_etqu2")
+volume_db = -10.0
+autoplay = true

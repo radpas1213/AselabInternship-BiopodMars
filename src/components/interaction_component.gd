@@ -24,6 +24,10 @@ class_name InteractionComponent
 var show_debug: bool = false
 var interact: Callable = func():
 	pass
+var on_interact_press = func():
+	pass
+var on_interact_release = func():
+	pass
 var on_enter: Callable = func():
 	pass
 var on_exit: Callable = func():

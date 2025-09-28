@@ -6,7 +6,7 @@ enum state {
 	WALKING,
 	INTERACTING
 }
-
+var bruh :float= 0
 @onready var state_machine: StateMachineComponent = $StateMachineComponent
 @onready var movement: MovementComponent = $MovementComponent
 @onready var inputs: InputComponent = $InputComponent
@@ -24,18 +24,27 @@ func _ready() -> void:
 	stats.hunger_bar = Global.HUD.find_child("HungerBar")
 	stats.health_bar = Global.HUD.find_child("HealthBar")
 	ContainerManager.player_inventory = inventory
+	ContainerManager.give_player_tools()
 
 func _physics_process(delta: float) -> void:
 	movement.handle_movement(delta)
 	
 	move_and_slide()
+	
+	if Global.hostile_habitat and Global.start_hurting_actors:
+		stats.heal(-0.00075)
+	else:
+		stats.heal(0.00125)
 
 func _process(delta: float) -> void:
 	if InteractionManager.is_interacting:
+		$AnimationPlayer.stop()
 		state_machine.changeState($StateMachineComponent/InteractState)
 	elif inputs.move_input_dir:
+		$AnimationPlayer.play("walking_sound")
 		state_machine.changeState($StateMachineComponent/MovingState)
 	else:
+		$AnimationPlayer.stop()
 		state_machine.changeState($StateMachineComponent/IdleState)
 	
 	_handle_sprites()
@@ -45,6 +54,9 @@ func _process(delta: float) -> void:
 	if not InteractionManager.active_areas.is_empty() and InteractionManager.interact_timer != null:
 		var progress = InteractionManager.interact_timer.time_left / InteractionManager.active_areas.front().interaction_duration * 100
 		interaction_bar.progress = 100 - progress
+
+func play_step_sound():
+	$AudioStreamPlayer2D.play()
 
 func _handle_sprites():
 	var target_anim = target_animation()
@@ -72,7 +84,10 @@ func _handle_held_item():
 		get_child(0).move_child(held_item, 1)
 
 func target_animation() -> String:
-	if movement.direction:
-		return "walk_" + movement.real_direction_names[movement.current_direction] + ("_holding" if holding else "")
-	else:
+	if velocity.length() == 0:
 		return "idle_" + movement.real_direction_names[movement.current_direction] + ("_holding" if holding else "")
+	else:
+		if movement.direction:
+			return "walk_" + movement.real_direction_names[movement.current_direction] + ("_holding" if holding else "")
+		else:
+			return "idle_" + movement.real_direction_names[movement.current_direction] + ("_holding" if holding else "")

@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c5hjjyihmtga2" path="res://sprites/UI/highlight.png" id="2_i13k8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h2nsg"]
-size = Vector2(40, 40)
+size = Vector2(130, 96)
 
 [node name="InteractionComponent" type="Area2D"]
 collision_layer = 0

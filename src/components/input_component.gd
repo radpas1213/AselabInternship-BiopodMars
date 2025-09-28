@@ -17,6 +17,10 @@ func _input(event: InputEvent) -> void:
 	else:
 		move_input_dir = Vector2(0, 0)
 	
+	if event.is_action_pressed("repair") and InteractionManager.active_areas.is_empty():
+		if ContainerManager.is_player_holding_repair_tool():
+			ContainerManager.use_energy_cell_for_repair_tool(ContainerManager.get_item_in_hotbar())
+	
 	if event.is_action_pressed("inventory"):
 		if ContainerManager.inventory_opened == false:
 			ContainerManager.show_container_ui()
@@ -30,15 +34,3 @@ func _input(event: InputEvent) -> void:
 			lmb_held = event.is_pressed()
 		if event.button_index == MOUSE_BUTTON_RIGHT:
 			rmb_held = event.is_pressed()
-	
-	if Input.is_key_pressed(KEY_1):
-		var can = preload("res://data/items/item_watering_can.tres")
-		var bruh = {
-			"name": can.item_name,
-			"resource": can,
-			"type": can.item_type,
-			"quantity": 1,
-			"max_stack": can.max_stack,
-			"durability": 0
-		}
-		ContainerManager.player_inventory.add_item(bruh) 

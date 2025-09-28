@@ -1,11 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://efu8ux8ldr3e"]
+[gd_scene load_steps=8 format=3 uid="uid://efu8ux8ldr3e"]
 
 [ext_resource type="Texture2D" uid="uid://sp6x2a81chgb" path="res://sprites/tiles/generator.png" id="1_e271q"]
 [ext_resource type="Script" uid="uid://dwim06kcnsguk" path="res://src/actors/generator.gd" id="1_kgchb"]
 [ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="3_wrw08"]
+[ext_resource type="AudioStream" uid="uid://d1gfnosreita8" path="res://sounds/repair.wav" id="4_64oqs"]
+[ext_resource type="AudioStream" uid="uid://blaamcu0l7ihl" path="res://sounds/repair2.wav" id="5_j67x2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m2cuw"]
 size = Vector2(84, 28)
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_pl65s"]
+shuffle = true
+fade_time = 0.35
+stream_count = 2
+stream_0 = ExtResource("4_64oqs")
+stream_1 = ExtResource("5_j67x2")
 
 [node name="Generator" type="StaticBody2D"]
 script = ExtResource("1_kgchb")
@@ -25,5 +34,8 @@ collision_size = Vector2(130, 96)
 highlight_size = Vector2(94, 66)
 highlight_offset = Vector2(1, 0)
 interaction_duration = 15.0
-trigger_interaction = true
 use_repair_key = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStreamPlaylist_pl65s")
+attenuation = 10.067

@@ -28,9 +28,6 @@ var draw_hover_rect := false
 func _ready() -> void:
 	highlight.hide()
 	button.disabled = disable_button
-	if get_parent().name == "MovingItem":
-		mouse_filter = Control.MOUSE_FILTER_IGNORE
-		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	sprite.texture = default_texture
 	button.pressed.connect(on_press)
 	button.mouse_entered.connect(on_mouse_enter)
@@ -47,6 +44,16 @@ func _process(_delta: float) -> void:
 	if not Engine.is_editor_hint():
 		if get_parent().name != "MovingItem" and get_parent().name != "ItemsNeeded":
 			highlight.visible = is_mouse_on_slot(button)
+		if disable_button:
+			mouse_filter = Control.MOUSE_FILTER_IGNORE
+			button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		else:
+			if get_parent().name == "MovingItem":
+				mouse_filter = Control.MOUSE_FILTER_IGNORE
+				button.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			else:
+				mouse_filter = Control.MOUSE_FILTER_STOP
+				button.mouse_filter = Control.MOUSE_FILTER_STOP
 
 func initialize_item():
 	if self != null and item_resource != null:

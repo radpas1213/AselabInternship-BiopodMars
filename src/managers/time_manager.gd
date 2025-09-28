@@ -12,12 +12,15 @@ var day_text : String
 # Total waktu yang sudah berlalu dalam detik
 var elapsed_time: float = 0.0
 var multiplied_time: float = 0.0
-var time_multiplier: float = 2.0
+var time_multiplier: float = 3.5
 
 var starting_time: float = 340
 
 # Durasi satu hari dalam detik (15 menit = 900 detik)
 const DAY_DURATION: float = 900.0
+
+signal day_changed
+signal half_day
 
 # Hari saat ini
 var current_day: int = 1
@@ -28,10 +31,7 @@ var time_text: String
 func _physics_process(delta: float) -> void:
 	if Global.get_current_scene_name("MainLevel"):
 		getTime(delta)
-	
-	if Input.is_key_pressed(KEY_2):
-		elapsed_time += 5
-	
+		
 	# Tampilkan dan sembunyikan screen transisi hari
 	if is_showing_day_screen:
 		day_screen_elapsed += delta
@@ -59,6 +59,9 @@ func getTime(delta):
 	else:
 		minute = (String.num(real_minutes).left(1) + "0").to_float()
 	
+	if hour % 12 == 0:
+		half_day.emit()
+	
 	# Format 12-jam dengan AM/PM
 	var hour12 := hour % 12
 	if hour12 == 0:
@@ -75,7 +78,13 @@ func getTime(delta):
 	if multiplied_time >= current_day * DAY_DURATION:
 		current_day += 1
 		show_day_transition(current_day)
-
+		day_changed.emit()
+		Global.repopulate_storage_containers()
+		Global.HUD.show_notif_label("Earth has sent more resources. \nCheck the storage room.", true)
+		if current_day == 5:
+			Global.win_game = true
+			get_tree().change_scene_to_file("res://menu/menu_winlose.tscn")
+			Global.stop_light_flicker()
 
 func show_day_transition(day: int) -> void:
 	day_text = "Day %d" % day

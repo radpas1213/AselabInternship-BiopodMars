@@ -38,11 +38,14 @@ func _input(event: InputEvent) -> void:
 
 	# Start interaction attempt
 	if event.is_action_pressed("repair" if active_areas.front().use_repair_key else "interact") and can_interact and not is_interacting:
+		active_areas.front().on_interact_press.call()
 		start_interaction()
 
 	# Cancel interaction if released
-	if event.is_action_released("repair" if active_areas.front().use_repair_key else "interact") and is_interacting:
+	if event.is_action_released("repair" if active_areas.front().use_repair_key else "interact"):
+		active_areas.front().on_interact_release.call()
 		reset_interaction()
+
 
 
 func start_interaction() -> void:
@@ -66,7 +69,7 @@ func _run_interaction(duration: float) -> void:
 		return
 
 	# Only interact if key still held
-	if Input.is_action_pressed("interact") and active_areas.size() > 0:
+	if Input.is_action_pressed("repair" if active_areas.front().use_repair_key else "interact") and active_areas.size() > 0:
 		await active_areas.front().interact.call()
 
 	reset_interaction()
