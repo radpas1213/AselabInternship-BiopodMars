@@ -31,7 +31,9 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _process(delta: float) -> void:
-	if inputs.move_input_dir:
+	if InteractionManager.is_interacting:
+		state_machine.changeState($StateMachineComponent/InteractState)
+	elif inputs.move_input_dir:
 		state_machine.changeState($StateMachineComponent/MovingState)
 	else:
 		state_machine.changeState($StateMachineComponent/IdleState)

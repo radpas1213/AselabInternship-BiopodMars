@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://c83olw5gs380b"]
+[gd_scene load_steps=18 format=3 uid="uid://c83olw5gs380b"]
 
 [ext_resource type="Script" uid="uid://bdefo73octmmd" path="res://src/base/inventory_item.gd" id="1_x1xek"]
 [ext_resource type="Texture2D" uid="uid://q8jj2pvan21d" path="res://sprites/actors/item_placeholder.png" id="2_e0sqw"]
 [ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="3_w2sxe"]
+[ext_resource type="Texture2D" uid="uid://bdpsgep842n22" path="res://sprites/progress_bar_col.png" id="4_tpf4h"]
 [ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="4_w2sxe"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_x1xek"]
@@ -47,6 +48,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_x1xek")
 
 [node name="Texture" type="Sprite2D" parent="."]
@@ -61,6 +63,8 @@ layout_mode = 1
 offset_top = -3.0
 offset_bottom = 37.0
 scale = Vector2(0.14, 0.1)
+texture_under = ExtResource("4_tpf4h")
+tint_under = Color(0, 0.09, 0.0255, 1)
 tint_progress = Color(0.25066, 0.801168, 0, 1)
 bar_color = Color(0.25066, 0.801168, 0, 1)
 
@@ -88,6 +92,7 @@ offset_left = -0.5
 offset_top = -0.5
 offset_right = 16.5
 offset_bottom = 16.5
+mouse_default_cursor_shape = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_an5n7")
 theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_4ps84")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_n1s8a")
@@ -109,3 +114,5 @@ offset_right = 16.0
 offset_bottom = 16.0
 mouse_filter = 2
 color = Color(1, 1, 1, 0.137255)
+
+[connection signal="gui_input" from="Button" to="." method="_on_button_gui_input"]

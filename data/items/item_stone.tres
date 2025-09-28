@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bqutnxgan12sb"]
+
+[ext_resource type="Script" uid="uid://gqbwcscoa6gj" path="res://src/base/data/item_resource.gd" id="1_w4rt8"]
+[ext_resource type="Texture2D" uid="uid://biysfgyn5o1t4" path="res://sprites/items/item_stone.png" id="2_w4rt8"]
+
+[resource]
+script = ExtResource("1_w4rt8")
+item_name = "Stone"
+item_type = 1
+max_stack = 16
+texture = ExtResource("2_w4rt8")
+item_texture_size = 0.65
+inventory_texture_size = 0.875
+metadata/_custom_type_script = "uid://gqbwcscoa6gj"

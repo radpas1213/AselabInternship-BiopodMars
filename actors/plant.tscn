@@ -1,45 +1,75 @@
-[gd_scene load_steps=7 format=3 uid="uid://boqlyfsnfjjh7"]
+[gd_scene load_steps=12 format=3 uid="uid://boqlyfsnfjjh7"]
 
 [ext_resource type="Script" uid="uid://b1ceyb3knucv6" path="res://src/actors/plant.gd" id="1_qywu8"]
-[ext_resource type="Texture2D" uid="uid://b3q37vodojgip" path="res://sprites/actors/plant_placeholder.png" id="2_4isd2"]
+[ext_resource type="Texture2D" uid="uid://cpm516c8tnr6a" path="res://sprites/actors/plants/plant_pot.png" id="2_lci8v"]
+[ext_resource type="Texture2D" uid="uid://og06himxuq8" path="res://sprites/actors/plants/plant_small.png" id="3_u0axf"]
 [ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="4_4isd2"]
+[ext_resource type="Texture2D" uid="uid://c367mkq0r5tlf" path="res://sprites/actors/plants/plant_small_dying.png" id="4_ftpcb"]
 [ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="4_jmanq"]
+[ext_resource type="Texture2D" uid="uid://cnrc5isv7fh84" path="res://sprites/actors/plants/plant.png" id="5_efimd"]
 [ext_resource type="Script" uid="uid://buky2c38fbbep" path="res://src/components/stat_component.gd" id="5_u0axf"]
+[ext_resource type="Texture2D" uid="uid://csmpwou42rdlc" path="res://sprites/actors/plants/plant_dying.png" id="6_q26ah"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e1phw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_u0axf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ftpcb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_efimd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_q26ah")
+}],
+"loop": false,
+"name": &"plant_stages",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mvpqy"]
-size = Vector2(15.9, 15.9)
+size = Vector2(24, 16)
 
 [node name="Plant" type="StaticBody2D"]
 script = ExtResource("1_qywu8")
 metadata/_custom_type_script = "uid://b1ceyb3knucv6"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 3
-texture = ExtResource("2_4isd2")
+[node name="PlantPot" type="Sprite2D" parent="."]
+position = Vector2(0, -20)
+texture = ExtResource("2_lci8v")
+
+[node name="PlantSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -20)
+sprite_frames = SubResource("SpriteFrames_e1phw")
+animation = &"plant_stages"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_mvpqy")
 
 [node name="InteractionComponent" parent="." instance=ExtResource("4_4isd2")]
-collision_size = Vector2(20, 20)
-interaction_duration = 3.0
+position = Vector2(0, -8)
+collision_size = Vector2(36, 42)
+highlight_size = Vector2(32, 32)
+highlight_offset = Vector2(0, -10)
+interaction_duration = 5.0
+trigger_interaction = true
+use_repair_key = false
 
-[node name="StatComponent" type="Node2D" parent="." node_paths=PackedStringArray("health_bar", "water_bar")]
+[node name="StatComponent" type="Node2D" parent="." node_paths=PackedStringArray("water_bar")]
+position = Vector2(0, 15)
 script = ExtResource("5_u0axf")
-health_bar = NodePath("HealthBar")
 water_bar = NodePath("WaterBar")
 metadata/_custom_type_script = "uid://buky2c38fbbep"
 
 [node name="WaterBar" parent="StatComponent" instance=ExtResource("4_jmanq")]
+z_index = 5
+offset_top = -21.0
+offset_bottom = 19.0
 value = 0.0
 tint_progress = Color(0, 0.502551, 0.870167, 1)
 bar_color = Color(0, 0.502551, 0.870167, 1)
-progress = 0.0
-
-[node name="HealthBar" parent="StatComponent" instance=ExtResource("4_jmanq")]
-offset_top = -24.0
-offset_bottom = 16.0
-value = 0.0
-tint_progress = Color(1, 0, 0, 1)
-bar_color = Color(1, 0, 0, 1)
 progress = 0.0

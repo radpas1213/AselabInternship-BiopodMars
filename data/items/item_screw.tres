@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://bqt8f2ue3geip"]
+
+[ext_resource type="Script" uid="uid://gqbwcscoa6gj" path="res://src/base/data/item_resource.gd" id="1_rcxed"]
+[ext_resource type="Texture2D" uid="uid://digfovj0vnrd6" path="res://sprites/items/item_screw.png" id="2_rcxed"]
+
+[resource]
+script = ExtResource("1_rcxed")
+item_name = "Screw"
+item_type = 4
+max_stack = 16
+texture = ExtResource("2_rcxed")
+item_texture_size = 0.65
+inventory_texture_size = 0.875
+metadata/_custom_type_script = "uid://gqbwcscoa6gj"

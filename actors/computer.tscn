@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://o3v70qgfsc7j"]
+
+[ext_resource type="Texture2D" uid="uid://clpo4l6orhy30" path="res://sprites/tiles/computer.png" id="1_6yao6"]
+[ext_resource type="Texture2D" uid="uid://cyvqyrnd6ra8n" path="res://sprites/tiles/computer_chair.png" id="2_jgrmi"]
+[ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="3_r07p1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yoygv"]
+size = Vector2(57, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j7urk"]
+size = Vector2(23, 9)
+
+[node name="Computer" type="StaticBody2D"]
+y_sort_enabled = true
+
+[node name="Computer" type="Sprite2D" parent="."]
+position = Vector2(0, -7)
+texture = ExtResource("1_6yao6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -5)
+shape = SubResource("RectangleShape2D_yoygv")
+
+[node name="ComputerChair" type="Sprite2D" parent="."]
+position = Vector2(0, 20)
+texture = ExtResource("2_jgrmi")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 28.5)
+shape = SubResource("RectangleShape2D_j7urk")
+
+[node name="InteractionComponent" parent="." instance=ExtResource("3_r07p1")]
+position = Vector2(0, 4)
+collision_size = Vector2(56, 32)
+highlight_size = Vector2(38, 36)
+highlight_offset = Vector2(0, -21)
+trigger_interaction = true
+use_repair_key = false

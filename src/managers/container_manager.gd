@@ -13,6 +13,49 @@ var last_interacted_container_ui: ContainerUI
 
 var inventory_opened: bool = false
 
+func is_player_holding_water_can() -> bool:
+	if player_inventory != null:
+		if player_inventory.container[12]["slot"] != null and\
+		player_inventory.container[12]["slot"]\
+		["resource"] == preload("res://data/items/item_watering_can.tres"):
+			return true
+	return false
+
+func is_player_holding_repair_tool() -> bool:
+	if player_inventory != null:
+		if player_inventory.container[12]["slot"] != null and\
+		player_inventory.container[12]["slot"]\
+		["resource"] == preload("res://data/items/item_repair_tool.tres"):
+			return true
+	return false
+
+func get_item_in_hotbar() -> Dictionary:
+	if player_inventory != null:
+		if player_inventory.container[12]["slot"] != null:
+			return player_inventory.container[12]["slot"]
+	return {
+		"quantity" = 0,
+		"durability" = 0
+	}
+
+func check_for_items_for_repairs(items_needed: Dictionary) -> Dictionary:
+	var results: Dictionary = {}
+	for item_id in items_needed.keys():
+		var count: int = 0
+		var needed: int = items_needed[item_id]
+		# Load the resource once per item_id
+		var item_res: Resource = load("res://data/items/" + item_id + ".tres")
+		for slot_data in player_inventory.container:
+			var slot = slot_data["slot"]
+			if slot != null and slot.has("resource") and slot["resource"] != null:
+				# Compare by path instead of raw reference
+				if slot["resource"].resource_path == item_res.resource_path:
+					count += slot["quantity"]
+					if count >= needed:
+						break
+		results[item_id] = clamp(count, 0, needed)
+	return results
+
 func drop_item(slot_index: int, container_ui: ContainerUI, hover_drop: bool = false):
 	if container_ui == null:
 		return
@@ -56,9 +99,9 @@ func drop_moving_item_full_inventory(item) -> void:
 	dropped_item.position = Global.player.position
 	Global.level.find_child("Items").add_child(dropped_item)
 
-
 # Container manipulation
 func pickup_container_item(slot_index: int, container_ui: ContainerUI, half: bool = false):
+	print("call")
 	last_interacted_slot = slot_index
 	last_interacted_container_ui = container_ui
 	if container_ui == null:
@@ -75,7 +118,7 @@ func pickup_container_item(slot_index: int, container_ui: ContainerUI, half: boo
 			"resource": slot["resource"],
 			"quantity": half_amount,
 			"durability": slot.get("durability", null),
-			"type": slot.get("type", 0) == 2,
+			"type": slot["type"],
 			"max_stack": slot.get("max_stack", 16),
 		}
 		# Reduce slot by half
@@ -162,7 +205,7 @@ func quick_move_item(slot_index: int, from_container_ui: ContainerUI, to_contain
 	# Try merging into existing stacks first
 	for i in range(to_container_ui.linked_container.container.size()):
 		# Skip hotbar slot for non-tools
-		if i == 12 and item.get("type", 0) != 2:
+		if i == 12 and item["type"] != 2:
 			continue
 		var target_slot = to_container_ui.linked_container.container[i]["slot"]
 		if target_slot != null and target_slot["resource"] == item["resource"]:
@@ -310,6 +353,7 @@ func update_container_ui() -> void:
 	if player_inventory.container[12]["slot"] != null:
 		Global.player.held_item.texture = player_inventory.container[12]["slot"]["resource"].texture
 		Global.HUD.hotbar.get_child(1).get_child(0).item_resource = player_inventory.container[12]["slot"]["resource"]
+		Global.HUD.hotbar.get_child(1).get_child(0).item_durability = player_inventory.container[12]["slot"]["durability"]
 	else:
 		Global.HUD.hotbar.get_child(1).get_child(0).item_resource = null
 	Global.player.holding = player_inventory.container[12]["slot"] != null

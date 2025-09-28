@@ -12,7 +12,7 @@ var day_text : String
 # Total waktu yang sudah berlalu dalam detik
 var elapsed_time: float = 0.0
 var multiplied_time: float = 0.0
-var time_multiplier: float = 5.0
+var time_multiplier: float = 2.0
 
 var starting_time: float = 340
 
@@ -21,12 +21,16 @@ const DAY_DURATION: float = 900.0
 
 # Hari saat ini
 var current_day: int = 1
+var hours_passed: int = 0
 
 var time_text: String
 
 func _physics_process(delta: float) -> void:
-	if Global.get_current_scene_name("TestLevel"):
+	if Global.get_current_scene_name("MainLevel"):
 		getTime(delta)
+	
+	if Input.is_key_pressed(KEY_2):
+		elapsed_time += 5
 	
 	# Tampilkan dan sembunyikan screen transisi hari
 	if is_showing_day_screen:
@@ -43,6 +47,7 @@ func getTime(delta):
 	var time_in_day := fmod(multiplied_time, DAY_DURATION)
 	var normalized_time := time_in_day / DAY_DURATION
 
+	hours_passed = (fmod((elapsed_time * time_multiplier), DAY_DURATION) / DAY_DURATION) * 24
 	# Total menit dalam hari (0 - 1439)
 	var total_minutes := int(normalized_time * 24 * 60)
 	var hour := total_minutes / 60

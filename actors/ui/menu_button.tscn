@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://d3mdlbv65ljws" path="res://sprites/UI/menu/button_normal.png" id="1_cilfd"]
 [ext_resource type="Texture2D" uid="uid://b7qtn3vqnv53s" path="res://sprites/UI/menu/button_pressed.png" id="2_li6gd"]
 [ext_resource type="Texture2D" uid="uid://bxv0wdxqf3qet" path="res://sprites/UI/menu/button_hover.png" id="3_i872c"]
-[ext_resource type="Script" uid="uid://b1gqpbe5a4ext" path="res://src/ui/menu_button.gd" id="4_i872c"]
+[ext_resource type="Script" uid="uid://b1gqpbe5a4ext" path="res://src/ui/button_menu.gd" id="4_i872c"]
 [ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="4_li6gd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_64s4s"]
@@ -66,6 +66,7 @@ offset_right = 48.0
 offset_bottom = 18.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_default_cursor_shape = 2
 theme_override_colors/font_disabled_color = Color(0.184314, 0.184314, 0.184314, 1)
 theme_override_colors/font_hover_pressed_color = Color(0.184314, 0.184314, 0.184314, 1)
 theme_override_colors/font_hover_color = Color(0.184314, 0.184314, 0.184314, 1)

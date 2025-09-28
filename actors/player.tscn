@@ -276,14 +276,17 @@ script = ExtResource("1_esgq3")
 metadata/_custom_type_script = "uid://bnpf3pr2xkm5k"
 
 [node name="Sprites" type="Node2D" parent="."]
+light_mask = 2
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="Sprites"]
+light_mask = 2
 position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_5nkr1")
-animation = &"walk_down"
+animation = &"idle_down"
 autoplay = "idle_down"
 
 [node name="ItemSprite" type="Sprite2D" parent="Sprites"]
+light_mask = 2
 position = Vector2(0, -3)
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("3_e7yfm")

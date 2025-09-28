@@ -6,9 +6,20 @@ class_name InteractionComponent
 @export_custom(PROPERTY_HINT_NONE, "suffix:px") var collision_size: Vector2 = Vector2(12.0, 12.0):
 	set(value):
 		collision_size = value
-		_update_col_rad()
+@export_custom(PROPERTY_HINT_NONE, "suffix:px") var highlight_size: Vector2 = Vector2(22.0, 22.0):
+	set(value):
+		highlight_size = value
+		if Engine.is_editor_hint():
+			_update_highlight()
+@export_custom(PROPERTY_HINT_NONE, "suffix:px") var highlight_offset: Vector2 = Vector2(0.0, 0.0):
+	set(value):
+		highlight_offset = value
+		if Engine.is_editor_hint():
+			_update_highlight()
 ## Time it takes for the interaction key to be held before triggering the interaction
 @export_custom(PROPERTY_HINT_NONE, "suffix:seconds") var interaction_duration: float = 0.15
+@export var trigger_interaction: bool = true
+@export var use_repair_key: bool = false
 
 var show_debug: bool = false
 var interact: Callable = func():
@@ -23,7 +34,10 @@ func _init() -> void:
 	type = owner
 	body_entered.connect(_on_body_entered)
 	body_exited.connect(_on_body_exited)
+
+func _ready() -> void:
 	_update_col_rad()
+	_update_highlight()
 
 func _on_body_entered(_body: Node2D) -> void:
 	if not Engine.is_editor_hint():
@@ -43,7 +57,8 @@ func _process(_delta: float) -> void:
 		$Highlight.visible = not InteractionManager.active_areas.is_empty() and InteractionManager.active_areas.front() == self
 
 func _update_col_rad() -> void:
-	if col_shape and col_shape.shape and col_shape.shape is RectangleShape2D:
-		col_shape.shape.size.x = collision_size.x
-		col_shape.shape.size.y = collision_size.y
+	col_shape.shape.set("size", collision_size)
 	
+func _update_highlight():
+	$Highlight.size = highlight_size
+	$Highlight.position = (-highlight_size / 2) + highlight_offset

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://c0m2lm2y44h01"]
+
+[ext_resource type="Texture2D" uid="uid://ywecokmgfaf2" path="res://sprites/tiles/bed.png" id="1_4tjmy"]
+[ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="2_t38jr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t38jr"]
+size = Vector2(39, 40)
+
+[node name="Bed" type="StaticBody2D"]
+
+[node name="Bed" type="Sprite2D" parent="."]
+texture = ExtResource("1_4tjmy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -4)
+shape = SubResource("RectangleShape2D_t38jr")
+
+[node name="InteractionComponent" parent="." instance=ExtResource("2_t38jr")]
+position = Vector2(0, 3)
+collision_size = Vector2(64, 60)
+highlight_size = Vector2(50, 54)
+highlight_offset = Vector2(0, -4)
+trigger_interaction = true
+use_repair_key = false

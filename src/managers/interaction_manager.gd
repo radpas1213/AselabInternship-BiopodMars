@@ -33,13 +33,15 @@ func _sort_by_distance_to_player(area1: InteractionComponent, area2: Interaction
 func _input(event: InputEvent) -> void:
 	if active_areas.is_empty():
 		return
+	if not active_areas.front().trigger_interaction:
+		return
 
 	# Start interaction attempt
-	if event.is_action_pressed("interact") and can_interact and not is_interacting:
+	if event.is_action_pressed("repair" if active_areas.front().use_repair_key else "interact") and can_interact and not is_interacting:
 		start_interaction()
 
 	# Cancel interaction if released
-	if event.is_action_released("interact") and is_interacting:
+	if event.is_action_released("repair" if active_areas.front().use_repair_key else "interact") and is_interacting:
 		reset_interaction()
 
 

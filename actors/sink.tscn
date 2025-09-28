@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxymrnds5hkqq"]
+
+[ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="1_hkf7n"]
+[ext_resource type="Script" uid="uid://byw7run8lan0c" path="res://src/actors/sink.gd" id="1_lyhjt"]
+
+[node name="Sink" type="Node2D"]
+script = ExtResource("1_lyhjt")
+
+[node name="InteractionComponent" parent="." instance=ExtResource("1_hkf7n")]
+z_index = 1
+position = Vector2(-3, 7)
+collision_size = Vector2(30, 30)
+highlight_size = Vector2(28, 18)
+highlight_offset = Vector2(3, -8.14)
+interaction_duration = 10.0
+trigger_interaction = true
+use_repair_key = false

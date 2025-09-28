@@ -40,20 +40,12 @@ func is_mouse_on_gui(gui: Control) -> bool:
 func update_container_ui() -> void:
 	clear_container_ui()
 	if linked_container != null:
-		if name == "Hotbar":
-			var i = linked_container.hotbar_slots[0]
+		for i in range(linked_container.container.size()):
 			if inventory_items[i].slot_index == i:
 				if linked_container.container[i]["slot"] != null:
 					inventory_items[i].item_resource = linked_container.container[i]["slot"]["resource"]
 					inventory_items[i].item_quantity = linked_container.container[i]["slot"]["quantity"]
 					inventory_items[i].item_durability = linked_container.container[i]["slot"]["durability"]
-		else:
-			for i in range(linked_container.container.size()):
-				if inventory_items[i].slot_index == i:
-					if linked_container.container[i]["slot"] != null:
-						inventory_items[i].item_resource = linked_container.container[i]["slot"]["resource"]
-						inventory_items[i].item_quantity = linked_container.container[i]["slot"]["quantity"]
-						inventory_items[i].item_durability = linked_container.container[i]["slot"]["durability"]
 
 func clear_container_ui() -> void:
 	for i in range(inventory_items.size()):

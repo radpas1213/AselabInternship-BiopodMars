@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dy4ltd3fxseom" path="res://src/base/storage_container.gd" id="1_0nvma"]
 [ext_resource type="Texture2D" uid="uid://ccxuiwk030wce" path="res://sprites/actors/storage_crate.png" id="2_0nvma"]
 [ext_resource type="Script" uid="uid://b6p3lpb0yn2rr" path="res://src/components/container_component.gd" id="2_pyd1d"]
-[ext_resource type="Resource" uid="uid://bo41hvlolr5d6" path="res://data/loot_tables/storage_container.tres" id="2_tf61b"]
+[ext_resource type="Resource" uid="uid://bo41hvlolr5d6" path="res://data/loot_tables/storage_container_day1.tres" id="2_tf61b"]
 [ext_resource type="PackedScene" uid="uid://cyea5m5efl07" path="res://actors/components/interaction.tscn" id="4_tf61b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lj1ab"]
@@ -18,6 +18,7 @@ metadata/_custom_type_script = "uid://dy4ltd3fxseom"
 shape = SubResource("RectangleShape2D_lj1ab")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
 texture = ExtResource("2_0nvma")
 offset = Vector2(0, -4)
 
@@ -29,4 +30,8 @@ metadata/_custom_type_script = "uid://b6p3lpb0yn2rr"
 
 [node name="InteractionComponent" parent="." instance=ExtResource("4_tf61b")]
 collision_size = Vector2(25, 25)
+highlight_size = Vector2(22, 26)
+highlight_offset = Vector2(0, -2)
 interaction_duration = 0.75
+trigger_interaction = true
+use_repair_key = false

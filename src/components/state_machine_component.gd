@@ -53,7 +53,7 @@ func changeState(new_state: State):
 	#print("Changed state from " + previous_state.state_name, " to " + new_state.state_name, ".")
 
 # Ambil state dari nama state
-func getStateByName(state_name: String):
+func getStateByName(state_name: String) -> State:
 	for state in states:
 		if state is State:
 			if state.state_name == state_name:
@@ -61,3 +61,4 @@ func getStateByName(state_name: String):
 				return state
 			else:
 				printerr("Didn't find state.")
+	return null

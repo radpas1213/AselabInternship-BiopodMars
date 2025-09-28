@@ -15,8 +15,12 @@ var container = []
 signal container_updated
 
 func _ready() -> void:
+	if owner is StorageContainer and owner.loot_table != null:
+		loot_table = owner.loot_table
 	initialize_container_slots()
 	container_updated.connect(update_container)
+	if loot_table != null:
+		populate_with_loot()
 
 func add_item(item: Dictionary) -> bool:
 	var slot_index
@@ -32,7 +36,7 @@ func add_item(item: Dictionary) -> bool:
 			remaining -= new_stack["quantity"]
 			container_updated.emit()
 			slot_index = 12
-			print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " at slot ",slot_index)
+			#print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " with a durability of ", item["durability"], " at slot ",slot_index)
 			if remaining <= 0:
 				return true
 		elif hotbar_slot["resource"] == item["resource"] and hotbar_slot["quantity"] < item["max_stack"]:
@@ -42,7 +46,7 @@ func add_item(item: Dictionary) -> bool:
 			hotbar_slot["quantity"] += to_add
 			remaining -= to_add
 			container_updated.emit()
-			print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " at slot ",slot_index)
+			#print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " with a durability of ", item["durability"], " at slot ",slot_index)
 			if remaining <= 0:
 				return true
 		# If hotbar slot is full or contains another item → fall through
@@ -60,7 +64,7 @@ func add_item(item: Dictionary) -> bool:
 			remaining -= to_add
 			container_updated.emit()
 			slot_index = i
-			print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " at slot ",slot_index)
+			#print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " with a durability of ", item["durability"], " at slot ",slot_index)
 			if remaining <= 0:
 				return true  # fully added
 	# --- Pass 2: insert into empty slots ---
@@ -75,11 +79,65 @@ func add_item(item: Dictionary) -> bool:
 			remaining -= new_stack["quantity"]
 			container_updated.emit()
 			slot_index = i
-			print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " at slot ",slot_index)
+			#print("Inserted item ", item["name"], " in container of ", owner.name, " with a count of ", item["quantity"], " with a durability of ", item["durability"], " at slot ",slot_index)
 			if remaining <= 0:
 				return true
 	# --- If we reach here, container is full ---
 	return remaining <= 0
+
+func populate_with_loot() -> void:
+	if loot_table == null or loot_table.items.is_empty():
+		return
+	
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
+	for entry in loot_table.items:
+		# Roll chance
+		if rng.randf() * 20.0 > entry.chance_to_appear:
+			continue
+		
+		var quantity = rng.randi_range(entry.min_quantity, entry.max_quantity)
+		if quantity <= 0:
+			continue
+		
+		# Build base item data
+		var base_data = {
+			"resource": entry.item,
+			"name": entry.item.item_name,
+			"type": entry.item.item_type,
+			"max_stack": entry.item.max_stack,
+			"quantity": 0, # will be set per stack
+			"durability": rng.randf_range(entry.min_durability, entry.max_durability)
+		}
+		
+		# Split into multiple stacks if necessary
+		while quantity > 0:
+			var stack_size = min(quantity, base_data["max_stack"])
+			quantity -= stack_size
+			
+			# Find all valid empty slots
+			var slots = []
+			for i in range(container.size()):
+				if container[i]["tool_only"] and not base_data["type"] == 2:
+					continue
+				if container[i]["slot"] == null:
+					slots.append(i)
+			
+			if slots.is_empty():
+				break # container is full, drop remaining
+			
+			# Choose random slot
+			var slot_index = slots[rng.randi_range(0, slots.size() - 1)]
+			
+			# Place new stack
+			var new_stack = base_data.duplicate(true)
+			new_stack["quantity"] = stack_size
+			container[slot_index]["slot"] = new_stack
+		
+	# Emit update once at the end (avoids spam)
+	container_updated.emit()
+
 
 func initialize_container_slots():
 	container.resize(slot_amount)

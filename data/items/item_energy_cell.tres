@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://cato4v7ghet1i"]
+
+[ext_resource type="Script" uid="uid://gqbwcscoa6gj" path="res://src/base/data/item_resource.gd" id="1_0aho2"]
+[ext_resource type="Texture2D" uid="uid://d3jr0op15m335" path="res://sprites/items/item_energy_cell.png" id="2_0aho2"]
+
+[resource]
+script = ExtResource("1_0aho2")
+item_name = "Energy Cell"
+item_type = 3
+max_stack = 8
+texture = ExtResource("2_0aho2")
+item_texture_size = 0.65
+inventory_texture_size = 0.875
+metadata/_custom_type_script = "uid://gqbwcscoa6gj"

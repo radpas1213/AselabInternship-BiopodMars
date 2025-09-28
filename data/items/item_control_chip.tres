@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://b3tuj4yf7od2e"]
+
+[ext_resource type="Script" uid="uid://gqbwcscoa6gj" path="res://src/base/data/item_resource.gd" id="1_36ban"]
+[ext_resource type="Texture2D" uid="uid://b152450k2tgy1" path="res://sprites/items/item_control_chip.png" id="2_36ban"]
+
+[resource]
+script = ExtResource("1_36ban")
+item_name = "Control Chip"
+item_type = 1
+max_stack = 16
+texture = ExtResource("2_36ban")
+item_texture_size = 0.65
+inventory_texture_size = 0.875
+metadata/_custom_type_script = "uid://gqbwcscoa6gj"

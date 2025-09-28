@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="ItemData" load_steps=3 format=3 uid="uid://b3341y0l5ijdn"]
+
+[ext_resource type="Script" uid="uid://gqbwcscoa6gj" path="res://src/base/data/item_resource.gd" id="1_kp1ed"]
+[ext_resource type="Texture2D" uid="uid://dag0le65vk13m" path="res://sprites/items/item_wiring_unit.png" id="2_kp1ed"]
+
+[resource]
+script = ExtResource("1_kp1ed")
+item_name = "Wiring Unit"
+item_type = 1
+max_stack = 16
+texture = ExtResource("2_kp1ed")
+item_texture_size = 0.65
+inventory_texture_size = 0.875
+metadata/_custom_type_script = "uid://gqbwcscoa6gj"

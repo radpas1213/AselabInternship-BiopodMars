@@ -24,6 +24,8 @@ func pause_game() -> void:
 	get_tree().paused = true
 	self.visible = true
 	#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if Global.HUD.get_children().back().name == "Tutorial":
+		Global.HUD.get_children().back().queue_free()
 
 func resume_game() -> void:
 	get_tree().paused = false

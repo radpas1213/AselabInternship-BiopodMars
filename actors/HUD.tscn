@@ -1,8 +1,10 @@
-[gd_scene load_steps=20 format=3 uid="uid://dtgjuofcfh030"]
+[gd_scene load_steps=35 format=3 uid="uid://dtgjuofcfh030"]
 
 [ext_resource type="Script" uid="uid://kk8sigk6rc4v" path="res://src/base/HUD.gd" id="1_gg34b"]
 [ext_resource type="Script" uid="uid://qnma6ontuvbs" path="res://src/ui/pause_menu.gd" id="2_86in6"]
+[ext_resource type="Texture2D" uid="uid://cj13lt4eqpf4d" path="res://sprites/UI/clock.png" id="2_eemog"]
 [ext_resource type="PackedScene" uid="uid://mrkfymoy85p0" path="res://actors/components/progress_bar.tscn" id="2_fuh1x"]
+[ext_resource type="FontFile" uid="uid://4nf17101qo8q" path="res://fonts/advanced_pixel_lcd-7.ttf" id="2_luvi2"]
 [ext_resource type="Texture2D" uid="uid://vr3o6nhlddwa" path="res://sprites/UI/bars/health_bar_bg.png" id="3_817h3"]
 [ext_resource type="Texture2D" uid="uid://d3q0cqm7b8pim" path="res://sprites/UI/bars/health_icon.png" id="3_vjdpb"]
 [ext_resource type="Texture2D" uid="uid://gj5ebqym4o3t" path="res://sprites/UI/bars/health_bar_frame.png" id="4_hi46l"]
@@ -15,19 +17,59 @@
 [ext_resource type="PackedScene" uid="uid://c83olw5gs380b" path="res://actors/ui/inventory_item.tscn" id="9_gdnib"]
 [ext_resource type="PackedScene" uid="uid://lsispv2cyd8v" path="res://actors/ui/menu_button.tscn" id="13_ih4kc"]
 [ext_resource type="FontFile" uid="uid://c3cc50fvtacbg" path="res://fonts/Minecraft.ttf" id="14_ots6i"]
+[ext_resource type="Texture2D" uid="uid://dhysbgobx4p5e" path="res://sprites/UI/screen_tile.png" id="16_evti7"]
+[ext_resource type="Texture2D" uid="uid://bjix86gm6otgx" path="res://sprites/UI/temp_button_pressed.png" id="17_luhih"]
+[ext_resource type="Texture2D" uid="uid://dt7b48ufkwvye" path="res://sprites/UI/temp_button_hover.png" id="18_56vx4"]
+[ext_resource type="Texture2D" uid="uid://i1lry3jd52xn" path="res://sprites/UI/temp_button.png" id="19_0kle3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_eemog"]
+font = ExtResource("2_luvi2")
+font_size = 4
+font_color = Color(0.518, 0.56, 0.28, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ih4kc"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg34b"]
-bg_color = Color(0, 0, 0, 0.427451)
-
-[sub_resource type="LabelSettings" id="LabelSettings_luvi2"]
-font = ExtResource("14_ots6i")
-font_size = 10
 
 [sub_resource type="LabelSettings" id="LabelSettings_ots6i"]
 font = ExtResource("14_ots6i")
 font_size = 6
+shadow_size = 2
+shadow_color = Color(0, 0, 0, 0.243137)
+shadow_offset = Vector2(-2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gg34b"]
+bg_color = Color(0, 0, 0, 0.427451)
+
+[sub_resource type="LabelSettings" id="LabelSettings_evti7"]
+font = ExtResource("14_ots6i")
+font_size = 12
+
+[sub_resource type="LabelSettings" id="LabelSettings_rdrxm"]
+font = ExtResource("14_ots6i")
+font_size = 10
+font_color = Color(0.509804, 1, 0.882353, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_jh47d"]
+font = ExtResource("14_ots6i")
+font_size = 26
+font_color = Color(0.509804, 1, 0.882353, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_j3hux"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_nuams"]
+texture = ExtResource("17_luhih")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_re34v"]
+texture = ExtResource("18_56vx4")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qwhcp"]
+texture = ExtResource("17_luhih")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iylpx"]
+texture = ExtResource("19_0kle3")
+
+[sub_resource type="LabelSettings" id="LabelSettings_luvi2"]
+font = ExtResource("14_ots6i")
+font_size = 10
 
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_gg34b")
@@ -50,15 +92,35 @@ offset_bottom = 23.0
 theme_override_font_sizes/font_size = 6
 text = "FPS : "
 
-[node name="TimeLabel" type="Label" parent="."]
+[node name="Clock" type="NinePatchRect" parent="."]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
+offset_left = -71.0
+offset_right = 24.0
+offset_bottom = 29.0
+grow_horizontal = 0
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_eemog")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+
+[node name="TimeLabel" type="Label" parent="Clock"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -82.6667
+offset_top = 14.6667
+offset_right = -8.66669
+offset_bottom = 37.6667
 grow_horizontal = 0
 theme_override_font_sizes/font_size = 6
-text = "FPS : "
+text = "Time"
+label_settings = SubResource("LabelSettings_eemog")
+horizontal_alignment = 2
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -176,8 +238,48 @@ mouse_filter = 2
 
 [node name="InventoryItem" parent="UI/MovingItem" instance=ExtResource("9_gdnib")]
 layout_mode = 1
+
+[node name="ItemsNeededForRepair" type="Control" parent="UI"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
 mouse_filter = 2
-disable_button = true
+
+[node name="Label" type="Label" parent="UI/ItemsNeededForRepair"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.5
+offset_top = 3.0
+offset_right = 16.5
+offset_bottom = 3.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Items needed for repair:"
+label_settings = SubResource("LabelSettings_ots6i")
+horizontal_alignment = 1
+
+[node name="ItemsNeeded" type="HBoxContainer" parent="UI/ItemsNeededForRepair"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -9.0
+offset_right = 48.0
+offset_bottom = 7.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
 
 [node name="DayTransitionScreen" type="CanvasLayer" parent="."]
 visible = false
@@ -202,8 +304,96 @@ offset_right = 20.0
 offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
+label_settings = SubResource("LabelSettings_evti7")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TemperatureHUD" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NinePatchRect" type="NinePatchRect" parent="TemperatureHUD"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -107.0
+offset_top = -52.0
+offset_right = 107.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("16_evti7")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+
+[node name="Label" type="Label" parent="TemperatureHUD/NinePatchRect"]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 95.0
+offset_bottom = 37.0
+text = "Current Temp : 
+Moderate"
+label_settings = SubResource("LabelSettings_rdrxm")
+
+[node name="Label2" type="Label" parent="TemperatureHUD/NinePatchRect"]
+layout_mode = 0
+offset_left = 105.0
+offset_top = 12.0
+offset_right = 199.0
+offset_bottom = 37.0
+text = "Average Temp : 
+23"
+label_settings = SubResource("LabelSettings_rdrxm")
+
+[node name="Temp" type="Label" parent="TemperatureHUD/NinePatchRect"]
+layout_mode = 0
+offset_left = 46.0
+offset_top = 63.0
+offset_right = 165.0
+offset_bottom = 90.0
+text = "24,5"
+label_settings = SubResource("LabelSettings_jh47d")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="TemperatureHUD/NinePatchRect"]
+layout_mode = 0
+offset_left = 45.0
+offset_top = 58.0
+offset_right = 63.0
+offset_bottom = 90.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j3hux")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_nuams")
+theme_override_styles/hover = SubResource("StyleBoxTexture_re34v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qwhcp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_iylpx")
+
+[node name="Button2" type="Button" parent="TemperatureHUD/NinePatchRect"]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 90.0
+offset_right = 184.0
+offset_bottom = 122.0
+rotation = -3.14159
+theme_override_styles/focus = SubResource("StyleBoxEmpty_j3hux")
+theme_override_styles/hover_pressed = SubResource("StyleBoxTexture_nuams")
+theme_override_styles/hover = SubResource("StyleBoxTexture_re34v")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_qwhcp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_iylpx")
 
 [node name="PauseMenu" type="Control" parent="."]
 process_mode = 3
@@ -224,6 +414,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.294118)
+
+[node name="Tutorial2" type="Label" parent="PauseMenu"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 80.0
+offset_bottom = 69.0
+text = "Move			: WASD / Arrow Keys
+Inventory	: I / Tab
+Interact		: E
+Drop Item	: Q
+Repair			: R
+
+Reach Day 5 to win the game!
+Don't let all the plants die!
+And don't forget to do repairs!"
+label_settings = SubResource("LabelSettings_ots6i")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PauseMenu"]
 layout_mode = 1
@@ -256,16 +463,20 @@ layout_mode = 2
 text = "Quit to Main Menu"
 font_size = 10.0
 
-[node name="Label" type="Label" parent="PauseMenu"]
-layout_mode = 0
+[node name="Tutorial" type="Label" parent="."]
 offset_left = 5.0
 offset_top = 5.0
-offset_right = 77.0
-offset_bottom = 69.0
+offset_right = 92.0
+offset_bottom = 72.0
 text = "Move			: WASD / Arrow Keys
 Inventory	: I / Tab
 Interact		: E
-Drop Item	: Q"
+Drop Item	: Q
+Repair			: R
+
+Reach Day 5 to win the game!
+Don't let all the plants die!
+And don't forget to do repairs!"
 label_settings = SubResource("LabelSettings_ots6i")
 
 [connection signal="draw" from="UI" to="." method="_on_ui_draw"]

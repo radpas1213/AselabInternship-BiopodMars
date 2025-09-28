@@ -14,3 +14,7 @@ texture = ExtResource("2_4ljsg")
 
 [node name="InteractionComponent" parent="." instance=ExtResource("4_fhfel")]
 collision_size = Vector2(20, 20)
+highlight_size = Vector2(20, 20)
+highlight_offset = Vector2(0, 0)
+trigger_interaction = true
+use_repair_key = false

@@ -28,24 +28,24 @@ var draw_hover_rect := false
 func _ready() -> void:
 	highlight.hide()
 	button.disabled = disable_button
-	mouse_filter = Control.MOUSE_FILTER_IGNORE if disable_button else Control.MOUSE_FILTER_STOP
-	button.mouse_filter = Control.MOUSE_FILTER_IGNORE if disable_button else Control.MOUSE_FILTER_STOP
+	if get_parent().name == "MovingItem":
+		mouse_filter = Control.MOUSE_FILTER_IGNORE
+		button.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	sprite.texture = default_texture
+	button.pressed.connect(on_press)
+	button.mouse_entered.connect(on_mouse_enter)
 	initialize_item()
 	if not Engine.is_editor_hint():
-		button.pressed.connect(on_press)
-		button.gui_input.connect(on_input)
-		button.mouse_entered.connect(on_mouse_enter)
-		if get_parent() is GridContainer:
+		if get_parent() is GridContainer or get_parent() is HBoxContainer:
 			slot_index = get_index()
-		if manual_slot_index_override != -1:
+		elif manual_slot_index_override != -1:
 			slot_index = manual_slot_index_override
 
 func _process(_delta: float) -> void:
 	initialize_item()
 	item_visibility()
 	if not Engine.is_editor_hint():
-		if get_parent().name != "MovingItem":
+		if get_parent().name != "MovingItem" and get_parent().name != "ItemsNeeded":
 			highlight.visible = is_mouse_on_slot(button)
 
 func initialize_item():
@@ -107,7 +107,8 @@ func _input(event: InputEvent) -> void:
 		if ContainerManager.moving_item != null and ContainerManager.last_interacted_container_ui == get_parent().get_parent(): 
 			ContainerManager.drop_item(slot_index, get_parent().get_parent())
 
-func on_input(event: InputEvent):
+func _on_button_gui_input(event: InputEvent) -> void:
+	#print("GUI input on slot:", event)
 	if event is InputEventMouseButton and event.is_pressed():
 		var container_ui := get_parent().get_parent()
 		# SHIFT CLICK (Quick move)
